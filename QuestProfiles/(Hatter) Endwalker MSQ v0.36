@@ -1,0 +1,6380 @@
+-- Hello World!
+
+-- Persistent Data
+local multiRefObjects = {
+
+} -- multiRefObjects
+local obj1 = {
+	["names"] = {
+		["en"] = "(Hatter) Endwalker MSQ Beta In Progress v0.36";
+		["de"] = "(Hatter) Endwalker MSQ Beta In Progress v0.36";
+		["fr"] = "(Hatter) Endwalker MSQ Beta In Progress v0.36";
+		["jp"] = "(Hatter) Endwalker MSQ Beta In Progress v0.36";
+		["cn"] = "(Hatter) Endwalker MSQ Beta In Progress v0.36";
+		["kr"] = "(Hatter) Endwalker MSQ Beta In Progress v0.36";
+	};
+  ["warnings"] = {
+    ["HasQuest(4361)"] = "[4361] Bot will stop itself during this quest for user to complete Manual Task. \n\nTask: Follow -Alisaie-.",
+    ["HasQuest(4363)"] = "[4363] Bot will stop itself during this quest for user to complete Manual Task. \n\nTask: Snipe -Big Green Bird-.",
+    ["HasQuest(4384) and GetQuestInfo(4384,'step') == 6"] = "[4384] Bot may mistime and fail during current Task: Follow -Girl in Green-.",
+    ["HasQuest(4387) and GetQuestInfo(4387,'step') == 5"] = "[4387] Bot may mistime and fail during current Task: Follow -Alisaie & Alphinaud-.",
+    ["HasQuest(4232) and GetQuestInfo(4232,'step') == 2"] = "[4232] Bot may mistime and during current Task: Follow -Girl in Green-.",
+    ["HasQuest(4393)"] = "[4393] Step 8-9 and 11-12, bot will repeatedly try to spam item until defeated NPC disappear.",
+    ["gPulseTime < 150"] = "Latty suggests increase pulse time in advanced settings to >= 150",
+  },
+	["vars"] = {
+		[1] = {
+			["default"] = true;
+			["type"] = "checkbox";
+			["var"] = "DoAetherCurrentsQuests";
+			["tab"] = "Options";
+			["display"] = "Do -Aether Currents Quests-";
+			["tooltip"] = "Profile currently only does Garlemald AC Quests.";
+		};
+		[2] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "CollectAetherCurrents";
+			["tab"] = "DevHatter";
+			["display"] = "Leave Option Unchecked, Profile currently can't tell if player is attuned. Collect Aether Currents.";
+			["tooltip"] = "This option allows bot to gather Aether Currents.";
+		};
+		[3] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "CollectMiniAetherytes";
+			["tab"] = "DevHatter";
+			["display"] = "Leave Option Unchecked, Profile currently can't tell if player is attuned. Collect Towns' Mini-Aetherytes.";
+			["tooltip"] = "This option allows profile to gather Mini Aetheryte.";
+		};
+	};
+	["misc"] = {
+		[1] = {
+			["condition"] = {
+				["QuestCompleted(4066)"] = false;
+			};
+			["notes"] = {
+				[1] = "Must Complete MSQ -Death Unto Dawn- before first Endwalker MSQ";  
+			};
+			["type"] = "endprofile";
+		};
+	};
+	["quests"] = {
+		[0] = {
+			["level"] = 1;
+			["name"] = "Hatter's Supersede";
+			["prereq"] = {
+				["Player.level >= 1"] = true;
+			};
+--============================_______Aether Currents: Garlemald______============================
+			["steps"] = {
+        [20958001] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[6]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4384,'step') >= 1 or QuestCompleted(4384)"] = true;
+          };
+          ["id"] = 2012000; -- Aether Current 958.status[6] Garlemald#10 ( 17.7  , 29.9 ) Z: 0.4
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = -184.22;
+            ["y"] = 31.94;
+            ["z"] = 423.61;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+         [20958002] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[9]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4385,'step') >= 6 or QuestCompleted(4385)"] = true;
+          };
+          ["id"] = 2012003; -- Aether Current 958.status[9] Garlemald#7 ( 29.5  , 31.9 ) Z: 0.1
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = 405.29;
+            ["y"] = -2.24;
+            ["z"] = 520.32;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+        [20958003] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[7]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4385,'step') >= 7 or QuestCompleted(4385)"] = true;
+          };
+          ["id"] = 2012001; -- Aether Current 958.status[7] Garlemald#9 ( 25.4  , 34.3 ) Z: 0.0
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = 194.81;
+            ["y"] = -12.86;
+            ["z"] = 644.28;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+       [20958004] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[8]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4388,'step') >= 3 or QuestCompleted(4388)"] = true;
+          };
+          ["id"] = 2012002; -- Aether Current 958.status[8] Garlemald#8 ( 23.1  , 23.3 ) Z: 0.2
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = 83.09;
+            ["y"] = 1.51;
+            ["z"] = 102.01;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+       [20958005] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[11]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4390,'I8AL') >= 2 or QuestCompleted(4390)"] = true;
+          };
+          ["id"] = 2012005; -- Aether Current 958.status[11] Garlemald#5 ( 29.2  , 11.7 ) Z: 0.4
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = 382.16;
+            ["y"] = 25.89;
+            ["z"] = -482.20;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+       [20958006] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[14]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4393,'step') >= 1 or QuestCompleted(4393)"] = true;
+          };
+          ["id"] = 2012008; -- Aether Current 958.status[14] Garlemald#2 ( 24.1  , 18.0 ) Z: 0.3
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = 134.91;
+            ["y"] = 14.39;
+            ["z"] = -172.26;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+       [20958007] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[13]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4393,'step') >= 1 or QuestCompleted(4393)"] = true;
+            -- ["GetQuestInfo(4232,'step') >= 255 or QuestCompleted(4232)"] = true;
+          };
+          ["id"] = 2012007; -- Aether Current 958.status[13] Garlemald#3 ( 23.0  , 11.2 ) Z: 0.5
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = 79.91;
+            ["y"] = 37.86;
+            ["z"] = -518.21;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+       [20958008] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[15]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4393,'step') >= 1 or QuestCompleted(4393)"] = true;
+            -- ["GetQuestInfo(4232,'step') >= 255 or QuestCompleted(4232)"] = true;
+          };
+          ["id"] = 2012009; -- Aether Current 958.status[15] Garlemald#1 ( 18.5  , 13.1 ) Z: 0.3
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = -144.95;
+            ["y"] = 17.56;
+            ["z"] = -420.52;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+       [20958009] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[10]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4395,'step') >= 1 or QuestCompleted(4395)"] = true;
+          };
+          ["id"] = 2012004; -- Aether Current 958.status[10] Garlemald#4
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = -516.11;
+            ["y"] = 42.47;
+            ["z"] = 67.83;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+        [20958010] = {
+          ["condition"] = {
+            ["Player:GetAetherCurrentsList()[958].status[12]"] = true;
+            ["CollectAetherCurrents"] = true;
+            ["GetQuestInfo(4395,'step') >= 2 or QuestCompleted(4395)"] = true;
+          };
+          ["id"] = 2012006; -- Aether Current 958.status[12] Garlemald#4 ( 9.4  , 14.9 ) Z: 0.5
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = -602.04;
+            ["y"] = 34.29;
+            ["z"] = -325.86;
+          };
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
+      };
+    };
+		[4498] = {
+			["level"] = 80;
+			["name"] = "In Pursuit of Power"; -- 958.status[3] Garlemald#Q3
+			["prereq"] = {
+				["QuestCompleted(4393)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1041753; -- Rimelnaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -321.49;
+						["y"] = 22.01;
+						["z"] = 424.00;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1041754; -- Appius
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -340.84;
+						["y"] = 22.00;
+						["z"] = 500.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["id"] = 1041754; -- Appius
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -340.84;
+						["y"] = 22.00;
+						["z"] = 500.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 3;
+					["id"] = 1041754; -- Appius
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -340.84;
+						["y"] = 22.00;
+						["z"] = 500.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 3;
+					["id"] = 2012616; -- Ceruleum Engine
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -332.33;
+						["y"] = 22.35;
+						["z"] = 457.79;
+					};
+					["nomount"] = true;
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["I8AH"] = 2;
+					};
+					["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+						["I8AH"] = 1;
+					};
+					["index"] = 3;
+					["id"] = 2012618; -- Ceruleum Engine
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -338.03;
+						["y"] = 23.73;
+						["z"] = 394.89;
+					};
+					["nomount"] = true;
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+						["I8AH"] = 2;
+					};
+					["index"] = 3;
+					["id"] = 2012617; -- Ceruleum Engine
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -434.90;
+						["y"] = 22.26;
+						["z"] = 425.59;
+					};
+					["nomount"] = true;
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1041755; -- Rimelnaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -340.35;
+						["y"] = 22.00;
+						["z"] = 502.04;
+					};
+					["nomount"] = true;
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4216] = {
+			["level"] = 80;
+			["name"] = "Best Delivered Cold"; -- 958.status[2] Garlemald#Q4
+			["prereq"] = {
+				["QuestCompleted(4393)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1040898; -- Commissary Officer
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -433.13;
+						["y"] = 22.22;
+						["z"] = 460.81;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1040899; -- Commissary Officer
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -233.45;
+						["y"] = 22.17;
+						["z"] = 443.72;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["id"] = 1040899; -- Commissary Officer
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -233.45;
+						["y"] = 22.17;
+						["z"] = 443.72;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 155.98;
+						["y"] = -19.71;
+						["z"] = 562.51;
+					};
+					["nomount"] = true;
+					["type"] = "nav";
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["id"] = 1040899; -- Commissary Officer
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 155.98;
+						["y"] = -19.71;
+						["z"] = 562.51;
+					};
+					["nomount"] = true;
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1041122; -- Commissary Officer
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 134.84;
+						["y"] = -13.29;
+						["z"] = 649.81;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4502] = {
+			["level"] = 80;
+			["name"] = "Stranded at the Station"; -- 958.status[5] Garlemald#Q1
+			["prereq"] = {
+				["QuestCompleted(4393)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1041765; -- Galla
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -323.45;
+						["y"] = 22.00;
+						["z"] = 487.82;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 1;
+					["id"] = 1041766; -- Galla
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 513.63;
+						["y"] = -19.82;
+						["z"] = -309.19;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1041767; -- Volusus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 541.04;
+						["y"] = -36.65;
+						["z"] = -132.46;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4232] = {
+			["level"] = 80;
+			["name"] = "Children Are Our Future";
+			["prereq"] = {
+				["QuestCompleted(4393)"] = true; -- 958.status[4] Garlemald#Q2
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1040633; -- Azure-haired Woman
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 496.94;
+						["y"] = 10.89;
+						["z"] = -418.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 1;
+					["id"] = 1040634; -- Azure-haired Boy
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 190.26;
+						["y"] = 10.50;
+						["z"] = -630.21;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["id"] = 2012377; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 189.10;
+						["y"] = 10.48;
+						["z"] = -668.97;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["delay"] = math.random(8000,8250);
+				};
+				[4] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 129.44;
+						["y"] = 10.50;
+						["z"] = -676.71;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+					["type"] = "nav";
+					["noflee"] = true;
+					["delay"] = math.random(13000,13250); -- Alpha
+				};
+				[5] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 87.78;
+						["y"] = 10.80;
+						["z"] = -648.10;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+					["type"] = "nav";
+					["noflee"] = true;
+					["delay"] = math.random(21500,21750); -- Bravo
+				};
+				[6] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 68.98;
+						["y"] = 10.81;
+						["z"] = -629.37;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+					["type"] = "nav";
+					["noflee"] = true;
+					["delay"] = math.random(47000,48000); -- Charlie
+				};
+				[7] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 66.44;
+						["y"] = 10.80;
+						["z"] = -632.58;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["type"] = "nav";
+					["ignoreaggro"] = true;
+					["disableavoid"] = true;
+					["noflee"] = true;
+					["delay"] = math.random(68000,70000); -- Delta
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["index"] = 2;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 23.44;
+						["y"] = 10.50;
+						["z"] = -590.16;
+					};
+					["type"] = "nav"; -- Echo
+				};
+				[9] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -18.69;
+						["y"] = 10.50;
+						["z"] = -530.24;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+				};
+				[10] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+          ["oncomplete"] = "Player:Teleport(173)"; -- Tertium
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 1040637; -- Azure-haired Boy
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -16.53;
+						["y"] = 10.50;
+						["z"] = -532.16;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["conversationindex"] = 2;
+					["interactrange"] = 3;
+				};
+				[11] = {
+          ["condition"] = {
+            ["DoAetherCurrentsQuests"] = true;
+          };
+					["id"] = 1040633; -- Azure-haired Woman
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 496.94;
+						["y"] = 10.89;
+						["z"] = -418.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+
+--============================_______Main Scenario Quests___________________============================
+		[4357] = {
+			["level"] = 80;
+			["name"] = "The Next Ship to Sail";
+			["prereq"] = {
+				["Player.level >= 80"] = true;
+				["QuestCompleted(4066)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1036452; -- Alphinaud
+					["mapid"] = 351; -- The Rising Stones
+					["pos"] = {
+						["x"] = -2.27;
+						["y"] = 0.00;
+						["z"] = -8.84;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["id"] = 1038570; -- Tataru
+					["index"] = 1;
+					["mapid"] = 129; -- Limsa Lower Deck
+					["pos"] = {
+						["x"] = -374.69;
+						["y"] = 8.00;
+						["z"] = 45.82;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["id"] = 1038578; -- Amh Garanjy
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 49.70;
+						["y"] = -16.25;
+						["z"] = 145.22;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4358] = {
+			["level"] = 80;
+			["name"] = "Old Sharlayan, New to You";
+			["prereq"] = {
+				["QuestCompleted(4357)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 49.70;
+						["y"] = -16.25;
+						["z"] = 145.22;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038584; -- G'raha Tia
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 47.68;
+						["y"] = -16.25;
+						["z"] = 147.02;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 49.70;
+						["y"] = -16.25;
+						["z"] = 145.22;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["index"] = 3;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -59.19;
+						["y"] = -15.13;
+						["z"] = 130.86;
+					};
+					["type"] = "nav";
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -55.61;
+						["y"] = -15.13;
+						["z"] = 131.01;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["index"] = 4;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 0.02;
+						["y"] = 3.27;
+						["z"] = 6.58;
+					};
+					["type"] = "nav";
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -0.13;
+						["y"] = 3.22;
+						["z"] = 10.25;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["index"] = 5;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 67.22;
+						["y"] = 5.10;
+						["z"] = -65.69;
+					};
+					["type"] = "nav";
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 65.58;
+						["y"] = 5.10;
+						["z"] = -61.98;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[10] = {
+					["index"] = 6;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -2.82;
+						["y"] = 41.38;
+						["z"] = -142.34;
+					};
+					["type"] = "nav";
+				};
+				[11] = {
+					["complete"] = {
+						["step"] = 7;
+					};
+					["index"] = 6;
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 1.00;
+						["y"] = 41.38;
+						["z"] = -142.49;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[12] = {
+					["index"] = 7;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 152.07;
+						["y"] = 18.83;
+						["z"] = -142.27;
+					};
+					["type"] = "nav";
+				};
+				[13] = {
+					["complete"] = {
+						["step"] = 8;
+					};
+					["index"] = 7;
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 147.82;
+						["y"] = 18.84;
+						["z"] = -142.44;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[14] = {
+					["index"] = 8;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -85.29;
+						["y"] = 1.15;
+						["z"] = 29.91;
+					};
+					["type"] = "nav";
+				};
+				[15] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 8;
+					["id"] = 1038578; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -83.88;
+						["y"] = 1.06;
+						["z"] = 30.84;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[16] = {
+					["condition"] = {
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 255;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -104.39;
+						["y"] = 3.90;
+						["z"] = 7.37;
+					};
+					["type"] = "nav";
+				};
+				[17] = {
+					["complete"] = {
+						["IsOnMap(987)"] = true; -- Main Hall
+					};
+					["condition"] = {
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 255;
+					["id"] = 2011936; -- Main Hall Entrance
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -108.57;
+						["y"] = 5.02;
+						["z"] = 4.53;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[18] = {
+					["condition"] = {
+						["IsOnMap(987)"] = True; -- Main Hall
+					};
+					["id"] = 1038586; -- Krile
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -0.02;
+						["y"] = 0.00;
+						["z"] = -0.78;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4359] = {
+			["level"] = 80;
+			["name"] = "Hitting the Books";
+			["prereq"] = {
+				["QuestCompleted(4358)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038670; -- Krile
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -0.02;
+						["y"] = 0.00;
+						["z"] = -0.78;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["IsOnMap(962)"] = true; -- Old Sharlayan
+					};
+					["condition"] = {
+            ["GetQuestInfo(4368,'step') >= 1 or QuestCompleted(4368)"] = true;
+						["IsOnMap(962)"] = false; -- Old Sharlayan
+					};
+					["index"] = 1;
+					["id"] = 2011937; -- Main Hall Exit
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -0.02;
+						["y"] = 1.14;
+						["z"] = 14.79;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["condition"] = {
+            ["GetQuestInfo(4368,'step') >= 1 or QuestCompleted(4368)"] = true;
+					};
+					["index"] = 1;
+					["id"] = 1038675; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -301.38;
+						["y"] = 18.48;
+						["z"] = 10.85;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8AL"] = 1;
+					};
+					["condition"] = {
+						["I8AL"] = 0;
+					};
+					["index"] = 2;
+					["id"] = 2011828; -- Brightly Colored Book
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -320.73;
+						["y"] = 20.25;
+						["z"] = 58.00;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["I8AL"] = 2;
+					};
+					["condition"] = {
+						["I8AL"] = 1;
+					};
+					["index"] = 2;
+					["id"] = 2011825; -- Leather-bound Tome
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -370.47;
+						["y"] = 20.25;
+						["z"] = 100.14;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["condition"] = {
+						["I8AL"] = 2;
+					};
+					["index"] = 2;
+					["id"] = 2011826; -- Timeworn Tome
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -385.37;
+						["y"] = 20.25;
+						["z"] = 43.29;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 2011830; -- Destination
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -276.02;
+						["y"] = 19.00;
+						["z"] = 18.94;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 2011830; -- Destination
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -276.02;
+						["y"] = 19.00;
+						["z"] = 18.94;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 2011830; -- Destination
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -276.02;
+						["y"] = 19.00;
+						["z"] = 18.94;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[10] = {
+					["id"] = 1038679; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -275.59;
+						["y"] = 19.00;
+						["z"] = 13.32;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4360] = {
+			["level"] = 80;
+			["name"] = "A Seat at the Last Stand";
+			["prereq"] = {
+				["QuestCompleted(4359)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038681; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -281.12;
+						["y"] = 19.00;
+						["z"] = 18.97;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038682; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -69.14;
+						["y"] = -15.13;
+						["z"] = 113.57;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["I8AL"] = 1; -- I8AL = 1
+					};
+					["condition"] = {
+						["I8AL"] = 0;
+					};
+					["index"] = 2;
+					["id"] = 1037079; -- Pirondierre
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -81.04;
+						["y"] = -13.78;
+						["z"] = 117.33;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["condition"] = {
+						["I8AL"] = 1;
+					};
+					["index"] = 2;
+					["id"] = 1037078; -- Hildoise
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -42.56;
+						["y"] = -14.17;
+						["z"] = 111.50;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1037077; -- Dickon
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -38.07;
+						["y"] = -14.17;
+						["z"] = 105.30;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 2011831; -- Cafe Table
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -86.90;
+						["y"] = -12.99;
+						["z"] = 130.48;
+					};
+					["type"] = "interact";
+					["conversationindex"] = 1;
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 2011832; -- Cafe Table
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -74.57;
+						["y"] = -12.99;
+						["z"] = 141.10;
+					};
+					["type"] = "interact";
+					["conversationindex"] = 1;
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 7;
+					};
+					["index"] = 6;
+					["id"] = 2011833; -- Cafe Table
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -74.57;
+						["y"] = -12.99;
+						["z"] = 148.12;
+					};
+					["type"] = "interact";
+					["conversationindex"] = 1;
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 7;
+					["id"] = 1038683; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -36.70;
+						["y"] = -14.17;
+						["z"] = 114.76;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[10] = {
+					["id"] = 1038684; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 29.01;
+						["y"] = -14.45;
+						["z"] = 76.46;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4361] = {
+			["level"] = 80;
+			["name"] = "A Labyrinthine Descent";
+			["prereq"] = {
+				["QuestCompleted(4360)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038684; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 29.01;
+						["y"] = -14.45;
+						["z"] = 76.46;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038679; -- Krille
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -275.59;
+						["y"] = 19.00;
+						["z"] = 13.32;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["index"] = 2;
+					["notes"] = {
+						[1] = "Follow -Alisaie-.";
+            [2] = "Continue Quest Profile when current objective is -Speak with Krile-.";
+					};
+					["mapid"] = 962; -- Old Sharlayan = 1038753; -- Alisaie
+					["pos"] = {
+						["x"] = -234.21;
+						["y"] = 12.97;
+						["z"] = -27.05;
+					};
+					["type"] = "endprofile";
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 3;
+					["id"] = 1038688; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -69.54;
+						["y"] = 18.04;
+						["z"] = -321.40;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["I8A"] = 1;
+					};
+					["condition"] = {
+						["I8A"] = 0;
+					};
+					["index"] = 5;
+					["id"] = 1038692; -- Erenville
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -1.54;
+						["y"] = 170.40;
+						["z"] = -748.01;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["I8A"] = 2;
+					};
+					["condition"] = {
+						["I8A"] = 1;
+					};
+					["index"] = 5;
+					["id"] = 1037473; -- Tieve
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -27.18;
+						["y"] = 170.40;
+						["z"] = -722.47;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["condition"] = {
+						["I8A"] = 2;
+					};
+					["index"] = 5;
+					["id"] = 1037472; -- Dobbin
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -74.69;
+						["y"] = 170.40;
+						["z"] = -755.67;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["id"] = 1038695; -- Krile
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -52.38;
+						["y"] = 170.40;
+						["z"] = -734.77;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemturninid"] = {
+						[1] = 2003126;
+						[2] = 2003127;
+						[3] = 2003128;
+					};
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4362] = {
+			["level"] = 80;
+			["name"] = "Glorified Ratcatcher";
+			["prereq"] = {
+				["QuestCompleted(4361)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038695; -- Krile
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -52.38;
+						["y"] = 170.40;
+						["z"] = -734.77;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038692; -- Erenville
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -1.54;
+						["y"] = 170.40;
+						["z"] = -748.01;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 126.92;
+						["y"] = 186.02;
+						["z"] = -739.19;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["killaggro"] = true;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038699; -- Grizzled Mouse
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 128.01;
+						["y"] = 186.04;
+						["z"] = -740.93;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 258.96;
+						["y"] = 166.44;
+						["z"] = -599.16;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["killaggro"] = true;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1038700; -- Grizzled Mouse
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 259.08;
+						["y"] = 166.40;
+						["z"] = -595.70;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "useitem";
+					["itemid"] = 2003129;
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 7;
+					};
+					["index"] = 6;
+					["id"] = 1038701; -- Grizzled Mouse
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 280.38;
+						["y"] = 216.35;
+						["z"] = -823.39;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "useitem";
+					["itemid"] = 2003129;
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 7;
+					["id"] = 1038757; -- Erenville
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -1.91;
+						["y"] = 170.40;
+						["z"] = -751.52;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003130;
+					};
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["id"] = 1038702; -- Alphinaud
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 394.28;
+						["y"] = 165.95;
+						["z"] = -521.29;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4363] = {
+			["level"] = 80;
+			["name"] = "Deeper into the Maze";
+			["prereq"] = {
+				["QuestCompleted(4362)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038702; -- Alphinaud
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 394.28;
+						["y"] = 165.95;
+						["z"] = -521.29;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1037475; -- Archeion Custodian
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 379.14;
+						["y"] = 170.10;
+						["z"] = -410.97;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038712; -- Yshtola
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 415.82;
+						["y"] = 166.41;
+						["z"] = -451.10;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8A"] = 1;
+					};
+					["condition"] = {
+						["I8A"] = 0;
+					};
+					["index"] = 3;
+					["id"] = 1038714; -- Bemused Student
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 383.02;
+						["y"] = 166.19;
+						["z"] = -464.77;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["condition"] = {
+						["I8A"] = 1;
+					};
+					["index"] = 3;
+					["id"] = 1038716; -- Bone-weary Worker
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 468.10;
+						["y"] = 166.20;
+						["z"] = -458.21;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038717; -- Erenville
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 579.92;
+						["y"] = 168.84;
+						["z"] = -517.36;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["index"] = 5;
+					["notes"] = {
+						[1] = "Snipe the -Big Green Bird-, then continue profile.";
+					};
+					["mapid"] = 956; -- Labyrinthos  2011839; -- Destination
+					["pos"] = {
+						["x"] = 576.84;
+						["y"] = 168.99;
+						["z"] = -519.19;
+					};
+					["type"] = "endprofile";
+				};
+				[8] = {
+					["id"] = 1038718; -- Alphinaud
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 644.98;
+						["y"] = 185.15;
+						["z"] = -130.24;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4364] = {
+			["level"] = 80;
+			["name"] = "The Medial Circuit";
+			["prereq"] = {
+				["QuestCompleted(4363)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038719; -- Alisaie
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 646.33;
+						["y"] = 185.08;
+						["z"] = -131.98;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 2011840; -- Destination
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 828.34;
+						["y"] = 147.84;
+						["z"] = -72.22;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["killaggro"] = true;
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 2011841; -- Destination
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 813.63;
+						["y"] = 158.65;
+						["z"] = 126.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["killaggro"] = true;
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038722; -- Alphinaud
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 621.30;
+						["y"] = 97.13;
+						["z"] = 182.18;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 2011842; -- Destination
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 492.18;
+						["y"] = 64.87;
+						["z"] = -44.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["I8A"] = 1;
+					};
+					["condition"] = {
+						["I8A"] = 0;
+					};
+					["index"] = 5;
+					["id"] = 1037985; -- Jebke
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 481.80;
+						["y"] = 66.16;
+						["z"] = -108.54;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["I8A"] = 2;
+					};
+					["condition"] = {
+						["I8A"] = 1;
+					};
+					["index"] = 5;
+					["id"] = 1038707; -- Overwhelmed Laborer
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 455.80;
+						["y"] = 65.16;
+						["z"] = -150.04;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["condition"] = {
+						["I8A"] = 2;
+					};
+					["index"] = 5;
+					["id"] = 1038708; -- Harried Harvester
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 408.32;
+						["y"] = 65.33;
+						["z"] = -130.11;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 6;
+					["id"] = 2011843; -- Stacked Boxes
+					["mapid"] = 956; -- Labyrinthose
+					["pos"] = {
+						["x"] = 312.64;
+						["y"] = 97.37;
+						["z"] = -257.34;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[10] = {
+					["id"] = 1038732; -- Yshtola
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 321.43;
+						["y"] = 97.51;
+						["z"] = -279.93;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4365] = {
+			["level"] = 80;
+			["name"] = "The Full Report, Warts and All";
+			["prereq"] = {
+				["QuestCompleted(4364)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038731; -- Alisaie
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 324.85;
+						["y"] = 97.07;
+						["z"] = -282.22;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038736; -- Yshtola
+					["mapid"] = 956; -- Labyrinthose
+					["pos"] = {
+						["x"] = 177.26;
+						["y"] = 56.63;
+						["z"] = -411.55;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038738; -- Alphinaud
+					["mapid"] = 956; -- Labyrinthose
+					["pos"] = {
+						["x"] = 177.05;
+						["y"] = 56.57;
+						["z"] = -409.41;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 3;
+					["mapid"] = 956; -- Labyrinthose
+					["pos"] = {
+						["x"] = -160.68;
+						["y"] = 81.16;
+						["z"] = -533.24;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+				};
+				[5] = {
+					["id"] = 1038740; -- Alphinaud
+					["mapid"] = 956; -- Labyrinthose
+					["pos"] = {
+						["x"] = -256.28;
+						["y"] = 79.76;
+						["z"] = -502.13;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4366] = {
+			["level"] = 80;
+			["name"] = "A Guide of Sorts";
+			["prereq"] = {
+				["QuestCompleted(4365)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038741; -- Alisaie
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = -257.95;
+						["y"] = 79.74;
+						["z"] = -502.07;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038736; -- Yshtola
+					["mapid"] = 956; -- Labyrinthose
+					["pos"] = {
+						["x"] = 177.26;
+						["y"] = 56.63;
+						["z"] = -411.55;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 2;
+					["id"] = 1038744; -- Krile
+					["mapid"] = 956; -- Labyrinthose
+					["pos"] = {
+						["x"] = 315.45;
+						["y"] = 96.90;
+						["z"] = -259.24;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["id"] = 1038747; -- Yshtola
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -1.60;
+						["y"] = 41.38;
+						["z"] = -141.16;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4367] = {
+			["level"] = 80;
+			["name"] = "Estate Visitor";
+			["prereq"] = {
+				["QuestCompleted(4366)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038746; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 2.55;
+						["y"] = 41.38;
+						["z"] = -142.17;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038745; -- Alphinaud
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 1.66;
+						["y"] = 41.38;
+						["z"] = -141.01;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038746; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 2.55;
+						["y"] = 41.38;
+						["z"] = -142.17;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1040284; -- Ameliance
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 219.23;
+						["y"] = 25.04;
+						["z"] = -160.60;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 1040285; -- Alphinaud
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = 222.03;
+						["y"] = 21.88;
+						["z"] = -120.44;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["condition"] = {
+            ["GetQuestInfo(4368,'step') == 255 or QuestCompleted(4368)"] = true;
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 255;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -104.39;
+						["y"] = 3.90;
+						["z"] = 7.37;
+					};
+					["type"] = "nav";
+				};
+				[7] = {
+					["complete"] = {
+						["IsOnMap(987)"] = true; -- Main Hall
+					};
+					["condition"] = {
+            ["GetQuestInfo(4368,'step') == 255 or QuestCompleted(4368)"] = true;
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 255;
+					["id"] = 2011936; -- Main Hall Entrance
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -108.57;
+						["y"] = 5.02;
+						["z"] = 4.53;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["condition"] = {
+            ["GetQuestInfo(4368,'step') == 255 or QuestCompleted(4368)"] = true;
+					};
+					["id"] = 1040291; -- Krile
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -1.94;
+						["y"] = 0.00;
+						["z"] = 1.57;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4368] = {
+			["level"] = 80;
+			["name"] = "For Thavnair Bound";
+			["prereq"] = {
+				["QuestCompleted(4358)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1041250; -- Thancred
+					["mapid"] = 987; -- Main Hall 
+					["pos"] = {
+						["x"] = 4.07;
+						["y"] = 0.00;
+						["z"] = 2.03;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["IsOnMap(962)"] = true; -- Old Sharlayan
+					};
+					["condition"] = {
+            ["GetQuestInfo(4367,'step') == 255 or QuestCompleted(4367)"] = true;
+						["IsOnMap(962)"] = false; -- Old Sharlayan
+					};
+					["index"] = 1;
+					["id"] = 2011937; -- Main Hall Exit
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -0.02;
+						["y"] = 1.14;
+						["z"] = 14.79;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["condition"] = {
+            ["GetQuestInfo(4367,'step') == 255 or QuestCompleted(4367)"] = true;
+					};
+					["index"] = 1;
+					["id"] = 1038592; -- Kytte
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -83.05;
+						["y"] = 6.62;
+						["z"] = -39.38;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 2;
+					["id"] = 2011947; -- Destination
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -15.46;
+						["y"] = 2.79;
+						["z"] = -8.99;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038599; -- Estinien
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 168.87;
+						["y"] = 5.35;
+						["z"] = 633.94;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1038599; -- Estinien
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 168.87;
+						["y"] = 5.35;
+						["z"] = 633.94;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "textcommand";
+					["commandstring"] = "/deny";
+					["interactrange"] = 3;
+					["delay"] = math.random(1200,1400);
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 6;
+					["id"] = 1038598; -- Urianger
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 187.43;
+						["y"] = 9.97;
+						["z"] = 592.22;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003180;
+					};
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["id"] = 1038597; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 189.26;
+						["y"] = 9.97;
+						["z"] = 590.02;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["itemturninid"] = {
+						[1] = 2003180;
+					};
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4369] = {
+			["level"] = 80;
+			["name"] = "On Low Tide";
+			["prereq"] = {
+				["QuestCompleted(4368)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038600; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 189.93;
+						["y"] = 9.97;
+						["z"] = 589.90;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+					};
+					["index"] = 1;
+					["id"] = 1037622; -- Qefiraz
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 187.91;
+						["y"] = 0.26;
+						["z"] = 700.13;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["I8AH"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 1;
+					};
+					["index"] = 1;
+					["id"] = 2011948; -- Crate of Fruit
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 204.67;
+						["y"] = 2.24;
+						["z"] = 715.42;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8AH"] = 3;
+					};
+					["condition"] = {
+						["I8AH"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 2011949; -- Pier
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 200.00;
+						["y"] = 1.75;
+						["z"] = 768.98;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 3;
+					};
+					["index"] = 1;
+					["id"] = 1037623; -- Djinaleel
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 220.78;
+						["y"] = 1.83;
+						["z"] = 759.43;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 2;
+					["id"] = 1038606; -- Khalzahl
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 277.73;
+						["y"] = 2.96;
+						["z"] = 703.70;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["id"] = 1038608; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 197.56;
+						["y"] = 1.77;
+						["z"] = 737.97;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4370] = {
+			["level"] = 80;
+			["name"] = "A Fisherman's Friend";
+			["prereq"] = {
+				["QuestCompleted(4369)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038608; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 197.56;
+						["y"] = 1.77;
+						["z"] = 737.97;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038608; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 197.56;
+						["y"] = 1.77;
+						["z"] = 737.97;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1037625; -- Mehrunnah
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 176.47;
+						["y"] = 1.87;
+						["z"] = 799.22;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+          ["delay"] = math.random(1200,1400);
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1037626; -- Nashreen
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 166.61;
+						["y"] = 4.76;
+						["z"] = 681.73;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+					["delay"] = math.random(1200,1400);
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1037624; -- Bhazahma
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 213.92;
+						["y"] = 15.14;
+						["z"] = 517.72;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+					["delay"] = math.random(1200,1400);
+				};
+				[6] = {
+					["index"] = 5;
+					["id"] = 1038608; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 197.56;
+						["y"] = 1.77;
+						["z"] = 737.97;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["nomount"] = true;
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["index"] = 5;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 199.92;
+						["y"] = 1.77;
+						["z"] = 737.63;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["nomount"] = true;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 1038608; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 197.56;
+						["y"] = 1.77;
+						["z"] = 737.97;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+				};
+				[9] = {
+					["id"] = 1038609; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 199.36;
+						["y"] = 5.87;
+						["z"] = 612.79;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4371] = {
+			["level"] = 80;
+			["name"] = "House of Divinities";
+			["prereq"] = {
+				["QuestCompleted(4370)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038611; -- Estinien
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 201.86;
+						["y"] = 5.88;
+						["z"] = 612.02;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 2011951; -- Destination
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 105.15;
+						["y"] = 7.77;
+						["z"] = 581.51;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 2011952; -- Destination
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -13.29;
+						["y"] = 32.33;
+						["z"] = 499.08;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 34.34;
+						["y"] = 37.41;
+						["z"] = 379.87;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["killaggro"] = true;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038612; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 31.94;
+						["y"] = 37.46;
+						["z"] = 379.60;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1038616; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -278.89;
+						["y"] = 2.74;
+						["z"] = 532.04;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+					};
+					["index"] = 6;
+					["id"] = 1037644; -- Khanga
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -293.72;
+						["y"] = 1.46;
+						["z"] = 551.05;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["condition"] = {
+						["I8AH"] = 1;
+					};
+					["index"] = 6;
+					["id"] = 1037645; -- Hasveydah
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -271.02;
+						["y"] = 0.70;
+						["z"] = 588.83;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["id"] = 1038616; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -278.89;
+						["y"] = 2.74;
+						["z"] = 532.04;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4372] = {
+			["level"] = 80;
+			["name"] = "The Great Work";
+			["prereq"] = {
+				["QuestCompleted(4371)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038616; -- Matsya
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -278.89;
+						["y"] = 2.74;
+						["z"] = 532.04;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038620; -- Arkasodara Alchemist
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -477.68;
+						["y"] = 5.08;
+						["z"] = 19.21;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038631; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -510.80;
+						["y"] = 11.98;
+						["z"] = 117.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038635; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -487.14;
+						["y"] = 49.16;
+						["z"] = 153.43;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["index"] = 4;
+					["id"] = 1038636; -- Drunken Deepa
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -485.71;
+						["y"] = 49.10;
+						["z"] = 152.91;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["index"] = 4;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -425.44;
+						["y"] = 38.41;
+						["z"] = 160.11;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["nomount"] = true;
+					["delay"] = math.random(2000,2200);
+				};
+				[7] = {
+					["index"] = 4;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -435.42;
+						["y"] = 38.62;
+						["z"] = 165.71;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["nomount"] = true;
+					["delay"] = math.random(4000,4200);
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -425.44;
+						["y"] = 38.41;
+						["z"] = 160.11;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["nomount"] = true;
+				};
+				[9] = {
+					["index"] = 5;
+					["id"] = 1041219; -- Drunken Deepa
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -425.44;
+						["y"] = 38.41;
+						["z"] = 160.11;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+				};
+				[10] = {
+					["index"] = 5;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -420.04;
+						["y"] = 44.05;
+						["z"] = 89.67;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["delay"] = math.random(2000,2200);
+					["nomount"] = true;
+				};
+				[11] = {
+					["index"] = 5;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -421.47;
+						["y"] = 43.56;
+						["z"] = 94.84;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["delay"] = math.random(4000,4200);
+					["nomount"] = true;
+				};
+				[12] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -420.02;
+						["y"] = 44.03;
+						["z"] = 89.05;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["nomount"] = true;
+				};
+				[13] = {
+					["index"] = 6;
+					["id"] = 1041220; -- Drunken Deepa
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -419.61;
+						["y"] = 43.95;
+						["z"] = 87.30;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+				};
+				[14] = {
+					["index"] = 6;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -445.99;
+						["y"] = 50.03;
+						["z"] = 94.31;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["delay"] = math.random(2000,2200);
+					["nomount"] = true;
+				};
+				[15] = {
+					["index"] = 6;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -449.57;
+						["y"] = 52.27;
+						["z"] = 86.61;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["delay"] = math.random(4000,4200);
+					["nomount"] = true;
+				};
+				[16] = {
+					["complete"] = {
+						["step"] = 7;
+					};
+					["index"] = 6;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -445.85;
+						["y"] = 49.98;
+						["z"] = 94.62;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["nomount"] = true;
+				};
+				[17] = {
+					["index"] = 7;
+					["id"] = 1041221; -- Drunken Deepa
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -444.72;
+						["y"] = 49.56;
+						["z"] = 97.18;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+				};
+				[18] = {
+					["index"] = 7;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -481.63;
+						["y"] = 54.35;
+						["z"] = 127.60;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["delay"] = math.random(2000,2200);
+					["nomount"] = true;
+				};
+				[19] = {
+					["index"] = 7;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -473.83;
+						["y"] = 53.76;
+						["z"] = 125.45;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["delay"] = math.random(4000,4200);
+					["nomount"] = true;
+				};
+				[20] = {
+					["complete"] = {
+						["step"] = 8;
+					};
+					["index"] = 7;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -482.33;
+						["y"] = 54.38;
+						["z"] = 127.73;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["nomount"] = true;
+				};
+				[21] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 8;
+					["id"] = 1038637; -- Drunken Deepa
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -484.61;
+						["y"] = 54.19;
+						["z"] = 128.34;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["nomount"] = true;
+				};
+				[22] = {
+					["id"] = 1038635; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -487.14;
+						["y"] = 49.16;
+						["z"] = 153.43;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["itemturninid"] = {
+						[1] = 2003181;
+					};
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4373] = {
+			["level"] = 80;
+			["name"] = "Shadowed Footsteps";
+			["prereq"] = {
+				["QuestCompleted(4372)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038635; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -487.14;
+						["y"] = 49.16;
+						["z"] = 153.43;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038638; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -230.64;
+						["y"] = 27.62;
+						["z"] = 23.73;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["killaggro"] = true;
+					["interactrange"] = 3;
+					["delay"] = math.random(1700,1900);
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038638; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -230.64;
+						["y"] = 27.62;
+						["z"] = 23.73;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038639; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -15.03;
+						["y"] = 84.49;
+						["z"] = -71.00;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 2011954; -- Destination
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 31.60;
+						["y"] = 90.23;
+						["z"] = -154.65;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+          ["oncomplete"] = "Player:Teleport(170)"; -- The Great Work
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 1038641; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 34.62;
+						["y"] = 90.27;
+						["z"] = -159.81;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["id"] = 1038631; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -510.80;
+						["y"] = 11.98;
+						["z"] = 117.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4374] = {
+			["level"] = 80;
+			["name"] = "A Boy's Errand";
+			["prereq"] = {
+				["QuestCompleted(4373)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038631; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -510.80;
+						["y"] = 11.98;
+						["z"] = 117.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038642; -- Varshahn
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -384.18;
+						["y"] = 12.20;
+						["z"] = 28.24;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038642; -- Varshahn
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -384.18;
+						["y"] = 12.20;
+						["z"] = 28.24;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+					};
+					["index"] = 3;
+					["id"] = 1037648; -- Imhudi
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -562.01;
+						["y"] = 9.82;
+						["z"] = -585.20;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["I8AH"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 1;
+					};
+					["index"] = 3;
+					["id"] = 1037647; -- Khuteeyu
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -588.83;
+						["y"] = 9.82;
+						["z"] = -590.08;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["condition"] = {
+						["I8AH"] = 2;
+					};
+					["index"] = 3;
+					["id"] = 1037646; -- Nahbdeen
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -568.99;
+						["y"] = 9.82;
+						["z"] = -569.88;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038645; -- Varshahn
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -549.25;
+						["y"] = 9.82;
+						["z"] = -563.04;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1038648; -- Hamsa
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -557.64;
+						["y"] = 9.67;
+						["z"] = -555.05;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 6;
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -103.54;
+						["y"] = 88.84;
+						["z"] = -608.30;
+					};
+					["type"] = "nav"; -- No Dismount
+					["ignoreaggro"] = true;
+				};
+				[10] = {
+					["id"] = 1037649; -- Zeynuha
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -92.97;
+						["y"] = 89.56;
+						["z"] = -642.36;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4375] = {
+			["level"] = 80;
+			["name"] = "Tipping the Scale";
+			["prereq"] = {
+				["QuestCompleted(4374)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1037649; -- Zeynuha
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -92.97;
+						["y"] = 89.56;
+						["z"] = -642.36;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["oncomplete"] = "Player:Teleport(170)";
+					["index"] = 1;
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -0.13;
+						["y"] = 0.00;
+						["z"] = 6.65;
+					};
+					["type"] = "nav";
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038631; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -510.80;
+						["y"] = 11.98;
+						["z"] = 117.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003182;
+					};
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038651; -- Nidhana
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -699.67;
+						["y"] = -0.07;
+						["z"] = -565.06;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["ignoreaggro"] = true;
+					["interactrange"] = 3;
+				};
+				[5] = {
+          ["oncomplete"] = "Player:Teleport(170)";
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 3;
+					["id"] = 1038652; -- Radiant Soldier
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -704.10;
+						["y"] = -0.09;
+						["z"] = -562.43;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["id"] = 1038653; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -492.06;
+						["y"] = 4.57;
+						["z"] = 17.53;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4376] = {
+			["level"] = 80;
+			["name"] = "The Satrap of Radz-at-Han";
+			["prereq"] = {
+				["QuestCompleted(4375)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038653; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -492.06;
+						["y"] = 4.57;
+						["z"] = 17.53;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038656; -- Varshahn
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 203.97;
+						["y"] = 60.34;
+						["z"] = -595.85;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 2;
+					["id"] = 1038657; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 201.98;
+						["y"] = 60.35;
+						["z"] = -594.02;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["condition"] = {
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 255;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -104.39;
+						["y"] = 3.90;
+						["z"] = 7.37;
+					};
+					["type"] = "nav";
+				};
+				[5] = {
+					["complete"] = {
+						["IsOnMap(987)"] = true; -- Main Hall
+					};
+					["condition"] = {
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 255;
+					["id"] = 2011936; -- Main Hall Entrance
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -108.57;
+						["y"] = 5.02;
+						["z"] = 4.53;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["id"] = 1038589; -- Thancred
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = 4.07;
+						["y"] = 0.00;
+						["z"] = 2.03;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4377] = {
+			["level"] = 81;
+			["name"] = "In the Dark of the Tower";
+			["prereq"] = {
+        ["QuestCompleted(4367)"] = true;
+				["QuestCompleted(4376)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1040291; -- Krile
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -1.94;
+						["y"] = 0.00;
+						["z"] = 1.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["oncomplete"] = "Player:Teleport(170)";
+					["index"] = 1;
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -0.13;
+						["y"] = 0.00;
+						["z"] = 6.65;
+					};
+					["type"] = "nav";
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1037646; -- Nahbdeen
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -568.99;
+						["y"] = 9.82;
+						["z"] = -569.88;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 2011956; -- Destination
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -632.04;
+						["y"] = -0.02;
+						["z"] = -659.60;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["index"] = 3;
+					["notes"] = {
+						[1] = "Complete Dungeon -The Tower of Zot- to continue.";
+					};
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -632.04;
+						["y"] = -0.02;
+						["z"] = -659.60;
+					};
+					["type"] = "endprofile";
+				};
+				[6] = {
+					["id"] = 1040252; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -568.72;
+						["y"] = 9.82;
+						["z"] = -581.32;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4378] = {
+			["level"] = 81;
+			["name"] = "The Jewel of Thavnair";
+			["prereq"] = {
+				["QuestCompleted(4377)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1040252; -- Thancred
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = -568.72;
+						["y"] = 9.82;
+						["z"] = -581.32;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1040283; -- Radiant Guardsman
+					["mapid"] = 957; -- Thavnair
+					["pos"] = {
+						["x"] = 208.36;
+						["y"] = 60.34;
+						["z"] = -601.07;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1040255; -- Estinien
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = 57.27;
+						["y"] = -27.00;
+						["z"] = 177.54;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["condition"] = {
+						["CollectMiniAetherytes"] = true;
+					};
+					["index"] = 3;
+					["id"] = 194; -- Aethernet shard Alzadaal's Peace
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = 6.61;
+						["y"] = -2.03;
+						["z"] = 110.55;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1040256; -- Attentive Radiant
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -4.14;
+						["y"] = -2.00;
+						["z"] = 85.40;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1040257; -- Watchful Radiant
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -99.35;
+						["y"] = 20.00;
+						["z"] = 110.52;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1040258; -- Vigilant Radiant
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -149.43;
+						["y"] = 28.00;
+						["z"] = 171.13;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["condition"] = {
+						["CollectMiniAetherytes"] = true;
+					};
+					["index"] = 6;
+					["id"] = 193; -- Aethernet shard Airship Landing
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -144.34;
+						["y"] = 27.97;
+						["z"] = 202.26;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["condition"] = {
+						["CollectMiniAetherytes"] = true;
+					};
+					["index"] = 6;
+					["id"] = 191; -- Aethernet shard Meghaduta
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -365.96;
+						["y"] = 45.00;
+						["z"] = -31.82;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[10] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 6;
+					["id"] = 1040259; -- Meghaduta Attendant
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -341.94;
+						["y"] = 55.00;
+						["z"] = -70.60;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[11] = {
+					["id"] = 1040260; -- Alisaie
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -377.28;
+						["y"] = 45.00;
+						["z"] = -28.61;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4379] = {
+			["level"] = 81;
+			["name"] = "The Color of Joy";
+			["prereq"] = {
+				["QuestCompleted(4378)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1040261; -- Alphinaud
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -377.62;
+						["y"] = 45.00;
+						["z"] = -29.92;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1040262; -- Alisaie
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -237.02;
+						["y"] = 36.00;
+						["z"] = 58.98;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["condition"] = {
+						["CollectMiniAetherytes"] = true;
+					};
+					["index"] = 2;
+					["id"] = 192; -- Aethernet shard Ruveydah Fibers
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -156.15;
+						["y"] = 36.00;
+						["z"] = 27.73;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1040264; -- Alisaie
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = -106.49;
+						["y"] = 31.00;
+						["z"] = -14.54;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3; -- Connect 192 to 194
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1040266; -- Alphinaud
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = 3.98;
+						["y"] = -0.00;
+						["z"] = 0.99;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1040268; -- Alisaie
+					["mapid"] = 963; -- Radz at Han
+					["pos"] = {
+						["x"] = 87.51;
+						["y"] = 1.86;
+						["z"] = -121.42;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 1040276; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -99.08;
+						["y"] = 3.93;
+						["z"] = 1.39;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["id"] = 1038588; -- Ojika Tsunjika
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -101.76;
+						["y"] = 4.36;
+						["z"] = 0.75;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4380] = {
+			["level"] = 82;
+			["name"] = "Sound the Bell, Schools In";
+			["prereq"] = {
+				["QuestCompleted(4379)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038769; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -88.70;
+						["y"] = 3.90;
+						["z"] = 0.81;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038771; -- Alisaie
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -107.50;
+						["y"] = 3.80;
+						["z"] = 26.29;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3; -- Connect 185 to 184
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038773; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -280.23;
+						["y"] = 20.00;
+						["z"] = -67.37;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038776; -- Excitable Student
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -310.78;
+						["y"] = 20.04;
+						["z"] = -92.82;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038500; -- Qih Aliapoh
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -357.84;
+						["y"] = 21.85;
+						["z"] = -91.33;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 1038760; -- Level-headed Student
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -298.57;
+						["y"] = 22.42;
+						["z"] = -149.68;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["id"] = 1038780; -- Montichaigne
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -394.92;
+						["y"] = 20.80;
+						["z"] = -107.93;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4381] = {
+			["level"] = 82;
+			["name"] = "A Capital Idea";
+			["prereq"] = {
+				["QuestCompleted(4380)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038781; -- Krile
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -393.24;
+						["y"] = 20.80;
+						["z"] = -105.76;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["oncomplete"] = "Player:Teleport(182)";
+					["index"] = 1;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -391.26;
+						["y"] = 20.80;
+						["z"] = -110.67;
+					};
+					["type"] = "nav";
+				};
+				[3] = {
+					["condition"] = {
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 1;
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -104.39;
+						["y"] = 3.90;
+						["z"] = 7.37;
+					};
+					["type"] = "nav"; -- Connect 182 to 185
+				};
+				[4] = {
+					["complete"] = {
+						["IsOnMap(987)"] = true; -- Main Hall
+					};
+					["condition"] = {
+						["IsOnMap(987)"] = false; -- Main Hall
+					};
+					["index"] = 1;
+					["id"] = 2011936; -- Main Hall Entrance
+					["mapid"] = 962; -- Old Sharlayan
+					["pos"] = {
+						["x"] = -108.57;
+						["y"] = 5.02;
+						["z"] = 4.53;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["condition"] = {
+						["IsOnMap(987)"] = true; -- Main Hall
+					};
+					["index"] = 1;
+					["id"] = 1038784; -- Graha Tia
+					["mapid"] = 987; -- Main Hall
+					["pos"] = {
+						["x"] = -0.23;
+						["y"] = 0.00;
+						["z"] = -11.12;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+          ["oncomplete"] = "Player:Teleport(103)";
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 2;
+					["id"] = 1001029; -- Zanthael
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = 9.17;
+						["y"] = 21.00;
+						["z"] = -15.21;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["id"] = 1038796; -- Raubahn
+					["mapid"] = 621; -- The Lochs
+					["pos"] = {
+						["x"] = 745.97;
+						["y"] = 70.00;
+						["z"] = 525.20;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4382] = {
+			["level"] = 82;
+			["name"] = "Best of the Best";
+			["prereq"] = {
+				["QuestCompleted(4381)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038802; -- Maxima
+					["mapid"] = 621; -- The Lochs
+					["pos"] = {
+						["x"] = 746.64;
+						["y"] = 70.00;
+						["z"] = 523.40;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1024065; -- Resistance Guard
+					["mapid"] = 621; -- The Lochs
+					["pos"] = {
+						["x"] = 750.00;
+						["y"] = 70.14;
+						["z"] = 522.88;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038804; -- Yshtola
+					["mapid"] = 737; -- Royal Palace
+					["pos"] = {
+						["x"] = 251.82;
+						["y"] = 122.00;
+						["z"] = -360.59;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+					};
+					["index"] = 3;
+					["id"] = 1038811; -- A-Ruhn-Senna
+					["mapid"] = 737; -- Royal Palace
+					["pos"] = {
+						["x"] = 244.31;
+						["y"] = 122.00;
+						["z"] = -362.97;
+					};
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003226;
+					};
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["I8AH"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 1;
+					};
+					["index"] = 3;
+					["id"] = 1038812; -- Sicard
+					["mapid"] = 737; -- Royal Palace
+					["pos"] = {
+						["x"] = 245.78;
+						["y"] = 122.00;
+						["z"] = -366.48;
+					};
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003226;
+					};
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["I8AH"] = 3;
+					};
+					["condition"] = {
+						["I8AH"] = 2;
+					};
+					["index"] = 3;
+					["id"] = 1038813; -- Lyse
+					["mapid"] = 737; -- Royal Palace
+					["pos"] = {
+						["x"] = 250.78;
+						["y"] = 122.00;
+						["z"] = -366.84;
+					};
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003226;
+					};
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["I8AH"] = 4;
+					};
+					["condition"] = {
+						["I8AH"] = 3;
+					};
+					["index"] = 3;
+					["id"] = 1038814; -- Lucia
+					["mapid"] = 737; -- Royal Palace
+					["pos"] = {
+						["x"] = 251.24;
+						["y"] = 122.00;
+						["z"] = -363.91;
+					};
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003226;
+					};
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["condition"] = {
+						["I8AH"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038815; -- Cirina
+					["mapid"] = 737; -- Royal Palace
+					["pos"] = {
+						["x"] = 250.17;
+						["y"] = 122.00;
+						["z"] = -352.35;
+					};
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003226;
+					};
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 1038816; -- Maxima
+					["mapid"] = 737; -- Royal Palace
+					["pos"] = {
+						["x"] = 254.23;
+						["y"] = 122.00;
+						["z"] = -364.98;
+					};
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003226;
+					};
+					["interactrange"] = 3;
+				};
+				[10] = {
+					["id"] = 1038817; -- Alphinaud
+					["mapid"] = 621; -- The Lochs
+					["pos"] = {
+						["x"] = 756.31;
+						["y"] = 70.00;
+						["z"] = 534.33;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4383] = {
+			["level"] = 82;
+			["name"] = "A Frosty Reception";
+			["prereq"] = {
+				["QuestCompleted(4382)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038824; -- Tataru
+					["mapid"] = 621; -- The Lochs
+					["pos"] = {
+						["x"] = 750.97;
+						["y"] = 70.00;
+						["z"] = 534.78;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["index"] = 1;
+					["notes"] = {
+						[1] = "Complete Solo Duty for quest -A Frosty Reception- to continue.";
+						[2] = "Duty Info: Stealt Mission, Use -Swift Deception- combo -Silent Takedown- on gate guard";
+            [3] = "Use -Bewildermment Bomb- on Guard Dogs.";
+					};
+					["mapid"] = 621; -- The Lochs 1038825; -- Ironworks Pilot
+					["pos"] = {
+						["x"] = 742.58;
+						["y"] = 70.00;
+						["z"] = 539.60;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "endprofile";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038826; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -399.31;
+						["y"] = 22.04;
+						["z"] = 454.46;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038836; -- Yshtola
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -439.99;
+						["y"] = 22.00;
+						["z"] = 497.79;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1038835; -- G'raha Tia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -366.17;
+						["y"] = 22.00;
+						["z"] = 514.49;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 6;
+					["id"] = 1038828; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -334.58;
+						["y"] = 23.80;
+						["z"] = 404.65;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["id"] = 1038837; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -353.41;
+						["y"] = 22.72;
+						["z"] = 435.63;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4384] = {
+			["level"] = 82;
+			["name"] = "Tracks in the Snow";
+			["prereq"] = {
+				["QuestCompleted(4383)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038839; -- Emmanellain
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -350.15;
+						["y"] = 22.74;
+						["z"] = 435.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038840; -- Emmanellain
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -157.06;
+						["y"] = 18.32;
+						["z"] = 364.06;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 2012076; -- Footprints in the Snow
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -31.27;
+						["y"] = -0.26;
+						["z"] = 362.81;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 2012077; -- Footprints in the Snow
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 36.94;
+						["y"] = -12.04;
+						["z"] = 362.23;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038843; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 66.85;
+						["y"] = -14.34;
+						["z"] = 385.73;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 2012078; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 117.81;
+						["y"] = -16.92;
+						["z"] = 390.46;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["nosprint"] = true;
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["index"] = 6;
+					["id"] = 2012078; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 117.81;
+						["y"] = -16.92;
+						["z"] = 390.46;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["nosprint"] = true;
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["index"] = 6;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 203.85;
+						["y"] = -19.09;
+						["z"] = 374.04;
+					};
+					["type"] = "nav"; -- Alpha Destination
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+					["delay"] = math.random(30000,30500); -- Nav Set Start
+				};
+				[9] = {
+					["index"] = 6;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 272.31;
+						["y"] = -13.27;
+						["z"] = 318.64;
+					};
+					["type"] = "nav"; -- Bravo Destination
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+          ["delay"] = math.random(21000,21500);
+				};
+				[10] = {
+					["index"] = 6;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 322.06;
+						["y"] = -9.24;
+						["z"] = 251.15;
+					};
+					["type"] = "nav"; -- Charlie Destination
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+          ["delay"] = math.random(17000,17500);
+				};
+				[11] = {
+					["index"] = 6;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 353.52;
+						["y"] = -1.52;
+						["z"] = 233.38;
+					};
+					["type"] = "nav"; -- Delta Destination
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+          ["delay"] = math.random(45000,45500);
+				};
+				[12] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 6;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 555.63;
+						["y"] = 32.31;
+						["z"] = 160.47;
+					};
+					["type"] = "nav"; -- Final Destination
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+				};
+				[13] = {
+					["id"] = 1038846; -- Girl in Green
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 555.81;
+						["y"] = 32.31;
+						["z"] = 159.11;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4385] = {
+			["level"] = 82;
+			["name"] = "How the Mighty Are Fallen";
+			["prereq"] = {
+				["QuestCompleted(4384)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038847; -- Licinia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 563.99;
+						["y"] = 32.32;
+						["z"] = 150.04;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038849; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 588.46;
+						["y"] = 38.37;
+						["z"] = 216.60;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038850; -- Sickly Refugee
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 589.81;
+						["y"] = 38.37;
+						["z"] = 217.55;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003227;
+					};
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038851; -- Emaciated Refugee
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 591.33;
+						["y"] = 38.37;
+						["z"] = 214.56;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003227;
+					};
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038852; -- Despondent Refugee
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 585.05;
+						["y"] = 38.37;
+						["z"] = 216.05;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003227;
+					};
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1038847; -- Licinia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 563.99;
+						["y"] = 32.32;
+						["z"] = 150.04;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["itemturninid"] = {
+						[1] = 2003227;
+					};
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 7;
+					};
+					["index"] = 6;
+					["id"] = 1038853; -- Burly Tapper
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 156.76;
+						["y"] = -14.96;
+						["z"] = 623.22;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["killaggro"] = true;
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 7;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 132.59;
+						["y"] = -13.29;
+						["z"] = 649.32;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+				};
+				[9] = {
+					["id"] = 1038856; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 137.65;
+						["y"] = -13.28;
+						["z"] = 648.25;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4386] = {
+			["level"] = 82;
+			["name"] = "At the End of the Trail";
+			["prereq"] = {
+				["QuestCompleted(4385)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1037712; -- Jareck
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 136.58;
+						["y"] = -13.28;
+						["z"] = 650.26;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1038857; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 559.08;
+						["y"] = 32.32;
+						["z"] = 159.44;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038858; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 596.58;
+						["y"] = 32.32;
+						["z"] = 138.84;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1038862; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 504.97;
+						["y"] = 19.45;
+						["z"] = 175.74;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038863; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 310.72;
+						["y"] = -16.26;
+						["z"] = 357.02;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 2012083; -- Fresh Blood
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 429.86;
+						["y"] = -17.41;
+						["z"] = 543.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 6;
+					["id"] = 1038865; -- Licinia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 583.86;
+						["y"] = -15.84;
+						["z"] = 625.64;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["ignoreaggro"] = true;
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["id"] = 1038867; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 605.95;
+						["y"] = 34.72;
+						["z"] = 202.47;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4387] = {
+			["level"] = 82;
+			["name"] = "A Way Forward";
+			["prereq"] = {
+				["QuestCompleted(4386)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038868; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 605.92;
+						["y"] = 34.72;
+						["z"] = 201.10;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["oncomplete"] = "Player:Teleport(172)"; -- Camp Broken Glass
+					["index"] = 1;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 597.96;
+						["y"] = 34.86;
+						["z"] = 196.26;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1039864; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -334.13;
+						["y"] = 23.80;
+						["z"] = 405.26;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1039870; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -358.14;
+						["y"] = 22.55;
+						["z"] = 430.01;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1039878; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -362.17;
+						["y"] = 22.07;
+						["z"] = 434.01;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1039880; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -308.37;
+						["y"] = 22.47;
+						["z"] = 365.71;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["index"] = 5;
+					["id"] = 1039880; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -308.37;
+						["y"] = 22.47;
+						["z"] = 365.71;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["index"] = 5;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -288.79;
+						["y"] = 5.04;
+						["z"] = 261.03;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+					["type"] = "nav";
+				};
+				[9] = {
+					["index"] = 5;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -128.72;
+						["y"] = 0.27;
+						["z"] = 235.36;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+					["type"] = "nav";
+				};
+				[10] = {
+					["index"] = 5;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 65.89;
+						["y"] = 0.02;
+						["z"] = 150.26;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["ignoreaggro"] = true;
+					["type"] = "nav";
+					["delay"] = math.random(1500,1700);
+				};
+				[11] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 1039880; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 64.35;
+						["y"] = -0.19;
+						["z"] = 152.15;
+					};
+					["nomount"] = true;
+					["nosprint"] = true;
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[12] = {
+					["id"] = 1039883; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 64.65;
+						["y"] = 0.21;
+						["z"] = 147.84;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4388] = {
+			["level"] = 82;
+			["name"] = "The Last Bastion";
+			["prereq"] = {
+				["QuestCompleted(4387)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1039883; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 64.65;
+						["y"] = 0.21;
+						["z"] = 147.84;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 168.22;
+						["y"] = 0.98;
+						["z"] = 102.80;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["killaggro"] = true;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1038761; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 169.24;
+						["y"] = 1.00;
+						["z"] = 105.82;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 300.89;
+						["y"] = 5.50;
+						["z"] = 78.30;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["killaggro"] = true;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1038766; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 301.20;
+						["y"] = 5.53;
+						["z"] = 76.68;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1040164; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 387.29;
+						["y"] = 3.89;
+						["z"] = 71.98;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 7;
+					};
+					["index"] = 6;
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 527.69;
+						["y"] = 14.62;
+						["z"] = -165.40;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "nav";
+					["killaggro"] = true;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 8;
+					};
+					["index"] = 7;
+					["id"] = 1040750; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 526.91;
+						["y"] = 14.62;
+						["z"] = -162.86;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 9;
+					};
+					["index"] = 8;
+					["id"] = 1039886; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 520.87;
+						["y"] = 10.80;
+						["z"] = -352.50;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["ignoreaggro"] = true;
+				};
+				[10] = {
+					["complete"] = {
+						["step"] = 10;
+					};
+					["index"] = 9;
+					["id"] = 1039889; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 509.48;
+						["y"] = 10.80;
+						["z"] = -422.63;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[11] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 10;
+					["id"] = 1039890; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 528.28;
+						["y"] = -36.65;
+						["z"] = -251.48;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[12] = {
+					["id"] = 1039892; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 547.54;
+						["y"] = -35.24;
+						["z"] = -192.28;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4389] = {
+			["level"] = 82;
+			["name"] = "Personae non Gratae";
+			["prereq"] = {
+				["QuestCompleted(4388)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1039896; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 530.17;
+						["y"] = -36.65;
+						["z"] = -175.86;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+					};
+					["index"] = 1;
+					["id"] = 1037716; -- Caeso
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 524.44;
+						["y"] = -36.65;
+						["z"] = -186.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["I8AH"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 1;
+					};
+					["index"] = 1;
+					["id"] = 2012062; -- Magitek Radio
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 512.17;
+						["y"] = -34.83;
+						["z"] = -201.72;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8AH"] = 3;
+					};
+					["condition"] = {
+						["I8AH"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1037717; -- Marcellinus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 495.35;
+						["y"] = -36.07;
+						["z"] = -205.16;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["I8AH"] = 4;
+					};
+					["condition"] = {
+						["I8AH"] = 3;
+					};
+					["index"] = 1;
+					["id"] = 1037715; -- Sabinianus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 500.57;
+						["y"] = -36.65;
+						["z"] = -178.85;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 4;
+					};
+					["index"] = 1;
+					["id"] = 1037718; -- Octavia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 512.63;
+						["y"] = -36.65;
+						["z"] = -160.33;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1039899; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 549.68;
+						["y"] = -36.62;
+						["z"] = -216.85;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1037719; -- Flavius
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 549.80;
+						["y"] = -36.62;
+						["z"] = -260.58;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 1039899; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 549.68;
+						["y"] = -36.62;
+						["z"] = -216.85;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[10] = {
+					["id"] = 1039896; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 530.17;
+						["y"] = -36.65;
+						["z"] = -175.86;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4390] = {
+			["level"] = 83;
+			["name"] = "His Park Materials";
+			["prereq"] = {
+				["QuestCompleted(4389)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1039896; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 530.17;
+						["y"] = -36.65;
+						["z"] = -175.86;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1039901; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 408.65;
+						["y"] = 15.56;
+						["z"] = -496.15;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["I8AL"] = 1;
+					};
+					["condition"] = {
+						["I8AL"] = 0;
+					};
+					["index"] = 2;
+					["id"] = 2012093; -- Shop Counter
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 381.73;
+						["y"] = 15.55;
+						["z"] = -503.26;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8AL"] = 2;
+					};
+					["condition"] = {
+						["I8AL"] = 1;
+					};
+					["index"] = 2;
+					["id"] = 2012094; -- Map of Forum Solius
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 381.64;
+						["y"] = 25.99;
+						["z"] = -503.20;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["I8AL"] = 3;
+					};
+					["condition"] = {
+						["I8AL"] = 2;
+					};
+					["index"] = 2;
+					["id"] = 2012095; -- Warmachina Wreckage
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 423.12;
+						["y"] = 16.31;
+						["z"] = -570.34;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["condition"] = {
+						["I8AL"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 2012096; -- Children's Slide
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 381.95;
+						["y"] = 16.62;
+						["z"] = -635.34;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1039906; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 432.24;
+						["y"] = 15.56;
+						["z"] = -611.90;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[8] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 2012100; -- Point of Interest
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 445.76;
+						["y"] = 15.49;
+						["z"] = -648.62;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[9] = {
+					["id"] = 1039906; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 432.24;
+						["y"] = 15.56;
+						["z"] = -611.90;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemturninid"] = {
+						[1] = 2003228;
+					};
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4391] = {
+			["level"] = 83;
+			["name"] = "No Good Deed";
+			["prereq"] = {
+				["QuestCompleted(4390)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1038789; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 413.14;
+						["y"] = 16.10;
+						["z"] = -578.48;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1039910; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 340.72;
+						["y"] = 10.80;
+						["z"] = -530.08;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 2012101; -- Destroyed Magitek Armor
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 270.25;
+						["y"] = 10.45;
+						["z"] = -579.77;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "useitem";
+					["itemid"] = 2003229;
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1039910; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 340.72;
+						["y"] = 10.80;
+						["z"] = -530.08;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["itemturninid"] = {
+						[1] = 2003230;
+					};
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 2012106; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 339.16;
+						["y"] = 10.79;
+						["z"] = -530.54;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["id"] = 1039913; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 526.39;
+						["y"] = -36.65;
+						["z"] = -233.88;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4392] = {
+			["level"] = 83;
+			["name"] = "�Alea Iacta Est";
+			["prereq"] = {
+				["QuestCompleted(4391)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1039913; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 526.39;
+						["y"] = -36.65;
+						["z"] = -233.88;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["index"] = 1;
+					["id"] = 1038790; -- Marcellinus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 495.41;
+						["y"] = -36.07;
+						["z"] = -205.13;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 1;
+					};
+					["index"] = 1;
+					["id"] = 1038791; -- Octavia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 512.63;
+						["y"] = -36.65;
+						["z"] = -160.33;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1039889; -- Jullus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 509.48;
+						["y"] = 10.80;
+						["z"] = -422.63;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["conversationindex"] = 1;
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 3;
+					["id"] = 2012107; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 279.38;
+						["y"] = 10.82;
+						["z"] = -232.99;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["id"] = 1039915; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -399.80;
+						["y"] = 22.14;
+						["z"] = 422.87;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4393] = {
+			["level"] = 83;
+			["name"] = "Strange Bedfellows";
+			["prereq"] = {
+				["QuestCompleted(4392)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1039915; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -399.80;
+						["y"] = 22.14;
+						["z"] = 422.87;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1039917; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 495.51;
+						["y"] = 10.80;
+						["z"] = -425.22;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3; -- QuestCore Attune Main Aetheryte 173 Tertium
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1037715; -- Sabinianus
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 500.57;
+						["y"] = -36.65;
+						["z"] = -178.85;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1037716; -- Caeso
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 524.44;
+						["y"] = -36.65;
+						["z"] = -186.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1037719; -- Flavius
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 549.80;
+						["y"] = -36.62;
+						["z"] = -260.58;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 6;
+					};
+					["index"] = 5;
+					["id"] = 1039924; -- Alphinaud
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 547.51;
+						["y"] = -35.24;
+						["z"] = -192.74;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+					};
+					["index"] = 6;
+					["id"] = 2012111; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 507.04;
+						["y"] = 8.87;
+						["z"] = 64.68;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["killaggro"] = true;
+				};
+        [8] = {
+          ["complete"] = {
+            ["ValidTable(EntityList('maxdistance=35,aggro,attackable,contentid=10986')) or GetQuestInfo(4393,'I8AH') == 2"] = true;
+          };
+          ["condition"] = {
+          	["I8AH"] = 1;
+          };
+          ["id"] = 2012109; -- Destination
+          ["index"] = 6;
+          ["interactrange3d"] = 3.5;
+          ["mapid"] = 958; -- Garlemald
+          ["pos"] = {
+            ["x"] = 338.49;
+            ["y"] = 2.30;
+            ["z"] = 94.77;
+          };
+          ["type"] = "interact";
+          ["dismountdistance"] = math.random(10,14);
+        };
+        [9] = {
+          ["complete"] = {
+            ["ScanForMobs(10986) == false or GetQuestInfo(4393,'I8AH') == 2"] = true;
+          };
+          ["condition"] = {
+            ["I8AH"] = 1;
+            ["ValidTable(EntityList('maxdistance=35,aggro,attackable,contentid=10986'))"] = true;
+          };
+          ["id"] = 10986; -- Tempered Imperial
+          ["index"] = 6;
+          ["itemid"] = 2003231;
+          ["itemusehp"] = 10;
+          ["mapid"] = 958;
+          ["pos"] = {
+            ["x"] = 338.49;
+            ["y"] = 2.30;
+            ["z"] = 94.77;
+          };
+          ["type"] = "kill";
+        };
+				[10] = {
+					["complete"] = {
+						["I8AH"] = 3;
+					};
+					["condition"] = {
+						["I8AH"] = 2;
+					};
+					["index"] = 6;
+					["id"] = 2012108; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = 79.42;
+						["y"] = 0.63;
+						["z"] = 153.25;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+        [11] = {
+          ["complete"] = {
+            ["ValidTable(EntityList('maxdistance=35,aggro,attackable,contentid=10986')) or GetQuestInfo(4393,'step') == 7"] = true;
+          };
+          ["condition"] = {
+          	["I8AH"] = 3;
+          };
+          ["id"] = 2012110; -- Destination
+          ["index"] = 6;
+          ["interactrange3d"] = 3.5;
+          ["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -25.56;
+						["y"] = -12.95;
+						["z"] = 396.96;
+					};
+          ["type"] = "interact";
+          ["dismountdistance"] = math.random(10,14);
+        };
+        [12] = {
+          ["complete"] = {
+            ["ScanForMobs(10986) == false or GetQuestInfo(4393,'step') == 7"] = true;
+          };
+          ["condition"] = {
+            ["I8AH"] = 3;
+            ["ValidTable(EntityList('maxdistance=35,aggro,attackable,contentid=10986'))"] = true;
+          };
+          ["id"] = 10986; -- Tempered Imperial
+          ["index"] = 6;
+          ["itemid"] = 2003231;
+          ["itemusehp"] = 10;
+          ["mapid"] = 958;
+					["pos"] = {
+						["x"] = -25.56;
+						["y"] = -12.95;
+						["z"] = 396.96;
+					};
+          ["type"] = "kill";
+          ["delay"] = math.random(1200,1400);
+        };
+				[13] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 7;
+					["id"] = 1039930; -- Thancred
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -208.33;
+						["y"] = 15.49;
+						["z"] = 450.89;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[12] = {
+					["id"] = 1039931; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -351.16;
+						["y"] = 23.74;
+						["z"] = 418.42;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4394] = {
+			["level"] = 83;
+			["name"] = "In from the Cold";
+			["prereq"] = {
+				["QuestCompleted(4393)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1039931; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -351.16;
+						["y"] = 23.74;
+						["z"] = 418.42;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+--				[2] = {
+--					["complete"] = {
+--						["step"] = 2;
+--					};
+--					["index"] = 1;
+--					["id"] = 1039932; -- Y'shtola
+--					["mapid"] = 958; -- Garlemald
+--					["pos"] = {
+--						["x"] = -357.99;
+--						["y"] = 22.00;
+--						["z"] = 488.40;
+--					};
+--					["dismountdistance"] = math.random(10,14);
+--					["type"] = "interact";
+--					["interactrange"] = 3;
+--				};
+				[2] = {
+					["index"] = 1;
+					["notes"] = {
+						[1] = "Manual Task: Difficult Solo Duty, requires patience.";
+						[2] = "";
+						[3] = "Tip 1: Purposely fail Duty right away to receive 'echo' buff on reattempt.";
+						[4] = "Tip 2: Pay respect to first eliminated soilder if it's your first time.";
+						[5] = "Tip 3: -Blue Fire Bomb- enemies will explod upon death, steer clear,";
+						[6] = "";
+						[7] = "Step 1: Eliminate -single guard- x24 y15 to unlock zone";
+						[8] = "Step 2: Discover @ x23.8 y16.9, Interact with -immmobilized Magitek Reaper-.";
+						[9] = "Step 3: Retrieve -Key- @ x23.5, y16.3 from -wounded soilder-";
+						[10] = "Step 4: Retrieve -Fuel- @ x25.4 y16.6 from -fuel conceiling etc-";
+						[11] = "Step 5: Return to @ x23.8 y16.9,, Interact with -immmobilized Magitek Reaper-.";
+						[12] = "Step 6: Clear mobs with Magitek AOE Attacks";
+						[13] = "Step 7: Attack single guard that aggroed you";
+						[14] = "Step 8: When it adivse you to, Hide behind Magitek Armor to survive aoe";
+						[15] = "Step 9: When screen fades to black, smash buttons to survive unconciousness";
+						[16] = "Step 10: Crawl to safety, congrats, you have beated Patience Savage EXTREME";
+					};
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -357.72;
+						["y"] = 22.00;
+						["z"] = 485.35;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "endprofile";
+				};
+				[3] = {
+					["id"] = 1039933; -- Alisaie
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -369.25;
+						["y"] = 22.21;
+						["z"] = 403.77;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[4395] = {
+			["level"] = 83;
+			["name"] = "Gateway of the Gods"; -- Aether Current 958.status[1] Garlemald#Q5
+			["prereq"] = {
+				["QuestCompleted(4394)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1039940; -- Lucia
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -371.30;
+						["y"] = 22.25;
+						["z"] = 400.72;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1039942; -- Lyse
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -462.58;
+						["y"] = 20.81;
+						["z"] = -340.69;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1039946; -- Pipin
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -476.01;
+						["y"] = 10.89;
+						["z"] = -678.07;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+          ["complete"] = {
+              ["ValidTable(EntityList('maxdistance=45,active,aggressive,contentid=2012683'))"] = true;
+          };
+          ["condition"] = {
+              ["ValidTable(EntityList('maxdistance=45,active,aggressive,contentid=2012683'))"] = false;
+          };
+					["index"] = 3;
+					["id"] = 1042016; -- Lente's Arrow
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -483.30;
+						["y"] = 10.89;
+						["z"] = -677.42;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+          ["condition"] = {
+              ["ValidTable(EntityList('maxdistance=45,active,aggressive,contentid=2012683'))"] = true;
+          };
+					["index"] = 3;
+					["id"] = 2012112; -- Destination
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -516.72;
+						["y"] = -190.02;
+						["z"] = -675.29;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["index"] = 4;
+					["notes"] = {
+						[1] = "Complete Dungeon -Tower of Babil- to continue.";
+						[2] = "This is the end of Quest Profile till next update, that's just a textholder.";
+						[3] = "Thanks for testing, hopefully it was helpful. Cherios";
+					};
+					["mapid"] = 958; -- Garlemald
+					["pos"] = {
+						["x"] = -515.59;
+						["y"] = -190.00;
+						["z"] = -672.60;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "endprofile";
+				};
+
+
+
+
+			};
+		};
+	};
+}
+return obj1
