@@ -1,0 +1,1604 @@
+-- Persistent Data
+local multiRefObjects = {
+
+} -- multiRefObjects
+local obj1 = {
+	["names"] = {
+		["en"] = "(Hatter) All Combat Class Unlocks v0.72";
+		["de"] = "(Hatter) All Combat Class Unlocks v0.72";
+		["fr"] = "(Hatter) All Combat Class Unlocks v0.72";
+		["jp"] = "(Hatter) All Combat Class Unlocks v0.72";
+		["cn"] = "(Hatter) All Combat Class Unlocks v0.72";
+		["kr"] = "(Hatter) All Combat Class Unlocks v0.72";
+	};
+	["vars"] = {
+		[1] = {
+			["default"] = true;
+			["type"] = "checkbox";
+			["var"] = "unlockEverything";
+			["tab"] = "Super";
+			["display"] = "Unlocks <EVERYTHING>";
+			["tooltip"] = "Unlocks all that character have access to.";
+		};
+		[2] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockAllTanks";
+			["tab"] = "Super";
+			["display"] = "Unlocks all <Tanks>";
+			["tooltip"] = "Unlocks all that character have access to.";
+		};
+		[3] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockAllHealers";
+			["tab"] = "Super";
+			["display"] = "Unlocks all <Healers>";
+			["tooltip"] = "Unlocks all that character have access to.";
+		};
+		[4] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockAllPhysicalMelee";
+			["tab"] = "Super";
+			["display"] = "Unlocks all <Melee DPS>";
+			["tooltip"] = "Unlocks all that character have access to.";
+		};
+		[5] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockAllPhysicalRange";
+			["tab"] = "Super";
+			["display"] = "Unlocks all <Physical Ranged DPS>";
+			["tooltip"] = "Unlocks all that character have access to.";
+		};
+		[6] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockAllMagicalRange";
+			["tab"] = "Super";
+			["display"] = "Unlocks all <Magical Ranged DPS>";
+			["tooltip"] = "Unlocks all that character have access to.";
+		};
+		[7] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockGLD";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Gladiator>";
+			--["tooltip"] = "";
+		};
+		[8] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockMRD";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Marauder>";
+			--["tooltip"] = "";
+		};
+		[9] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockDRK";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Dark Knight>";
+			["tooltip"] = "Requires Level 50 on current class & Foundation Aetheryte Attuned.";
+		};
+		[10] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockGNB";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Gunbreaker>";
+			["tooltip"] = "Requires Level 60 on current class.";
+		};
+		[11] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockCNJ";
+			["tab"] = "DoM";
+			["display"] = "Unlocks <Conjurer>";
+			--["tooltip"] = "";
+		};
+		[12] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockACN";
+			["tab"] = "DoM";
+			["display"] = "Unlocks <Arcanist>";
+			--["tooltip"] = "";
+		};
+		[13] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockAST";
+			["tab"] = "DoM";
+			["display"] = "Unlocks <Astrologian>";
+			["tooltip"] = "Requires Level 50 on current class & Foundation Aetheryte Attuned.";
+		};
+		[14] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockSGE";
+			["tab"] = "DoM";
+			["display"] = "Unlocks <Sage>";
+			["tooltip"] = "Requires Level 70 on current class.";
+		};
+		[15] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockPGL";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Pugilist>";
+			--["tooltip"] = "";
+		};
+		[16] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockLNC";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Lancer>";
+			--["tooltip"] = "";
+		};
+		[17] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockROG";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Rogue>";
+			--["tooltip"] = "";
+		};
+		[18] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockSAM";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Samurai>";
+			["tooltip"] = "Requires Level 50 on current class.";
+		};
+		[19] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockRPR";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Reaper>";
+			["tooltip"] = "Requires Level 70 on current class.";
+		};
+		[20] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockARC";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Archer>";
+			--["tooltip"] = "";
+		};
+		[21] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockMCH";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Machinist>";
+			["tooltip"] = "Requires Level 50 on current class & Foundation Aetheryte Attuned.";
+		};
+		[22] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockDNC";
+			["tab"] = "DoW";
+			["display"] = "Unlocks <Dancer>";
+			["tooltip"] = "Requires Level 60 on current class.";
+		};
+		[23] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockTHM";
+			["tab"] = "DoM";
+			["display"] = "Unlocks <Thaumaturge>.";
+			--["tooltip"] = "";
+		};
+		[24] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockRMD";
+			["tab"] = "DoM";
+			["display"] = "Unlocks <Red Mage>";
+			["tooltip"] = "Requires Level 50 on current class.";
+		};
+		[25] = {
+			["default"] = false;
+			["type"] = "checkbox";
+			["var"] = "unlockBLU";
+			["tab"] = "DoM";
+			["display"] = "Unlocks <Blue Mage>";
+			["tooltip"] = "Requires completion of quest lvl.50 <The Ultimate Weapon>";
+		};
+		[30] = {
+			["default"] = true;
+			["type"] = "checkbox";
+			["var"] = "HatterNavigation";
+			["tab"] = "Navigation";
+			["display"] = "Will improve some navigation for this Quest Profile.";
+			--["tooltip"] = "";
+		};
+		[35] = {
+			["default"] = true;
+			["type"] = "checkbox";
+			["var"] = "IgnoreBLU";
+			["tab"] = "Super";
+			["display"] = "Will Ignore Blue Mage Quest, cause Dev July don't know <The Ultimate Weapon> Quest ID";
+			--["tooltip"] = "";
+		};
+	};
+	["misc"] = {
+		[1] = {
+			["condition"] = {
+				["QuestCompleted(9999)"] = true;
+			};
+			["notes"] = {
+				[1] = "Done";
+			};
+			["type"] = "endprofile";
+		};
+	};
+	["quests"] = {
+		[0] = {
+			["level"] = 1;
+			["name"] = "Hatter's Supersede";
+			["prereq"] = {
+			};
+			["steps"] = {
+        [10] = {
+					["complete"] = {
+						["IsOnMap(131)"] = true;
+						["Player.pos.x >= 133 and Player.pos.x <= 137"] = true;
+						["Player.pos.y >= 2 and Player.pos.y <= 6"] = true;
+						["Player.pos.z >= -31 and Player.pos.z <= -27"] = true;
+					};
+          ["condition"] = {
+            ["Player.level >= 50"] = true;
+            ["HatterNavigation"] = true;
+            ["QuestCompleted(2576) == false and HasQuest(2576) == false"] = true;
+          };
+          ["index"] = 0;
+          ["mapid"] = 131; -- Ul'dah - Steps of Thal
+					["pos"] = {
+						["x"] = 135.17;
+						["y"] = 4.00;
+						["z"] = -29.64;
+					};
+          ["prioritize"] = true;
+          ["type"] = "nav";
+        };
+			};
+		};
+		[285] = {
+			["level"] = 10;
+			["name"] = "Way of the Gladiator";
+			["prereq"] = {
+        ["unlockEverything or unlockAllTanks or unlockGLD"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockGLD"] = true;
+          };
+					["id"] = 1002277; -- Lulutsu
+					["mapid"] = 131; -- Ul'dah - Steps of Thal
+					["pos"] = {
+						["x"] = -97.55;
+						["y"] = 7.05;
+						["z"] = 23.61;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockGLD"] = true;
+          };
+					["id"] = 1001739; -- Mylla
+					["mapid"] = 131; -- Ul'dah - Steps of Thal
+					["pos"] = {
+						["x"] = -94.53;
+						["y"] = 6.50;
+						["z"] = 39.81;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[344] = {
+			["level"] = 10;
+			["name"] = "Way of the Thaumaturge";
+			["prereq"] = {
+        ["unlockEverything or unlockAllMagicalRange or unlockTHM"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockTHM"] = true;
+          };
+					["id"] = 1002279; -- Yayake
+					["mapid"] = 130; -- Ul'dah - Steps of Nald
+					["pos"] = {
+						["x"] = -196.89;
+						["y"] = 18.46;
+						["z"] = 59.95;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockTHM"] = true;
+          };
+					["id"] = 1001709; -- Cocobygo
+					["mapid"] = 130; -- Ul'dah - Steps of Nald 
+					["pos"] = {
+						["x"] = -240.50;
+						["y"] = 18.70;
+						["z"] = 85.59;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[532] = {
+			["level"] = 10;
+			["name"] = "Way of the Pugilist";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalMelee or unlockPGL"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockPGL"] = true;
+          };
+					["id"] = 1001286; -- Gagaruna
+					["mapid"] = 130; -- Ul'dah - Steps of Nald
+					["pos"] = {
+						["x"] = -88.98;
+						["y"] = 2.55;
+						["z"] = -51.16;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockPGL"] = true;
+          };
+					["id"] = 1003817; -- Hamon
+					["mapid"] = 130; -- Ul'dah - Steps of Nald 
+					["pos"] = {
+						["x"] = -74.57;
+						["y"] = 2.00;
+						["z"] = -42.40;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[452] = {
+			["level"] = 10;
+			["name"] = "Way of the Arcanist";
+			["prereq"] = {
+        ["unlockEverything or unlockAllMagicalRange or unlockACN"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockACN"] = true;
+          };
+					["id"] = 1000895; -- Murie
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -335.74;
+						["y"] = 12.90;
+						["z"] = 1.39;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockACN"] = true;
+          };
+					["id"] = 1000909; -- Thubyrgeim
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -326.38;
+						["y"] = 12.90;
+						["z"] = 9.99;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[310] = {
+			["level"] = 10;
+			["name"] = "Way of the Marauder";
+			["prereq"] = {
+        ["unlockEverything or unlockAllTanks or unlockMRD"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockMRD"] = true;
+          };
+					["id"] = 1000926; -- Blauthota
+					["mapid"] = 128; -- Limsa Lominsa Upper Decks
+					["pos"] = {
+						["x"] = -10.06;
+						["y"] = 45.00;
+						["z"] = -245.81;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockMRD"] = true;
+          };
+					["id"] = 1000927; -- Wyrnzoen
+					["mapid"] = 128; -- Limsa Lominsa Upper Decks 
+					["pos"] = {
+						["x"] = -1.21;
+						["y"] = 45.00;
+						["z"] = -255.88;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[102] = {
+			["level"] = 10;
+			["name"] = "My First Daggers";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalMelee or unlockROG"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockROG"] = true;
+          };
+					["id"] = 1009944; -- Lonwoerd
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks 
+					["pos"] = {
+						["x"] = -152.67;
+						["y"] = 2.86;
+						["z"] = 243.18;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockROG"] = true;
+          };
+					["id"] = 1009943; -- Jacke
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -153.37;
+						["y"] = -129.44;
+						["z"] = 265.89;
+					};
+					["type"] = "complete";
+					["nosprint"] = true;
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[133] = {
+			["level"] = 10;
+			["name"] = "Way of the Conjurer";
+			["prereq"] = {
+        ["unlockEverything or unlockAllHealers or unlockCNJ"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockCNJ"] = true;
+          };
+					["id"] = 1000323; -- Madelle
+					["mapid"] = 133; -- Old Gridania
+					["pos"] = {
+						["x"] = -234.03;
+						["y"] = -4.00;
+						["z"] = -11.09;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockCNJ"] = true;
+          };
+					["id"] = 1000692; -- E-Sumi-Yan
+					["mapid"] = 133; -- Old Gridania
+					["pos"] = {
+						["x"] = -258.81;
+						["y"] = -5.77;
+						["z"] = -27.27;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[131] = {
+			["level"] = 10;
+			["name"] = "Way of the Archer";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalRange or unlockARC"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockARC"] = true;
+          };
+					["id"] = 1000197; -- Athelyna
+					["mapid"] = 132; -- New Gridania
+					["pos"] = {
+						["x"] = 201.31;
+						["y"] = -0.00;
+						["z"] = 43.90;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockARC"] = true;
+          };
+					["id"] = 1000200; -- Luciane
+					["mapid"] = 132; -- New Gridania
+					["pos"] = {
+						["x"] = 209.55;
+						["y"] = 1.00;
+						["z"] = 35.02;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[132] = {
+			["level"] = 10;
+			["name"] = "Way of the Lancer";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalMelee or unlockLNC"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockLNC"] = true;
+          };
+					["id"] = 1000251; -- Jillian
+					["mapid"] = 133; -- Old Gridania
+					["pos"] = {
+						["x"] = 147.08;
+						["y"] = 15.50;
+						["z"] = -267.99;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockLNC"] = true;
+          };
+					["id"] = 1000254; -- Ywain
+					["mapid"] = 133; -- Old Gridania
+					["pos"] = {
+						["x"] = 157.70;
+						["y"] = 15.90;
+						["z"] = -270.34;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[2559] = {
+			["level"] = 50;
+			["name"] = "The Way of the Samurai";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalMelee or unlockSAM"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockSAM"] = true;
+          };
+					["id"] = 1021829; -- Ul'dahn Citizen
+					["mapid"] = 130; -- Ul'dah - Steps of Nald
+					["pos"] = {
+						["x"] = -98.44;
+						["y"] = 4.00;
+						["z"] = -105.00;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockSAM"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 1;
+					["id"] = 1021830; -- Silver-tongued Showmaster
+					["mapid"] = 131; -- Ul'dah - Steps of Thal
+					["pos"] = {
+						["x"] = -102.07;
+						["y"] = 6.98;
+						["z"] = 12.01;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockSAM"] = true;
+          };
+					["id"] = 1021834; -- Far Eastern Elder
+					["mapid"] = 131; -- Ul'dah - Steps of Thal
+					["pos"] = {
+						["x"] = -89.28;
+						["y"] = 2.15;
+						["z"] = 59.74;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[2576] = {
+			["level"] = 50;
+			["name"] = "Taking the Red";
+			["prereq"] = {
+        ["unlockEverything or unlockAllMagicalRange or unlockRDM"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockRDM"] = true;
+          };
+					["id"] = 1021425; -- Distraught Lass
+					["mapid"] = 131; -- Ul'dah - Steps of Thal
+					["pos"] = {
+						["x"] = 146.11;
+						["y"] = 4.00;
+						["z"] = 25.22;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockRDM"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1021426; -- Well-dressed Lass
+					["mapid"] = 141; -- Central Thanalan
+					["pos"] = {
+						["x"] = 124.04;
+						["y"] = 5.29;
+						["z"] = 559.66;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockRDM"] = true;
+          };
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1021434; -- Red-garbed Traveler
+					["mapid"] = 141; -- Central Thanalan
+					["pos"] = {
+						["x"] = 125.72;
+						["y"] = 5.29;
+						["z"] = 558.95;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[30] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockRDM"] = true;
+          };
+          ["oncomplete"] = "Player:Teleport(53)";
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1021435; -- Distraught Lass
+					["mapid"] = 131; -- Ul'dah - Steps of Thal
+					["pos"] = {
+						["x"] = 145.74;
+						["y"] = 4.00;
+						["z"] = 25.22;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[40] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockRDM"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 1021438; -- X'rhun Tia
+					["mapid"] = 141; -- Central Thanalan
+					["pos"] = {
+						["x"] = -96.85;
+						["y"] = -11.35;
+						["z"] = -47.32;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[50] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockRDM"] = true;
+          };
+					["id"] = 1021438; -- X'rhun Tia
+					["mapid"] = 141; -- Central Thanalan
+					["pos"] = {
+						["x"] = -96.85;
+						["y"] = -11.35;
+						["z"] = -47.32;
+					};
+					["type"] = "complete";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[3192] = {
+			["level"] = 50;
+			["name"] = "Out of the Blue";
+			["prereq"] = {
+        ["unlockEverything or unlockAllMagicalRange or unlockBLU"] = true;
+        ["IgnoreBLU"] = false;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockBLU"] = true;
+          };
+					["id"] = 1026928; -- Zealous Yellowjacket
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -64.35;
+						["y"] = 18.00;
+						["z"] = -11.03;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockBLU"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1026929; -- Zealous Yellowjacket
+					["mapid"] = 134; -- Middle La Noscea
+					["pos"] = {
+						["x"] = -69.87;
+						["y"] = 43.84;
+						["z"] = -5.66;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockBLU"] = true;
+          };
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1026936; -- Zealous Yellowjacket
+					["mapid"] = 134; -- Middle La Noscea
+					["pos"] = {
+						["x"] = 170.86;
+						["y"] = 62.77;
+						["z"] = 275.26;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[30] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockBLU"] = true;
+          };
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1028430; -- Zealous Yellowjacket
+					["mapid"] = 134; -- Middle La Noscea
+					["pos"] = {
+						["x"] = 156.63;
+						["y"] = 12.13;
+						["z"] = 649.38;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[40] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockBLU"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 1026930; -- Zealous Yellowjacket
+					["mapid"] = 135; -- Lower La Noscea
+					["pos"] = {
+						["x"] = -85.40;
+						["y"] = 2.54;
+						["z"] = 728.54;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[50] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllMagicalRange or unlockBLU"] = true;
+          };
+					["id"] = 1026932; -- Martyn
+					["mapid"] = 135; -- Lower La Noscea
+					["pos"] = {
+						["x"] = -105.91;
+						["y"] = 1.57;
+						["z"] = 750.06;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[2053] = {
+			["level"] = 50;
+			["name"] = "Our End";
+			["prereq"] = {
+        ["unlockEverything or unlockAllTanks or unlockDRK"] = true;
+        ["Player:GetAetheryteList()[70].isattuned"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockDRK"] = true;
+          };
+					["id"] = 1014873; -- Ishgardian Citizen
+					["mapid"] = 419; -- The Pillars
+					["pos"] = {
+						["x"] = 101.58;
+						["y"] = 12.42;
+						["z"] = -117.60;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockDRK"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 1;
+					["id"] = 1014876; -- Punctilious Temple Knight
+					["mapid"] = 418; -- Foundation
+					["pos"] = {
+						["x"] = 5.78;
+						["y"] = -2.08;
+						["z"] = 45.40;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockDRK"] = true;
+          };
+					["id"] = 1014875; -- Fray
+					["mapid"] = 418; -- Foundation
+					["pos"] = {
+						["x"] = 6.91;
+						["y"] = -1.92;
+						["z"] = 47.29;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[2012] = {
+			["level"] = 50;
+			["name"] = "Stairway to the Heavens";
+			["prereq"] = {
+        ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+        ["Player:GetAetheryteList()[70].isattuned"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+					["id"] = 1012222; -- Jannequinard
+					["mapid"] = 419; -- The Pillars
+					["pos"] = {
+						["x"] = 202.38;
+						["y"] = -5.40;
+						["z"] = -58.92;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1012222; -- Jannequinard
+					["mapid"] = 419; -- The Pillars
+					["pos"] = {
+						["x"] = 202.38;
+						["y"] = -5.40;
+						["z"] = -58.92;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[20] = {
+					["complete"] = {
+						["I8AL"] = 1;
+					};
+					["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+						["I8AL"] = 0;
+					};
+					["index"] = 2;
+					["id"] = 1012221; -- Heurriette
+					["mapid"] = 419; -- The Pillars
+					["pos"] = {
+						["x"] = 195.09;
+						["y"] = -5.40;
+						["z"] = -65.66;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[30] = {
+					["complete"] = {
+						["I8AL"] = 2;
+					};
+					["condition"] = {
+						["I8AL"] = 1;
+						["unlockEverything or unlockAllHealers or unlockAST"] = true;
+					};
+					["index"] = 2;
+					["id"] = 1012223; -- Mugueniel
+					["mapid"] = 419; -- The Pillars
+					["pos"] = {
+						["x"] = 188.71;
+						["y"] = -5.40;
+						["z"] = -68.83;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[40] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+						["I8AL"] = 2;
+					};
+					["index"] = 2;
+					["id"] = 1012224; -- Fleuraie
+					["mapid"] = 419; -- The Pillars
+					["pos"] = {
+						["x"] = 175.13;
+						["y"] = -5.43;
+						["z"] = -57.94;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[50] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+					["complete"] = {
+						["step"] = 4;
+					};
+					["index"] = 3;
+					["id"] = 1012222; -- Jannequinard
+					["mapid"] = 419; -- The Pillars
+					["pos"] = {
+						["x"] = 202.38;
+						["y"] = -5.40;
+						["z"] = -58.92;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[60] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+					["complete"] = {
+						["step"] = 5;
+					};
+					["index"] = 4;
+					["id"] = 1014980; -- Jannequinard
+					["mapid"] = 155; -- Coerthas Central Highlands
+					["pos"] = {
+						["x"] = 198.66;
+						["y"] = 293.33;
+						["z"] = 418.57;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[70] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 1014931; -- Quimperain
+					["mapid"] = 153; -- South Shroud
+					["pos"] = {
+						["x"] = 182.97;
+						["y"] = 7.49;
+						["z"] = -46.83;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[80] = {
+					["id"] = 1014925; -- Quimperain
+					["mapid"] = 153; -- South Shroud
+					["pos"] = {
+						["x"] = 184.50;
+						["y"] = 14.12;
+						["z"] = 51.93;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[1696] = {
+			["level"] = 50;
+			["name"] = "Savior of Skysteel";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+        ["Player:GetAetheryteList()[70].isattuned"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+          };
+					["id"] = 1014577; -- Stephanivien
+					["mapid"] = 418; -- Foundation
+					["pos"] = {
+						["x"] = -154.31;
+						["y"] = 17.00;
+						["z"] = -53.36;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1014577; -- Stephanivien
+					["mapid"] = 418; -- Foundation
+					["pos"] = {
+						["x"] = -154.31;
+						["y"] = 17.00;
+						["z"] = -53.36;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+					["conversationindex"] = 2;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+          };
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["id"] = 1014731; -- Stephanivien
+					["mapid"] = 180; -- Outer La Noscea
+					["pos"] = {
+						["x"] = -73.17;
+						["y"] = 64.61;
+						["z"] = -248.10;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[30] = {
+					["condition"] = {
+						["I8AL"] = 0;
+						["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+					};
+					["complete"] = {
+						["I8AL"] = 1;
+					};
+					["index"] = 3;
+					["id"] = 1014733; -- Grinning Private
+					["mapid"] = 180; -- Outer La Noscea
+					["pos"] = {
+						["x"] = -98.44;
+						["y"] = 64.49;
+						["z"] = -215.56;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[40] = {
+					["condition"] = {
+						["I8AL"] = 2;
+						["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+					};
+					["complete"] = {
+						["I8AL"] = 1;
+					};
+					["index"] = 3;
+					["id"] = 1014735; -- Scrutinizing Private
+					["mapid"] = 180; -- Outer La Noscea
+					["pos"] = {
+						["x"] = -112.63;
+						["y"] = 64.39;
+						["z"] = -200.12;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[50] = {
+					["condition"] = {
+						["step"] = 4;
+						["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+					};
+					["complete"] = {
+						["I8AL"] = 2;
+					};
+					["index"] = 3;
+					["id"] = 1014734; -- Scowling Private
+					["mapid"] = 180; -- Outer La Noscea
+					["pos"] = {
+						["x"] = -147.81;
+						["y"] = 64.38;
+						["z"] = -220.57;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[60] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 4;
+					["id"] = 1014731; -- Stephanivien
+					["mapid"] = 180; -- Outer La Noscea
+					["pos"] = {
+						["x"] = -73.17;
+						["y"] = 64.61;
+						["z"] = -248.10;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[70] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
+          };
+					["id"] = 1014736; -- Stephanivien
+					["mapid"] = 180; -- Outer La Noscea
+					["pos"] = {
+						["x"] = -99.26;
+						["y"] = 62.38;
+						["z"] = -182.79;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[3249] = {
+			["level"] = 60;
+			["name"] = "Shall We Dance";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalRange or unlockDNC"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockDNC"] = true;
+          };
+					["id"] = 1028721; -- Eager Lominsan
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -70.54;
+						["y"] = 20.00;
+						["z"] = 42.16;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[5] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockDNC"] = true;
+          };
+					["index"] = 1;
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks 
+					["pos"] = {
+						["x"] = -82.63;
+						["y"] = 18.59;
+						["z"] = 104.72;
+					};
+					["type"] = "nav";
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockDNC"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 1028723; -- Ranaa Mihgo
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -112.14;
+						["y"] = 6.00;
+						["z"] = 189.68;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockDNC"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 2;
+					["id"] = 2009763; -- Destination
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -112.02;
+						["y"] = 6.03;
+						["z"] = 184.86;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[30] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalRange or unlockDNC"] = true;
+          };
+					["id"] = 1028724; -- Nashmeira
+					["mapid"] = 129; -- Limsa Lominsa Lower Decks
+					["pos"] = {
+						["x"] = -104.33;
+						["y"] = 6.00;
+						["z"] = 195.94;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[3261] = {
+			["level"] = 60;
+			["name"] = "The Makings of a Gunbreaker";
+			["prereq"] = {
+        ["unlockEverything or unlockAllTanks or unlockGNB"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockGNB"] = true;
+          };
+					["id"] = 1029028; -- Gods' Quiver Bow
+					["mapid"] = 132; -- New Gridania
+					["pos"] = {
+						["x"] = 15.67;
+						["y"] = -1.59;
+						["z"] = 37.70;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[10] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockGNB"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["index"] = 1;
+					["id"] = 2010237; -- Destination
+					["mapid"] = 152; -- East Shroud
+					["pos"] = {
+						["x"] = -244.16;
+						["y"] = 5.94;
+						["z"] = 80.03;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[20] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockGNB"] = true;
+          };
+					["complete"] = {
+						["step"] = 3;
+					};
+					["index"] = 2;
+					["mapid"] = 152; -- East Shroud
+					["pos"] = {
+						["x"] = -217.99;
+						["y"] = 11.77;
+						["z"] = 17.91;
+					};
+					["type"] = "nav";
+					["killaggro"] = true;
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[30] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockGNB"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 3;
+					["id"] = 1029029; -- Weary Swordsman
+					["mapid"] = 152; -- East Shroud 
+					["pos"] = {
+						["x"] = -214.65;
+						["y"] = 11.98;
+						["z"] = 25.41;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[40] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllTanks or unlockGNB"] = true;
+          };
+					["id"] = 1029033; -- Radovan
+					["mapid"] = 152; -- East Shroud 
+					["pos"] = {
+						["x"] = -214.68;
+						["y"] = 11.97;
+						["z"] = 25.19;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4067] = {
+			["level"] = 70;
+			["name"] = "Sage's Path";
+			["prereq"] = {
+        ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+					["id"] = 1039243; -- Sharlayan Maiden
+					["mapid"] = 129;
+					["pos"] = {
+						["x"] = -90.29;
+						["y"] = 20.00;
+						["z"] = 85.56;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+					["complete"] = {
+						["step"] = 255;
+					};
+					["id"] = 1039265; -- Lalah Jinjahl
+					["index"] = 1;
+					["mapid"] = 134;
+					["pos"] = {
+						["x"] = -27.54;
+						["y"] = 42.60;
+						["z"] = 163.74;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+          };
+          ["delay"] = 0;
+					["id"] = 1039265; -- Lalah Jinjahl
+					["mapid"] = 134;
+					["pos"] = {
+						["x"] = -27.54;
+						["y"] = 42.60;
+						["z"] = 163.74;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[4073] = {
+			["level"] = 70;
+			["name"] = "The Killer Instinct";
+			["prereq"] = {
+        ["unlockEverything or unlockAllPhysicalMelee or unlockRPR"] = true;
+			};
+			["steps"] = {
+				[1] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockRPR"] = true;
+          };
+					["id"] = 1036633; -- Flustered Attendant
+					["mapid"] = 130;
+					["pos"] = {
+						["x"] = 82.87;
+						["y"] = 4.10;
+						["z"] = -131.30;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+          ["condition"] = {
+            ["unlockEverything or unlockAllPhysicalMelee or unlockRPR"] = true;
+          };
+					["complete"] = {
+						["step"] = 2;
+					};
+					["id"] = 1036634; -- Jijilyo
+					["index"] = 1;
+					["mapid"] = 131;
+					["pos"] = {
+						["x"] = 134.05;
+						["y"] = 4.00;
+						["z"] = 11.43;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["IsOnMap(971)"] = true;
+					};
+					["condition"] = {
+						["IsOnMap(971)"] = false;
+						["unlockEverything or unlockAllPhysicalMelee or unlockRPR"] = true;
+					};
+					["id"] = 1036632; -- Loyal Lemure
+					["index"] = 2;
+					["mapid"] = 131;
+					["pos"] = {
+						["x"] = 115.10;
+						["y"] = 8.00;
+						["z"] = 15.40;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+          ["delay"] = 3;
+					["condition"] = {
+						["IsOnMap(971)"] = true;
+						["step"] = 255;
+						["unlockEverything or unlockAllPhysicalMelee or unlockRPR"] = true;
+					};
+					["id"] = 1037014; -- Drusilla
+					["mapid"] = 971;
+					["pos"] = {
+						["x"] = 0.90;
+						["y"] = 0.01;
+						["z"] = -4.38;
+					};
+					["type"] = "complete";
+					["conversationindex"] = 1;
+					["interactrange"] = 2;
+					["itemreward"] = true;
+				};
+			};
+		};
+	};
+}
+return obj1
