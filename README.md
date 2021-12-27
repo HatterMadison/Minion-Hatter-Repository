@@ -32,9 +32,9 @@
 
 Text 2
 
-### Extracting and reintegrating scripts
+### TextText
 
-This repo contains two script files in the main folder:
+Text
 
 * ex1
   * ex2
