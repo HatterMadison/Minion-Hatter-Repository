@@ -25,7 +25,7 @@
   * (Except for 1 in Labyrinthos, still deciding where on route Quest Profile should, I'm expecting it's later, not yet.
 
 * There are currently 5 times the bot will stop for user to complete Duty/Dungeons.
-  * [1] Snipe **<Big Green Bird>**
+  * [1] Snipe **Big Green Bird**
   * [2-5] **Solo Duties & Dungeons**
 
 ## Info 2
