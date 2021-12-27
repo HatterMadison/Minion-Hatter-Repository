@@ -1,0 +1,717 @@
+-- Persistent Data
+local multiRefObjects = {
+
+} -- multiRefObjects
+local obj1 = {
+	["names"] = {
+		["en"] = "(H) J ShB DPS Class Quests 70-80";
+		["de"] = "(H) J ShB DPS Class Quests 70-80";
+		["fr"] = "(H) J ShB DPS Class Quests 70-80";
+		["jp"] = "(H) J ShB DPS Class Quests 70-80";
+		["cn"] = "(H) J ShB DPS Class Quests 70-80";
+		["kr"] = "(H) J ShB DPS Class Quests 70-80";
+	};
+	["misc"] = {
+		[1] = {
+			["condition"] = {
+				["QuestCompleted(3278)"] = true;
+			};
+			["notes"] = {
+				[1] = "Renda-Rae soul has been freed.";
+				[2] = "";
+				[3] = "                Profile's End"; 
+			};
+			["type"] = "endprofile";
+		};
+	};
+	["quests"] = {
+		[3273] = {
+			["level"] = 70;
+			["name"] = "No Greater Sport";
+			["prereq"] = {
+				["Player.level >= 70"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1030126; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["id"] = 1030127; -- Lue-Reeq
+					["index"] = 1;
+					["mapid"] = 813;
+					["pos"] = {
+						["x"] = 200.12;
+						["y"] = -0.39;
+						["z"] = 389.46;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["id"] = 2010396; -- Destination
+					["index"] = 2;
+					["mapid"] = 813;
+					["pos"] = {
+						["x"] = 195.48;
+						["y"] = -0.75;
+						["z"] = 370.93;
+					};
+					["type"] = "useitem";
+					["dismountdistance"] = math.random(10,14);
+					["itemid"] = 2002718;
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["id"] = 2010397; -- Destination Kill
+					["index"] = 3;
+					["mapid"] = 813;
+					["pos"] = {
+						["x"] = 203.91;
+						["y"] = -0.53;
+						["z"] = 389.82;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["killaggro"] = true;
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["id"] = 1031013; -- Lue-Reeq
+					["index"] = 4;
+					["mapid"] = 813;
+					["pos"] = {
+						["x"] = 200.09;
+						["y"] = -0.39;
+						["z"] = 389.46;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["condition"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030964; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[3274] = {
+			["level"] = 72;
+			["name"] = "Vengeance in Defeat";
+			["prereq"] = {
+				["Player.level >= 72"] = true;
+				["QuestCompleted(3273)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1030964; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["id"] = 1030130; -- Lue-Reeq
+					["index"] = 1;
+					["mapid"] = 815;
+					["pos"] = {
+						["x"] = 469.08;
+						["y"] = -32.78;
+						["z"] = -288.44;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["id"] = 2010399; -- Destination
+					["index"] = 2;
+					["mapid"] = 815;
+					["pos"] = {
+						["x"] = 613.40;
+						["y"] = -33.59;
+						["z"] = -180.96;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["id"] = 2010400; -- Destination Kill
+					["index"] = 3;
+					["mapid"] = 815;
+					["pos"] = {
+						["x"] = 536.92;
+						["y"] = -33.74;
+						["z"] = 38.83;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["killaggro"] = true;
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["id"] = 2010401; -- Destination
+					["index"] = 4;
+					["mapid"] = 815;
+					["pos"] = {
+						["x"] = 469.08;
+						["y"] = -32.79;
+						["z"] = -288.44;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[6] = {
+          ["delay"] = 0;
+					["condition"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030964; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[3275] = {
+			["level"] = 74;
+			["name"] = "Freedom from Privilege";
+			["prereq"] = {
+				["Player.level >= 74"] = true;
+				["QuestCompleted(3274)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1030964; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["id"] = 1030135; -- Lue-Reeq
+					["index"] = 1;
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = -251.42;
+						["y"] = 22.20;
+						["z"] = 325.80;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["id"] = 2010402; -- Destination
+					["index"] = 2;
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = -550.77;
+						["y"] = 29.16;
+						["z"] = 363.49;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["step"] = 4;
+					};
+					["id"] = 2010403; -- Destination
+					["index"] = 3;
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = -550.99;
+						["y"] = 41.34;
+						["z"] = 252.25;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 5;
+					};
+					["id"] = 1030136; -- Lue-Reeq
+					["index"] = 4;
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = -192.58;
+						["y"] = 26.77;
+						["z"] = 248.46;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030140; -- Lue-Reeq
+					["index"] = 5;
+					["mapid"] = 820;
+					["pos"] = {
+						["x"] = 67.64;
+						["y"] = 82.00;
+						["z"] = -53.33;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[7] = {
+          ["delay"] = 0;
+					["condition"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030964; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "complete";
+					["conversationindex"] = 1;
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[3276] = {
+			["level"] = 76;
+			["name"] = "The Hunter's Legacy";
+			["prereq"] = {
+				["Player.level >= 76"] = true;
+				["QuestCompleted(3275)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1030964; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["id"] = 1030144; -- Lue-Reeq
+					["index"] = 1;
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = 94.68;
+						["y"] = 37.38;
+						["z"] = 611.11;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["condition"] = {
+						["step"] = 2;
+					};
+					["index"] = 2;
+					["notes"] = {
+						[1] = "Manual Task: Complete Solo Duty for quest -The Hunter's Legacy- to continue.";
+						[2] = "";
+						[3] = "     Info 1: Use -Dulling Arrow- to cancel -Preternatural Roar-";
+					};
+					["mapid"] = 817;
+					["pos"] = {
+						["x"] = -190.14;
+						["y"] = 12.75;
+						["z"] = 591.67;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "endprofile";
+				};
+--				[3] = {
+--					["complete"] = {
+--						["IsOnMap(875)"] = true;
+--					};
+--					["id"] = 1030146; -- Lue-Reeq
+--					["index"] = 2;
+--					["mapid"] = 817;
+--					["pos"] = {
+--						["x"] = -190.14;
+--						["y"] = 12.75;
+--						["z"] = 591.67;
+--					};
+--					["type"] = "interact";
+--					["dismountdistance"] = math.random(10,14);
+--					["interactrange"] = 3;
+--				};
+--				[4] = {
+--					["complete"] = {
+--						["step"] = 255;
+--					};
+--					["condition"] = {
+--						["IsOnMap(875)"] = true;
+--					};
+--					["ids"] = "8397";
+--					["index"] = 2;
+--					["mapid"] = 875;
+--					["pos"] = {
+--						["x"] = -247.71;
+--						["y"] = 10.57;
+--						["z"] = 703.92;
+--					};
+--					["type"] = "dutykill";
+--				};
+				[4] = {
+          ["delay"] = 0;
+					["condition"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030144; -- Lue-Reeq
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = 94.68;
+						["y"] = 37.38;
+						["z"] = 611.11;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = false;
+				};
+			};
+		};
+		[3277] = {
+			["level"] = 78;
+			["name"] = "Fellowship Restored";
+			["prereq"] = {
+				["Player.level >= 78"] = true;
+				["QuestCompleted(3276)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1030145; -- Olvara
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = 93.46;
+						["y"] = 37.44;
+						["z"] = 611.51;
+					};
+					["type"] = "start";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["id"] = 2010405; -- Destination
+					["index"] = 1;
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -33.71;
+						["y"] = 3.98;
+						["z"] = 205.71;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["I8AH"] = 1;
+					};
+					["condition"] = {
+						["I8AH"] = 0;
+					};
+					["id"] = 1027238; -- Mei-Tatch
+					["index"] = 2;
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -15.49;
+						["y"] = 4.00;
+						["z"] = 215.38;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["complete"] = {
+						["I8AH"] = 2;
+					};
+					["condition"] = {
+						["I8AH"] = 1;
+					};
+					["id"] = 1030147; -- Well-traveled Mage
+					["index"] = 2;
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = 0.60;
+						["y"] = 4.00;
+						["z"] = 209.28;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[5] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["condition"] = {
+						["I8AH"] = 2;
+					};
+					["id"] = 1027323; -- Darlfort
+					["index"] = 2;
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -42.89;
+						["y"] = 4.00;
+						["z"] = 242.08;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030148; -- Lue-Reeq
+					["index"] = 3;
+					["mapid"] = 817;
+					["pos"] = {
+						["x"] = -246.57;
+						["y"] = 10.15;
+						["z"] = 678.22;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+				[7] = {
+          ["delay"] = 0;
+					["condition"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030145; -- Olvara
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = 93.46;
+						["y"] = 37.44;
+						["z"] = 611.51;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "complete";
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+		[3278] = {
+			["level"] = 80;
+			["name"] = "Courage Born of Fear";
+			["prereq"] = {
+				["Player.level >= 80"] = true;
+				["QuestCompleted(3277)"] = true;
+			};
+			["steps"] = {
+				[1] = {
+					["id"] = 1030144; -- Lue-Reeq
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = 94.68;
+						["y"] = 37.38;
+						["z"] = 611.11;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "start";
+					["interactrange"] = 3;
+				};
+				[2] = {
+					["complete"] = {
+						["step"] = 2;
+					};
+					["id"] = 1027253; -- Loythe
+					["index"] = 1;
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = 17.50;
+						["y"] = 20.00;
+						["z"] = -190.42;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[3] = {
+					["complete"] = {
+						["step"] = 3;
+					};
+					["id"] = 2010406; -- Destination
+					["index"] = 2;
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -17.01;
+						["y"] = 4.47;
+						["z"] = 234.97;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[4] = {
+					["condition"] = {
+						["step"] = 3;
+					};
+					["index"] = 3;
+					["notes"] = {
+						[1] = "Manual Task: Complete Solo Duty for quest -Courage Born of Fear- to continue.";
+						[2] = "";
+						[3] = "     Info 1: Eliminate Enemies.";
+					};
+					["mapid"] = 817;
+					["pos"] = {
+						["x"] = -246.57;
+						["y"] = 10.15;
+						["z"] = 678.22;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "endprofile";
+				};
+--				[4] = {
+--					["complete"] = {
+--						["IsOnMap(871)"] = true;
+--					};
+--					["id"] = 1030990; -- Lue-Reeq
+--					["index"] = 3;
+--					["mapid"] = 817;
+--					["pos"] = {
+--						["x"] = -246.57;
+--						["y"] = 10.15;
+--						["z"] = 678.22;
+--					};
+--					["type"] = "interact";
+--					["dismountdistance"] = math.random(10,14);
+--					["interactrange"] = 3;
+--				};
+--				[5] = {
+--					["complete"] = {
+--						["step"] = 5;
+--					};
+--					["condition"] = {
+--						["IsOnMap(871)"] = true;
+--					};
+--					["ids"] = "8783,8784,8782,8785,8781"; -- in elimination order
+--					["index"] = 3;
+--					["mapid"] = 871;
+--					["pos"] = {
+--						["x"] = -245.01;
+--						["y"] = 10.26;
+--						["z"] = 686.95;
+--					};
+--					["type"] = "dutykill";
+--				};
+				[5] = {
+					["complete"] = {
+						["step"] = 255;
+					};
+					["index"] = 5;
+					["id"] = 1030145; -- Olvara
+					["mapid"] = 814;
+					["pos"] = {
+						["x"] = 93.46;
+						["y"] = 37.44;
+						["z"] = 611.51;
+					};
+					["dismountdistance"] = math.random(10,14);
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+				[6] = {
+          ["delay"] = 0;
+					["condition"] = {
+						["step"] = 255;
+					};
+					["id"] = 1030964; -- Lue-Reeq
+					["mapid"] = 819;
+					["pos"] = {
+						["x"] = -18.14;
+						["y"] = 4.00;
+						["z"] = 235.40;
+					};
+					["type"] = "complete";
+					["conversationindex"] = 1;
+					["interactrange"] = 3;
+					["itemreward"] = true;
+				};
+			};
+		};
+  };
+};
+return obj1
