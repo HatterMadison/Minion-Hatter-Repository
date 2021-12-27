@@ -15,7 +15,7 @@
   * This profile **Will collect Aether Currents and Mini-Aetheryte** when optimally on route for this specific Quest Profile route.
   * Within 'Quest Mode' -> 'Settings'  **Disable 'Gather Aether Current'** to allow this Quest Profile to do what it does.
 
-  * **Better 'follow' quests parameters, Quest Profile will not reattempt failed 'follow' objectives.**
+  * **Better 'follow' quests parameters, Quest Profile will now reattempt failed 'follow' objectives.**
   * Bot will no longer tries to complete objective unless proper NPC is following.
 
 * **Do not leave bot unattended while using this Quest Profile**
