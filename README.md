@@ -1,11 +1,11 @@
 # Basic How-To
 
-__Where do I put X file?__
+* Where do I put X file?__
 Quest Profiles =  C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles
 
 ACR Profiles = C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ACR\CombatRoutines
 
-__How do I change ACR profile I'm using?__
+* How do I change ACR profile I'm using?__
 MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile
 
 
