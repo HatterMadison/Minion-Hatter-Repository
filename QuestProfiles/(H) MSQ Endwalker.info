@@ -7030,7 +7030,7 @@ local obj1 = {
 		};
 		[4392] = {
 			["level"] = 83;
-			["name"] = "“Alea Iacta Est";
+			["name"] = "Â“Alea Iacta Est";
 			["prereq"] = {
 				["QuestCompleted(4391)"] = true;
 			};
