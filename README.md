@@ -8,7 +8,7 @@
   * MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile
 
 
-## Quest Profile Info: (H) MSQ Endwalker v0.41
+## Quest Profile Info: (H) MSQ Endwalker v0.81
 * What's new compared to previous version?
   * **Specialize Optimal Routing for Aether Currents & Mini-Aetheryte.**
 
@@ -21,12 +21,10 @@
 * **Do not leave bot unattended while using this Quest Profile**
   * It has been tested few times throughly, confident is high, but, this is public resource. So no promises.
 
-* **Complete EW MSQ up to level 83 Dungeons, Completes all unlocked Aether Current Quests** up to that point.
+* **Complete EW MSQ up to level 87 Dungeons, Completes all unlocked Aether Current Quests** up to that point.
   * (Except for 1 in Labyrinthos, still deciding where on route Quest Profile should, I'm expecting it's later, not yet.
 
-* There are currently 5 times the bot will stop for user to complete Duty/Dungeons.
-  * [1] Snipe **Big Green Bird**
-  * [2-5] **Solo Duties & Dungeons**
+* **Does not do Duties nor Snipes** Maybe after I finish profile.
 
 ## Info 2
 
