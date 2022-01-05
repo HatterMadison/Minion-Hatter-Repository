@@ -4,7 +4,7 @@
   * Quest Profiles =  **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles**
   * ACR Profiles = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ACR\CombatRoutines**
 
-* How do I change ACR profile I'm using?
+* How to change ACR profile?
   * **MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile**
 
 
