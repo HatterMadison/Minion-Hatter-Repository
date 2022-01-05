@@ -17,6 +17,8 @@
 * It does **1 Duty** now, <**As the Heaven Burns**>
   * I just realize I have no more character to take through EW. If I happen to get another character there, I'll complete the rest. (Except for Garlemald crawly crawly part, I'll just reach the battle circle of that duty)
 
+* It still doesn't do snipes yet. I don't wanna talk about it. :')
+
 * I gave up on Aether Current for now, the data is there, but it's just occasionally buggy due to way I implemented it outside of Quests. Will figure it out another time, I suggest just using QuestCore default or etc. AC Profile option is off by default now.
 
 
