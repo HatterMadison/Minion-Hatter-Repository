@@ -8,23 +8,19 @@
   * MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile
 
 
-## Quest Profile Info: (H) MSQ Endwalker v0.81
-* What's new compared to previous version?
-  * **Specialize Optimal Routing for Aether Currents & Mini-Aetheryte.**
+## Quest Profile Info: (H) MSQ Endwalker FINISHED
+* >. **Do not leave bot unattended while using this Quest Profile**
+  * That's just disclaimer, this been thoroughly tested. I aim for consistency after all. I always finish secondary test run of the profile before posting update.
 
-  * This profile **Will collect Aether Currents and Mini-Aetheryte** when optimally on route for this specific Quest Profile route.
-  * Within 'Quest Mode' -> 'Settings'  **Disable 'Gather Aether Current'** to allow this Quest Profile to do what it does.
+* >. FINISHED VERSION,    ALL 108 MSQ,   ALL 24 ACQ,  Now Included with +4 Side Quests to unlock 90 Dungeons and etc.
 
-  * **Better 'follow' quests parameters, Quest Profile will now reattempt failed 'follow' objectives.**
-  * Bot will no longer tries to complete objective unless proper NPC is following.
+* >. It does 1 Duty now, <As the Heaven Burns>.
+  * I just realize I have no more character to take through EW. If I happen to get another character there, I'll complete the rest. (Except for Garlemald crawly crawly part, I'll just reach the battle circle of that duty)
 
-* **Do not leave bot unattended while using this Quest Profile**
-  * It has been tested few times throughly, confident is high, but, this is public resource. So no promises.
+* >. I gave up on Aether Current for now, the data is there, but it's just occasionally buggy due to way I implemented it outside of Quests. Will figure it out another time, I suggest just using QuestCore default or etc. AC Profile option is off by default now.
 
-* **Complete EW MSQ up to level 87 Dungeons, Completes all unlocked Aether Current Quests** up to that point.
-  * (Except for 1 in Labyrinthos, still deciding where on route Quest Profile should, I'm expecting it's later, not yet.
 
-* **Does not do Duties nor Snipes** Maybe after I finish profile.
+
 
 ## Info 2
 
