@@ -1,11 +1,11 @@
 # Basic How-To
 
-* Where do I put X file?
-  * Quest Profiles =  C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles
-  * ACR Profiles = C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ACR\CombatRoutines
+* Where should X file go?
+  * Quest Profiles =  **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles**
+  * ACR Profiles = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ACR\CombatRoutines**
 
 * How do I change ACR profile I'm using?
-  * MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile
+  * **MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile**
 
 
 ## Quest Profile Info: (H) MSQ Endwalker FINISHED
