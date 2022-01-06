@@ -1474,7 +1474,7 @@ local obj1 = {
 		};
 		[4067] = {
 			["level"] = 70;
-			["name"] = "Sage's Path";
+			["name"] = "Sages Path";
 			["prereq"] = {
         ["unlockEverything or unlockAllHealers or unlockSGE"] = true;
         ["Player.levels[FFXIV.JOBS.SAGE] >= 1"] = false;
@@ -1482,7 +1482,7 @@ local obj1 = {
 			["steps"] = {
 				[1] = {
           ["condition"] = {
-            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+            ["unlockEverything or unlockAllHealers or unlockSGE"] = true;
           };
 					["id"] = 1039243; -- Sharlayan Maiden
 					["mapid"] = 129;
@@ -1496,7 +1496,7 @@ local obj1 = {
 				};
 				[2] = {
           ["condition"] = {
-            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+            ["unlockEverything or unlockAllHealers or unlockSGE"] = true;
           };
 					["complete"] = {
 						["step"] = 255;
@@ -1514,7 +1514,7 @@ local obj1 = {
 				};
 				[3] = {
           ["condition"] = {
-            ["unlockEverything or unlockAllHealers or unlockAST"] = true;
+            ["unlockEverything or unlockAllHealers or unlockSGE"] = true;
           };
           ["delay"] = 0;
 					["id"] = 1039265; -- Lalah Jinjahl
