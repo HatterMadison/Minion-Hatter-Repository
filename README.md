@@ -1,3 +1,6 @@
+ChangeLog:
+EW MSQ: Fixed Following NPC being lost due to Aethernet Usage
+
 # Basic How-To
 
 * Where should X file go?
