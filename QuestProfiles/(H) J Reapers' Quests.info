@@ -13,11 +13,11 @@ local obj1 = {
 	};
 	["vars"] = {
 		[1] = {
-			["default"] = true;
+			["default"] = false;
 			["type"] = "checkbox";
 			["var"] = "HatterNavigation";
 			["tab"] = "Nav. Option";
-			["display"] = "Hatter's Navigation Helper";
+			["display"] = "Dont turn this on, this is relic.   Hatter's Navigation Helper";
 			["tooltip"] = "This will improve navigation for this specific profile.\nNote: Try Disabling this option if profile navigation isn't working as intended.";
 		};
 	};

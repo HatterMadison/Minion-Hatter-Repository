@@ -213,11 +213,11 @@ local obj1 = {
 			["tooltip"] = "Requires completion of quest lvl.50 <The Ultimate Weapon>";
 		};
 		[30] = {
-			["default"] = true;
+			["default"] = false;
 			["type"] = "checkbox";
 			["var"] = "HatterNavigation";
 			["tab"] = "Navigation";
-			["display"] = "Will improve some navigation for this Quest Profile.";
+			["display"] = "Dont turn this on, this is relic. Will improve some navigation for this Quest Profile.";
 			--["tooltip"] = "";
 		};
 	};
