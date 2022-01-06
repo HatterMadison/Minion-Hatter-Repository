@@ -1476,8 +1476,8 @@ local obj1 = {
 			["level"] = 70;
 			["name"] = "Sage's Path";
 			["prereq"] = {
-        ["unlockEverything or unlockAllHealers or unlockAST"] = true;
-        ["Player.levels[FFXIV.JOBS.ASTROLOGIAN] >= 1"] = false;
+        ["unlockEverything or unlockAllHealers or unlockSGE"] = true;
+        ["Player.levels[FFXIV.JOBS.SAGE] >= 1"] = false;
 			};
 			["steps"] = {
 				[1] = {
