@@ -399,6 +399,7 @@ local obj1 = {
         };
         [20956004] = {
           ["condition"] = {
+						["HasBuffs(Player, 565)"] = false;
             ["Player:GetAetherCurrentsList()[956].status[11]"] = false;
             ["CollectAetherCurrents"] = true;
             ["GetQuestInfo(4365,'step') >= 1 or QuestCompleted(4365)"] = true;
@@ -4324,6 +4325,7 @@ local obj1 = {
 						["y"] = -15.127000808716;
 						["z"] = 130.84838867188;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "nav";
 				};
@@ -4342,6 +4344,7 @@ local obj1 = {
 						["y"] = -15.127000808716;
 						["z"] = 130.84838867188;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "interact";
 					["interactrange"] = 3;
@@ -4369,6 +4372,7 @@ local obj1 = {
 						["y"] = 3.2249958515167;
 						["z"] = 9.1337652206421;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "nav";
 				};
@@ -4387,6 +4391,7 @@ local obj1 = {
 						["y"] = 3.2249958515167;
 						["z"] = 9.1337652206421;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "interact";
 					["interactrange"] = 3;
@@ -4414,6 +4419,7 @@ local obj1 = {
 						["y"] = 5.0999994277954;
 						["z"] = -63.005683898926;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "nav";
 				};
@@ -4432,6 +4438,7 @@ local obj1 = {
 						["y"] = 5.0999994277954;
 						["z"] = -63.005683898926;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "interact";
 					["interactrange"] = 3;
@@ -4459,6 +4466,7 @@ local obj1 = {
 						["y"] = 41.375991821289;
 						["z"] = -142.569778;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "nav";
 				};
@@ -4477,6 +4485,7 @@ local obj1 = {
 						["y"] = 41.375991821289;
 						["z"] = -142.569778;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "interact";
 					["interactrange"] = 3;
@@ -4504,6 +4513,7 @@ local obj1 = {
 						["y"] = 18.784902572632;
 						["z"] = -142.20172119141;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "nav";
 				};
@@ -4522,6 +4532,7 @@ local obj1 = {
 						["y"] = 18.784902572632;
 						["z"] = -142.20172119141;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "interact";
 					["interactrange"] = 3;
@@ -4549,6 +4560,7 @@ local obj1 = {
 						["y"] = 1.047868013382;
 						["z"] = 30.00520324707;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "nav";
 				};
@@ -5032,6 +5044,7 @@ local obj1 = {
 						["y"] = 13.438918113708;
 						["z"] = -49.038429260254;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["nosprint"] = true;
 					["type"] = "nav"; -- Alpha
@@ -5053,6 +5066,7 @@ local obj1 = {
 						["y"] = 21.879825592041;
 						["z"] = -144.23445129395;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["nosprint"] = true;
 					["type"] = "nav"; -- Alpha Bravo
@@ -5074,6 +5088,7 @@ local obj1 = {
 						["y"] = 24.940572738647;
 						["z"] = -139.29344177246;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["nosprint"] = true;
 					["type"] = "nav"; -- Bravo
@@ -5095,6 +5110,7 @@ local obj1 = {
 						["y"] = 41.375991821289;
 						["z"] = -145.65818786621;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["nosprint"] = true;
 					["type"] = "nav"; -- Charlie
@@ -5117,6 +5133,7 @@ local obj1 = {
 						["y"] = 41.375991821289;
 						["z"] = -207.85820007324;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["nosprint"] = true;
 					["type"] = "nav"; -- Delta
@@ -5687,6 +5704,23 @@ local obj1 = {
 					["type"] = "start";
 					["interactrange"] = 3;
 				};
+        [15] = {
+          ["condition"] = {
+						["HasBuffs(Player, 565)"] = false;
+            ["Player:GetAetherCurrentsList()[956].status[11]"] = false;
+          };
+          ["index"] = 1;
+					["id"] = 2011983; -- Aether Current Labyrinthos#5
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 32.303344726563;
+						["y"] = 72.831176757813;
+						["z"] = -286.27453613281;
+					};
+          ["dismountdistance"] = math.random(10,14);
+          ["type"] = "interact";
+          ["interactrange"] = 3;
+        };
 				[20] = {
 					["complete"] = {
 						["step"] = 2;
@@ -5948,6 +5982,7 @@ local obj1 = {
 						["y"] = 25.041137695313;
 						["z"] = -158.56636047363;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "nav";
 				};
@@ -5966,6 +6001,7 @@ local obj1 = {
 						["y"] = 25.04;
 						["z"] = -160.60;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "interact";
 					["interactrange"] = 3;
@@ -12717,6 +12753,7 @@ local obj1 = {
 						["z"] = -153.9483;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["interactrange"] = 3;
 				};
@@ -12750,6 +12787,7 @@ local obj1 = {
 						["z"] = -115.2209;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -12771,6 +12809,7 @@ local obj1 = {
 						["z"] = -94.957;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -12792,6 +12831,7 @@ local obj1 = {
 						["z"] = -60.6852;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -12826,6 +12866,7 @@ local obj1 = {
 						["z"] = -136.8669;
 					};
 					["type"] = "nav";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -12866,6 +12907,7 @@ local obj1 = {
 						["z"] = -226.7949;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -12887,6 +12929,7 @@ local obj1 = {
 						["z"] = -185.9617;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -12917,6 +12960,7 @@ local obj1 = {
 					};
 					["type"] = "complete";
 					["interactrange"] = 3;
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["itemreward"] = false;
@@ -12973,6 +13017,7 @@ local obj1 = {
 						["z"] = -41.5918;
 					};
 					["type"] = "nav";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -12994,6 +13039,7 @@ local obj1 = {
 						["z"] = -18.7907;
 					};
 					["type"] = "nav";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -13016,6 +13062,7 @@ local obj1 = {
 						["z"] = 47.1546;
 					};
 					["type"] = "nav";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -13036,6 +13083,7 @@ local obj1 = {
 						["z"] = 47.1546;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -13070,6 +13118,7 @@ local obj1 = {
 						["z"] = 28.0308;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -13091,6 +13140,7 @@ local obj1 = {
 						["z"] = 39.6277;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -13124,6 +13174,7 @@ local obj1 = {
 						["z"] = 110.6127;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -13192,6 +13243,7 @@ local obj1 = {
 						["y"] = 24;
 						["z"] = 93.0038;
 					};
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["type"] = "interact";
 					["dismountdistance"] = math.random(10,14);
@@ -13252,6 +13304,7 @@ local obj1 = {
 						["z"] = 88.5786;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -13311,6 +13364,7 @@ local obj1 = {
 						["z"] = 97.0625;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
@@ -18894,6 +18948,7 @@ mushroom-like thing -30.16 41.94
 						["z"] = 164.1107;
 					};
 					["type"] = "interact";
+					["useaethernet"] = false;
 					["noteleport"] = true;
 					["ignoreaggro"] = true;
 					["disableavoid"] = true;
@@ -21140,24 +21195,37 @@ mushroom-like thing -30.16 41.94
 					["interactrange"] = 3;
 				};
 
-				[7] = {
+--[[
+				[8] = {
 					["complete"] = {
 						["step"] = 7;
 					};
-					["condition"] = {
-						["IsOnMap(1013)"] = false; -- Magna Glacies
-					};
-					["index"] = 1;
-					["id"] = 10393; -- Lucia
-					["mapid"] = 1013; -- Garlemald
+					["index"] = 5;
+					["mapid"] = 1013; -- Beyond the Stars
 					["pos"] = {
-						["x"] = 111.8050;
+						["x"] = 89.5756;
 						["y"] = 0;
-						["z"] = 87.6919;
+						["z"] = 98.2423;
 					};
-					["type"] = "kill";
-					["dismountdistance"] = math.random(10,14);
-					["interactrange"] = 3;
+					["killaggro"] = true;
+					["type"] = "nav";
+				};
+]]
+
+				[8] = {
+					["complete"] = {
+						["step"] = 7;
+					};
+					["index"] = 5;
+					["id"] = 10393; -- Zenos viator Galvus
+					["mapid"] = 1013; -- Beyond the Stars
+					["pos"] = {
+						["x"] = 110;
+						["y"] = 0;
+						["z"] = 99.9965;
+					};
+					["killaggro"] = true;
+					["type"] = "dutykill";
 				};
 
 				[5000] = {
@@ -21491,6 +21559,7 @@ mushroom-like thing -30.16 41.94
 				["QuestCompleted(4464)"] = true;
 			};
 			["steps"] = {
+        ["oncomplete"] = "Player:Teleport(168)";
 				[1] = {
 					["id"] = 1041268; -- Nemjiji
 					["mapid"] = 962; -- Old Sharlayan
