@@ -1214,11 +1214,11 @@ local obj1 = {
 				};
 				[40] = {
 					["condition"] = {
-						["I8AL"] = 2;
+						["I8AL"] = 1;
 						["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
 					};
 					["complete"] = {
-						["I8AL"] = 1;
+						["I8AL"] = 2;
 					};
 					["index"] = 3;
 					["id"] = 1014735; -- Scrutinizing Private
@@ -1234,11 +1234,11 @@ local obj1 = {
 				};
 				[50] = {
 					["condition"] = {
-						["step"] = 4;
+						["I8AL"] = 2;
 						["unlockEverything or unlockAllPhysicalRange or unlockMCH"] = true;
 					};
 					["complete"] = {
-						["I8AL"] = 2;
+						["step"] = 4;
 					};
 					["index"] = 3;
 					["id"] = 1014734; -- Scowling Private
