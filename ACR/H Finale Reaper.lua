@@ -840,7 +840,7 @@ function profile.OnLoad()
     SettingUnloadSoul = ACR.GetSetting("SettingUnloadSoul",50)
     SettingUnloadShroud = ACR.GetSetting("SettingUnloadShroud",90)
     SettingUnloadShroud_low = ACR.GetSetting("SettingUnloadShroud_low",90)
-    SettingSaveShroud = ACR.GetSetting("SettingSaveShroud",18.5)
+    SettingSaveShroud = ACR.GetSetting("SettingSaveShroud",0)
     SettingSoulsowHigh = ACR.GetSetting("SettingSoulsowHigh",3.570)
     SettingSoulsowLow = ACR.GetSetting("SettingSoulsowLow",2.740)
     SettingGibbetWeight = ACR.GetSetting("SettingGibbetWeight",1000 - 347)
@@ -1920,7 +1920,7 @@ function profile.Cast()
 							end
 						end
 					elseif DestroyMode or PlayerHasBuffs(arcane_circle_b, 1) or (getCooldown(soul_slice) <= globalRecast*2 and SoulGauge >= 50) or SoulGauge >= SettingUnloadSoul then --[[getCooldown(arcane_circle) >= globalRecast*5 or]]
-						if ( TargetHasBuffs(deaths_design_db, globalRecast, Player.id) or (Target.hp.current <= Player.hp.current / SettingDeathsDesignDivision) ) and (getCooldown(gluttony) >=  globalRecast*2) and lastCastNot(soul_reaver_initiators_tbl) and PlayerMissingBuffs(soul_reaver_b) then
+						if ( TargetHasBuffs(deaths_design_db, globalRecast, Player.id) or (Target.hp.current <= Player.hp.current / SettingDeathsDesignDivision) ) and (getCooldown(gluttony) >=  globalRecast*2 or Player.level < 76) and lastCastNot(soul_reaver_initiators_tbl) and PlayerMissingBuffs(soul_reaver_b) then
 							-- Multi-Target
 							if PlayerMissingBuffs(soul_reaver_b) and SettingEnableAOE and aoeConeAttackableCount >= 3 and grim_swathe:IsReady(Target.id) then
 								setTargetBestCone()
@@ -1996,7 +1996,7 @@ function profile.Cast()
 			if not ReserveMode and SettingEnshroud and ShroudGauge >= 50 and (getCooldown(soul_slice) >= 8.5 + PulseRate) and enshroud:IsReady(Player.id) and lastCastNot(soul_reaver_initiators_tbl) then
 				if DestroyMode or not FinaleMode or expectedDeathTime >= FinaleSettingEnshroud then
 					if (SettingSaveShroud == 0 or getCooldown(arcane_circle) <= SettingSaveShroud) then
-						if ( PlayerHasBuffs({left_eye_b, battle_litany, devilment_b, technical_finish_b, standard_finish_b, arcane_circle_b}, 1) ) or ( getCooldown(arcane_circle) <= tillNextGCD + 3*globalRecast + 0.50 ) or (Player.level < 88 and ShroudGauge >= SettingUnloadShroud_low) or (Player.level >= 88 and ShroudGauge >= SettingUnloadShroud) then
+						if ( PlayerHasBuffs( tostring(left_eye_b) .. "," .. tostring(battle_litany) .. "," .. tostring(devilment_b) .. "," .. tostring(technical_finish_b) .. "," .. tostring(standard_finish_b).. "," .. tostring(arcane_circle_b), 9) ) or ( getCooldown(arcane_circle) <= tillNextGCD + 3*globalRecast + 0.50 and true ) or (Player.level < 88 and ShroudGauge >= SettingUnloadShroud_low) or (Player.level >= 88 and ShroudGauge >= SettingUnloadShroud) then
 							if ( TargetHasBuffs(deaths_design_db, (5 * void_reaping.recasttime + globalRecastPlusPulse), Player.id) or (Target.hp.current <= Player.hp.current / SettingDeathsDesignDivision) ) then
 								enshroud:Cast(Player.id)
 								ReaperActivate("enshroud")
