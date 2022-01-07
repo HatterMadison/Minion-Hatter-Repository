@@ -17,7 +17,7 @@ All Class Unlocks: Fixed... so much stuff. tyty to person whom helped debug that
 * **FINISHED VERSION,    ALL 108 MSQ,   ALL 24 ACQ,  Now Included with +4 Side Quests to unlock 90 Dungeons and etc.**
 
 * **Do not leave bot unattended while using this Quest Profile**
-  * That's just disclaimer, this been thoroughly tested. I aim for consistency after all. I always finish secondary test run of the profile before posting update.
+  * That's just disclaimer, this been thoroughly tested. But dang. Bugs always appear anyway, I know that now. haha.
 
 * It does **1 Duty** now, <**As the Heaven Burns**>
   * I just realize I have no more character to take through EW. If I happen to get another character there, I'll complete the rest. (Except for Garlemald crawly crawly part, I'll just reach the battle circle of that duty)
