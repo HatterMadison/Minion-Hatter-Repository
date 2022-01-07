@@ -19639,9 +19639,9 @@ mushroom-like thing -30.16 41.94
 					["id"] = 1040402; -- Cookingway
 					["mapid"] = 956; -- Labyrinthos
 					["pos"] = {
-						["x"] = 485.4119;
+						["x"] = 486.8383;
 						["y"] = 65.162;
-						["z"] = -96.9071;
+						["z"] = -96.899;
 					};
 					["sethomepoint"] = false;
 					["type"] = "interact";
@@ -19653,9 +19653,9 @@ mushroom-like thing -30.16 41.94
 					["id"] = 1040402; -- Cookingway
 					["mapid"] = 956; -- Labyrinthos
 					["pos"] = {
-						["x"] = 494.8042;
-						["y"] = 65.06;
-						["z"] = -37.7051;
+						["x"] = 486.8383;
+						["y"] = 65.162;
+						["z"] = -96.899;
 					};
 					["sethomepoint"] = false;
 					["type"] = "interact";
@@ -20022,7 +20022,7 @@ mushroom-like thing -30.16 41.94
 						["HasBuffs(Player, 404) or GetQuestInfo(4446,'step') >= 3"] = true;
 					};
 					["condition"] = {
-            ["Player:GetAetherCurrentsList()[956].status[14] or CollectAetherCurrents == false"] = true;
+            ["Player:GetAetherCurrentsList()[956].status[14]"] = true;
 						["HasBuffs(Player, 404)"] = false;
 					};
 					["index"] = 2;
