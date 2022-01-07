@@ -1,9 +1,10 @@
 ChangeLog:
+Added ACR H Finale Reaper
 EW MSQ: Fixed Following NPC being lost due to Aethernet Usage, tyty dev. for sharing info on how.
 All Class Unlocks: Fixed... so much stuff. tyty to person whom helped debug that. Unsung hero.
 
 
-# Basic How-To
+## Basic How-To
 
 * Where should X file go?
   * Quest Profiles =  **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles**
@@ -11,6 +12,28 @@ All Class Unlocks: Fixed... so much stuff. tyty to person whom helped debug that
 
 * How to change ACR profile?
   * **MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile**
+
+## Finale Reaper ACR
+
+*Casual Info:
+ *It has a 'dynamic' mode which  auto-reserve and auto-destroy based on XYZ. This is my favorite part, that I hope to refine further. (This is not an auto-raid/timeline)
+
+*Non-Casual Info:
+ *Tries to sync with Devilment, Litany, Finishes. (If raid group is proper, this shouldn't be an hichup. If just casual content, this really shouldn't be an hichup)
+
+ *Late weave Arcane Circle,  default Early Gluttony opener, option to perform Late Gluttony opener (don't turn on unless, you're confident, syncing buffs, etc.)
+
+ *Double Enshroud, but, still refining, sometime 2nd Communio does not fit.   No triple enshroud yet, I have mixed feelings about that.
+
+ *The other standards stuff, ensures Soul Gauge or Soul Slice is ready keep off CD Gluttony, True North only when advantageous, etc etc, this the boring stuff.
+
+_Icon Folder Placement_
+ **1.  Download Folder**
+<https://drive.google.com/drive/folders/1076ZUDnYh4hO2CvJmk1zoyMI1VKjdWwq?usp=sharing > 
+
+**2. Place Downloaded Folder** 
+in `C:\MINIONAPP\Bots\FFXIVMinion64\GUI`,   so the path of all the icons are   `C:\MINIONAPP\Bots\FFXIVMinion64\GUI\H_UI_Icons`
+
 
 
 ## Quest Profile Info: (H) MSQ Endwalker FINISHED
