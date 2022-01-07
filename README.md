@@ -1,5 +1,7 @@
 ChangeLog:
-EW MSQ: Fixed Following NPC being lost due to Aethernet Usage
+EW MSQ: Fixed Following NPC being lost due to Aethernet Usage, tyty dev. for sharing info on how.
+All Class Unlocks: Fixed... so much stuff. tyty to person whom helped debug that. Unsung hero.
+
 
 # Basic How-To
 
