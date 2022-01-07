@@ -19168,6 +19168,7 @@ lb 27062
 					["interactrange"] = 3;
 				};
 
+
 				[21] = {
 					["index"] = 2;
 					["notes"] = {
@@ -19183,6 +19184,35 @@ lb 27062
 					["type"] = "endprofile";
 					["dismountdistance"] = math.random(10,14);
 				};
+--[[
+
+
+
+				[24] = {
+          ["oncomplete"] = "h_lib.snipeCore()";
+					["complete"] = {
+						["IsControlOpen(\"Snipe\") == true"] = true;
+					};
+					["condition"] = {
+						["IsControlOpen(\"Snipe\") == true"] = false;
+					};
+					["index"] = 2;
+					["id"] = 2012212; -- Destination
+					["mapid"] = 956; -- Labyrinthos
+					["pos"] = {
+						["x"] = 126.3599;
+						["y"] = -17.5327;
+						["z"] = -77.0734;
+					};
+					["sethomepoint"] = false;
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+					["delay"] = math.random(4000,4500);
+				};
+
+
+]]
 
 
 --Snipe Initiate
@@ -19192,7 +19222,9 @@ tank 19.65 37.19
 metalic tube -5.21 34.84
 mushroom-like thing -30.16 41.94
 
+
 				[24] = {
+          ["oncomplete"] = "Player:SetSnipeCam(19.65,37.19) ; Player:SnipeShoot()";
 					["complete"] = {
 						["IsControlOpen(\"Snipe\") == true"] = true;
 					};
@@ -19212,7 +19244,6 @@ mushroom-like thing -30.16 41.94
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
 				};
-
 				[26] = {
           ["oncomplete"] = "Player:SetSnipeCam(19.65,37.19)";
 					["complete"] = {
