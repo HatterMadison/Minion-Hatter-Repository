@@ -1,7 +1,6 @@
-ChangeLog:
-Added ACR H Finale Reaper
-EW MSQ: Fixed Following NPC being lost due to Aethernet Usage, tyty dev. for sharing info on how.
-All Class Unlocks: Fixed... so much stuff. tyty to person whom helped debug that. Unsung hero.
+Recent ChangeLog:
+
+Changed Rotation for Finale Reaper when level sync <= 72  and  <= 78
 
 
 ## Basic How-To
