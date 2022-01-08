@@ -388,7 +388,11 @@ function profile.Draw()
 					if GUI:IsItemHovered(GUI.HoveredFlags_Default) and SettingHoverTooltips then GUI:SetTooltip( "Don't set below 50, I didn't code in prevention errors" ) end
 					GUI:Dummy(0, y_spacing)
 					
-					ACR.GUIVarUpdate( GUI:InputInt([[Unload <Soul Gauge> when <Soul Gauge> is >= .##HatUnloadSoul]], SettingUnloadSoul),"SettingUnloadSoul")
+					ACR.GUIVarUpdate( GUI:InputInt([[lvl 77 below sync, Unload <Soul Gauge> when <Soul Gauge> is >=]], SettingUnloadSoul78),"SettingUnloadSoul78")
+					if GUI:IsItemHovered(GUI.HoveredFlags_Default) and SettingHoverTooltips then GUI:SetTooltip( "Don't set below 50, I didn't code in prevention errors" ) end
+					GUI:Dummy(0, y_spacing)
+
+					ACR.GUIVarUpdate( GUI:InputInt([[Atleast lvl 78 Unload <Soul Gauge> when <Soul Gauge> is >=]], SettingUnloadSoul),"SettingUnloadSoul")
 					if GUI:IsItemHovered(GUI.HoveredFlags_Default) and SettingHoverTooltips then GUI:SetTooltip( "Don't set below 50, I didn't code in prevention errors" ) end
 					GUI:Dummy(0, y_spacing)
 					
@@ -838,6 +842,7 @@ function profile.OnLoad()
     SettingWhorlUsage = ACR.GetSetting("SettingWhorlUsage",0.72)
     SettingSaveGluttony = ACR.GetSetting("SettingSaveGluttony",5.5)
     SettingUnloadSoul = ACR.GetSetting("SettingUnloadSoul",50)
+    SettingUnloadSoul78 = ACR.GetSetting("SettingUnloadSoul78",90)
     SettingUnloadShroud = ACR.GetSetting("SettingUnloadShroud",90)
     SettingUnloadShroud_low = ACR.GetSetting("SettingUnloadShroud_low",90)
     SettingSaveShroud = ACR.GetSetting("SettingSaveShroud",0)
@@ -1804,11 +1809,13 @@ function profile.Cast()
 
 		-- <Soul Reaver Buff Active>
 		if PlayerHasBuffs(soul_reaver_b, tillNextGCD) or lastCastIs(soul_reaver_initiators_tbl) then
-			if SettingEnableAOE and guillotine:IsReady(Target.id) and aoeConeAttackableCount >= 3 then
+			if SettingEnableAOE and guillotine:IsReady(Target.id) then
 				setTargetBestCone()
-				guillotine:Cast(Target.id)
-				ReaperActivate("guillotine")
-				return true
+				if aoeConeAttackableCount >= 3 then
+					guillotine:Cast(Target.id)
+					ReaperActivate("guillotine")
+					return true
+				end
 			end
 			--<Should Player activate <True North> based on position?>
 			if PlayerHasBuffs(enhanced_gallows_b, globalRecast) and not IsBehind2(Target,true,true) then
@@ -1919,7 +1926,7 @@ function profile.Cast()
 								return true
 							end
 						end
-					elseif DestroyMode or PlayerHasBuffs(arcane_circle_b, 1) or (getCooldown(soul_slice) <= globalRecast*2 and SoulGauge >= 50) or SoulGauge >= SettingUnloadSoul then --[[getCooldown(arcane_circle) >= globalRecast*5 or]]
+					elseif DestroyMode or (PlayerHasBuffs(arcane_circle_b, 1) and Player.level >= 78) or (getCooldown(soul_slice) <= globalRecast*2 and SoulGauge >= 50) or (SoulGauge >= SettingUnloadSoul and Player.level >= 78) or (Player.level < 78 and SoulGauge >= SettingUnloadSoul78) then --[[getCooldown(arcane_circle) >= globalRecast*5 or]]
 						if ( TargetHasBuffs(deaths_design_db, globalRecast, Player.id) or (Target.hp.current <= Player.hp.current / SettingDeathsDesignDivision) ) and (getCooldown(gluttony) >=  globalRecast*2 or Player.level < 76) and lastCastNot(soul_reaver_initiators_tbl) and PlayerMissingBuffs(soul_reaver_b) then
 							-- Multi-Target
 							if PlayerMissingBuffs(soul_reaver_b) and SettingEnableAOE and aoeConeAttackableCount >= 3 and grim_swathe:IsReady(Target.id) then
