@@ -1,0 +1,6 @@
+[Module]
+Name=addonquickstart
+Dependencies=minionlib
+Version=1
+Files=HatterLib.lua
+enabled=1
