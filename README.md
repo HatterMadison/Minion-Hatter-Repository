@@ -6,7 +6,7 @@ Recent ChangeLog:
 
 ## Basic How-To
 * What should HatterLib path looks like? Place HatterLib folder in **LuaMods**, so the path looks like below.
-  * HatterLib = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib**
+  * HatterLib Path = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib**
 
 * Where should X file go?
   * Quest Profiles =  **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles**
