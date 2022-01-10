@@ -1,7 +1,8 @@
 Recent ChangeLog:
 
-Changed Rotation for Finale Reaper when level sync <= 72  and  <= 78
 
+
+**Notice: Most stuff requires HatterLib**
 
 ## Basic How-To
 * What should HatterLib path looks like? Place HatterLib folder in **LuaMods**, so the path looks like below.
