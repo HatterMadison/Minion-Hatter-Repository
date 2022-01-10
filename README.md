@@ -4,8 +4,8 @@ Changed Rotation for Finale Reaper when level sync <= 72  and  <= 78
 
 
 ## Basic How-To
-* All this stuff requires HatterLib, where should that folder go?
-  * HatterLib Folder = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\
+* What should HatterLib path looks like? Place HatterLib folder in **LuaMods**, so the path looks like below.
+  * HatterLib = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib**
 
 * Where should X file go?
   * Quest Profiles =  **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles**
