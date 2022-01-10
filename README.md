@@ -2,7 +2,7 @@ Recent ChangeLog:
 
 
 
-**Notice: Most stuff requires HatterLib**
+**Notice:** Most stuff requires **HatterLib**
 
 ## Basic How-To
 * What should HatterLib path looks like? Place HatterLib folder in **LuaMods**, so the path looks like below.
