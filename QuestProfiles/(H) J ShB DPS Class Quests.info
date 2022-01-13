@@ -380,6 +380,7 @@ local obj1 = {
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
 				};
+--[[
 				[3] = {
 					["condition"] = {
 						["step"] = 2;
@@ -399,44 +400,47 @@ local obj1 = {
 					["dismountdistance"] = math.random(10,14);
 					["type"] = "endprofile";
 				};
---				[3] = {
---					["complete"] = {
---						["IsOnMap(875)"] = true;
---					};
---					["id"] = 1030146; -- Lue-Reeq
---					["index"] = 2;
---					["mapid"] = 817;
---					["pos"] = {
---						["x"] = -190.14;
---						["y"] = 12.75;
---						["z"] = 591.67;
---					};
---					["type"] = "interact";
---					["dismountdistance"] = math.random(10,14);
---					["interactrange"] = 3;
---				};
---				[4] = {
---					["complete"] = {
---						["step"] = 255;
---					};
---					["condition"] = {
---						["IsOnMap(875)"] = true;
---					};
---					["ids"] = "8397";
---					["index"] = 2;
---					["mapid"] = 875;
---					["pos"] = {
---						["x"] = -247.71;
---						["y"] = 10.57;
---						["z"] = 703.92;
---					};
---					["type"] = "dutykill";
---				};
-				[4] = {
-          ["delay"] = 0;
+]]
+-- BEGIN
+				[30] = {
+					["complete"] = {
+						["IsOnMap(875)"] = true;
+					};
 					["condition"] = {
+						["IsOnMap(875)"] = false;
+					};
+					["id"] = 1030146; -- Lue-Reeq
+					["index"] = 2;
+					["mapid"] = 817;
+					["pos"] = {
+						["x"] = -190.14;
+						["y"] = 12.75;
+						["z"] = 591.67;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+
+-- FIGHT
+				[40] = {
+					["complete"] = {
 						["step"] = 255;
 					};
+					["condition"] = {
+						["IsOnMap(875)"] = true;
+					};
+					["ids"] = "8397";
+					["index"] = 2;
+					["mapid"] = 875;
+					["pos"] = {
+						["x"] = -247.71;
+						["y"] = 10.57;
+						["z"] = 703.92;
+					};
+					["type"] = "dutykill";
+				};
+				[100] = {
 					["id"] = 1030144; -- Lue-Reeq
 					["mapid"] = 814;
 					["pos"] = {
@@ -625,6 +629,7 @@ local obj1 = {
 					["type"] = "interact";
 					["interactrange"] = 3;
 				};
+--[[
 				[4] = {
 					["condition"] = {
 						["step"] = 3;
@@ -644,40 +649,113 @@ local obj1 = {
 					["dismountdistance"] = math.random(10,14);
 					["type"] = "endprofile";
 				};
---				[4] = {
---					["complete"] = {
---						["IsOnMap(871)"] = true;
---					};
---					["id"] = 1030990; -- Lue-Reeq
---					["index"] = 3;
---					["mapid"] = 817;
---					["pos"] = {
---						["x"] = -246.57;
---						["y"] = 10.15;
---						["z"] = 678.22;
---					};
---					["type"] = "interact";
---					["dismountdistance"] = math.random(10,14);
---					["interactrange"] = 3;
---				};
---				[5] = {
---					["complete"] = {
---						["step"] = 5;
---					};
---					["condition"] = {
---						["IsOnMap(871)"] = true;
---					};
---					["ids"] = "8783,8784,8782,8785,8781"; -- in elimination order
---					["index"] = 3;
---					["mapid"] = 871;
---					["pos"] = {
---						["x"] = -245.01;
---						["y"] = 10.26;
---						["z"] = 686.95;
---					};
---					["type"] = "dutykill";
---				};
+]]
+				[4] = {
+					["complete"] = {
+						["IsOnMap(871)"] = true;
+					};
+					["condition"] = {
+						["IsOnMap(871)"] = false;
+					};
+					["id"] = 1030990; -- Lue-Reeq
+					["index"] = 3;
+					["mapid"] = 817;
+					["pos"] = {
+						["x"] = -246.57;
+						["y"] = 10.15;
+						["z"] = 678.22;
+					};
+					["type"] = "interact";
+					["dismountdistance"] = math.random(10,14);
+					["interactrange"] = 3;
+				};
+
 				[5] = {
+					["complete"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8783,maxdistance2d=50'))"] = false;
+					};
+					["condition"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8783,maxdistance2d=50'))"] = true;
+					};
+					["ids"] = "8783"; -- 
+					["index"] = 3;
+					["mapid"] = 871;
+					["pos"] = {
+						["x"] = -245.01;
+						["y"] = 10.26;
+						["z"] = 686.95;
+					};
+					["type"] = "dutykill";
+				};
+				[10] = {
+					["complete"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8784,maxdistance2d=50'))"] = false;
+					};
+					["condition"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8784,maxdistance2d=50'))"] = true;
+					};
+					["ids"] = "8784"; -- 
+					["index"] = 3;
+					["mapid"] = 871;
+					["pos"] = {
+						["x"] = -245.01;
+						["y"] = 10.26;
+						["z"] = 686.95;
+					};
+					["type"] = "dutykill";
+				};
+				[15] = {
+					["complete"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8782,maxdistance2d=50'))"] = false;
+					};
+					["condition"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8782,maxdistance2d=50'))"] = true;
+					};
+					["ids"] = "8782"; -- 
+					["index"] = 3;
+					["mapid"] = 871;
+					["pos"] = {
+						["x"] = -245.01;
+						["y"] = 10.26;
+						["z"] = 686.95;
+					};
+					["type"] = "dutykill";
+				};
+				[20] = {
+					["complete"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8785,maxdistance2d=50'))"] = false;
+					};
+					["condition"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8785,maxdistance2d=50'))"] = true;
+					};
+					["ids"] = "8785"; -- 
+					["index"] = 3;
+					["mapid"] = 871;
+					["pos"] = {
+						["x"] = -245.01;
+						["y"] = 10.26;
+						["z"] = 686.95;
+					};
+					["type"] = "dutykill";
+				};
+				[25] = {
+					["complete"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8781,maxdistance2d=50'))"] = false;
+					};
+					["condition"] = {
+						["ValidTable(EntityList('onmesh,alive,targetable,attackable,contentid=8781,maxdistance2d=50'))"] = true;
+					};
+					["ids"] = "8781"; -- 
+					["index"] = 3;
+					["mapid"] = 871;
+					["pos"] = {
+						["x"] = -245.01;
+						["y"] = 10.26;
+						["z"] = 686.95;
+					};
+					["type"] = "dutykill";
+				};
+				[5999] = {
 					["complete"] = {
 						["step"] = 255;
 					};
@@ -693,8 +771,7 @@ local obj1 = {
 					["type"] = "interact";
 					["interactrange"] = 3;
 				};
-				[6] = {
-          ["delay"] = 0;
+				[6000] = {
 					["condition"] = {
 						["step"] = 255;
 					};

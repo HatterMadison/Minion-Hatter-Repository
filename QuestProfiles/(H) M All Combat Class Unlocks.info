@@ -4,12 +4,12 @@ local multiRefObjects = {
 } -- multiRefObjects
 local obj1 = {
 	["names"] = {
-		["en"] = "(H) M All Combat Class Unlocks v0.72";
-		["de"] = "(H) M All Combat Class Unlocks v0.72";
-		["fr"] = "(H) M All Combat Class Unlocks v0.72";
-		["jp"] = "(H) M All Combat Class Unlocks v0.72";
-		["cn"] = "(H) M All Combat Class Unlocks v0.72";
-		["kr"] = "(H) M All Combat Class Unlocks v0.72";
+		["en"] = "(H) M All Combat Class Unlocks";
+		["de"] = "(H) M All Combat Class Unlocks";
+		["fr"] = "(H) M All Combat Class Unlocks";
+		["jp"] = "(H) M All Combat Class Unlocks";
+		["cn"] = "(H) M All Combat Class Unlocks";
+		["kr"] = "(H) M All Combat Class Unlocks";
 	};
 	["vars"] = {
 		[1] = {

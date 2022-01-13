@@ -4,12 +4,12 @@ local multiRefObjects = {
 } -- multiRefObjects
 local obj1 = {
 	["names"] = {
-		["en"] = "(H) J Reapers' Quests 70-80 v0.64";
-		["de"] = "(H) J Reapers' Quests 70-80 v0.64";
-		["fr"] = "(H) J Reapers' Quests 70-80 v0.64";
-		["jp"] = "(H) J Reapers' Quests 70-80 v0.64";
-		["cn"] = "(H) J Reapers' Quests 70-80 v0.64";
-		["kr"] = "(H) J Reapers' Quests 70-80 v0.64";
+		["en"] = "(H) J Reapers' Quests 70-80";
+		["de"] = "(H) J Reapers' Quests 70-80";
+		["fr"] = "(H) J Reapers' Quests 70-80";
+		["jp"] = "(H) J Reapers' Quests 70-80";
+		["cn"] = "(H) J Reapers' Quests 70-80";
+		["kr"] = "(H) J Reapers' Quests 70-80";
 	};
 	["vars"] = {
 		[1] = {
@@ -446,6 +446,7 @@ local obj1 = {
 					["dismountdistance"] = math.random(10,14);
 					["interactrange"] = 3;
 				};
+--[[
 				[3] = {
 					["condition"] = {
 						["step"] = 2;
@@ -467,10 +468,14 @@ local obj1 = {
 					["dismountdistance"] = math.random(10,14);
 					["type"] = "endprofile";
 				};
---[[ Note: These steps are omitted, they attempted to perform the Solo Duty
-				[3] = {
+]]
+
+				[5] = {
+					["condition"] = {
+            ["IsOnMap(1020)"] = false;
+					};
 					["complete"] = {
-					["GetQuestInfo(4074,'step') == 255 or IsOnMap(1020)"] = true;
+            ["GetQuestInfo(4074,'step') == 255 or IsOnMap(1020)"] = true;
 					};
 					["index"] = 2;
 					["id"] = 1036637; -- Drusilla
@@ -483,9 +488,12 @@ local obj1 = {
 					["type"] = "interact";
 					["interactrange"] = 3;
 				};
-				[4] = {
+
+-- In Solo DUty
+				[500] = {
 					["condition"] = {
 						["IsOnMap(1020)"] = true;
+						["Player.pos.z >= 185"] = true;
 					};
 					["index"] = 2;
 					["id"] = 10577; -- Drusilla
@@ -498,14 +506,17 @@ local obj1 = {
 					["type"] = "interact";
 					["interactrange"] = 3;
 				};
-				[5] = {
+-- FIGHT ! Build SoulGauge
+				[750] = {
+          ["oncomplete"] = "Player:SetTarget(GetNearestFromList('alive,attackable,maxrange2d=3',Player.pos,3).id)  ActionList:Get(1, h_lib.questAssist.TheHarvestBegin):Cast(GetNearestFromList('alive,attackable,maxrange2d=3',Player.pos,3).id)";
 					["complete"] = {
-					["step"] = 255;
+            ["HasBuffs(Player, 2587) or ValidTable(EntityList('targetable,attackable,contentid=10580,maxdistance2d=30')) == true"] = true;
 					};
 					["condition"] = {
-						["IsOnMap(1020)"] = true;
+            ["HasBuffs(Player, 2587)"] = false;
+            ["ValidTable(EntityList('targetable,attackable,contentid=10580,maxdistance2d=30'))"] = false;
 					};
-					["ids"] = "10578,10578,10580";
+					["ids"] = "10579;10578";
 					["index"] = 2;
 					["mapid"] = 1020;
 					["pos"] = {
@@ -513,10 +524,61 @@ local obj1 = {
 						["y"] = -4.90;
 						["z"] = 156.51;
 					};
-					["type"] = "kill";
+					["type"] = "dutykill";
 				};
-]]
-				[4] = {
+				[755] = {
+          ["oncomplete"] = "Player:SetTarget(GetNearestFromList('alive,attackable,maxrange2d=3',Player.pos,3).id)  ActionList:Get(1, h_lib.questAssist.TheHarvestBegin):Cast(GetNearestFromList('alive,attackable,maxrange2d=3',Player.pos,3).id)";
+					["complete"] = {
+            ["GetNearestFromList('alive,attackable,maxrange2d=25',Player.pos,25).distance2d <= 3  or ValidTable(EntityList('targetable,attackable,contentid=10580,maxdistance2d=30 == false'))"] = true;
+            ["table.valid(Player:GetEnmityList()) or ValidTable(EntityList('targetable,attackable,contentid=10580,maxdistance2d=30 == false'))"] = true;
+            ["MissingBuffs(Player, 2587) or ValidTable(EntityList('targetable,attackable,contentid=10580,maxdistance2d=30')) == true"] = true;
+					};
+					["condition"] = {
+            ["HasBuffs(Player, 2587)"] = true;
+            ["ValidTable(EntityList('targetable,attackable,contentid=10580,maxdistance2d=30'))"] = false;
+					};
+					["ids"] = "10579;10578";
+					["index"] = 2;
+					["mapid"] = 1020;
+					["pos"] = {
+						["x"] = -142.05;
+						["y"] = -4.90;
+						["z"] = 156.51;
+					};
+					["type"] = "dutykill";
+				};
+				-- ELIMINATE BOSS
+				[955] = {
+					["condition"] = {
+            ["ValidTable(EntityList('targetable,attackable,contentid=10580,maxdistance2d=30'))"] = true;
+					};
+					["ids"] = "10580";
+					["index"] = 2;
+					["mapid"] = 1020;
+					["pos"] = {
+						["x"] = -142.05;
+						["y"] = -4.90;
+						["z"] = 156.51;
+					};
+					["prioritize"] = true;
+					["type"] = "dutykill";
+				};
+				[2000] = {
+					["index"] = 2;
+					["mapid"] = 1020;
+					["pos"] = {
+						["x"] = -142.05;
+						["y"] = -4.90;
+						["z"] = 156.51;
+					};
+					["ignoreaggro"] = true;
+					["type"] = "nav";
+				};
+
+
+
+
+				[4999] = {
 					["complete"] = {
 						["IsOnMap(971)"] = true;
 					};
@@ -534,7 +596,7 @@ local obj1 = {
 					["type"] = "interact";
 					["interactrange"] = 3;
 				};
-				[5] = {
+				[5000] = {
           ["delay"] = 0;
 					["condition"] = {
 						["step"] = 255;
@@ -1050,7 +1112,7 @@ local obj1 = {
 --					};
 --					["type"] = "nav";
 --				};
-				[2] = {
+--[[				[2] = {
 					["condition"] = {
 						["step"] = 1;
 					};
@@ -1070,39 +1132,86 @@ local obj1 = {
 					["dismountdistance"] = math.random(10,14);
 					["type"] = "endprofile";
 				};
---				[2] = {
---					["complete"] = {
---						["IsOnMap(1021)"] = true;
---					};
---					["id"] = 2011548; -- Destination
---					["index"] = 1;
---					["mapid"] = 397;
---					["pos"] = {
---						["x"] = -92.58;
---						["y"] = 87.17;
---						["z"] = -737.88;
---					};
---					["type"] = "interact";
---					["interactrange"] = 3;
---				};
---				[4] = {
---					["complete"] = {
---						["step"] = 255;
---					};
---					["condition"] = {
---						["IsOnMap(1021)"] = true;
---					};
---					["ids"] = "10585,10584,10581";
---					["index"] = 1;
---					["mapid"] = 1021;
---					["pos"] = {
---						["x"] = -69.44;
---						["y"] = 32.06;
---						["z"] = -392.02;
---					};
---					["type"] = "dutykill";
---				};
-				[3] = {
+]]
+-- BEGIN
+				[2] = {
+					["complete"] = {
+						["IsOnMap(1021)"] = true;
+					};
+					["condition"] = {
+						["IsOnMap(1021)"] = false;
+					};
+					["id"] = 2011548; -- Destination
+					["index"] = 1;
+					["mapid"] = 397;
+					["pos"] = {
+						["x"] = -92.58;
+						["y"] = 87.17;
+						["z"] = -737.88;
+					};
+					["type"] = "interact";
+					["interactrange"] = 3;
+				};
+-- FIRST STEP
+				[30] = {
+					["complete"] = {
+						["ValidTable(EntityList('contentid=10585,maxdistance2d=35')) or ValidTable(EntityList('contentid=10584,maxdistance2d=35'))"] = true;
+					};
+					["condition"] = {
+						["IsOnMap(1021)"] = true;
+						["ValidTable(EntityList('contentid=10585,maxdistance2d=35'))"] = false;
+						["ValidTable(EntityList('contentid=10584,maxdistance2d=35'))"] = false;
+					};
+					["ids"] = "10581";
+					["index"] = 1;
+					["mapid"] = 1021;
+					["pos"] = {
+						["x"] = -69.44;
+						["y"] = 32.06;
+						["z"] = -392.02;
+					};
+					["type"] = "dutykill";
+				};
+				[40] = {
+					["complete"] = {
+						["ValidTable(EntityList('contentid=10585,maxdistance2d=35'))"] = false;
+					};
+					["condition"] = {
+            ["ValidTable(EntityList('contentid=10585,maxdistance2d=35'))"] = true;
+						["IsOnMap(1021)"] = true;
+					};
+					["ids"] = "10585";
+					["index"] = 1;
+					["mapid"] = 1021;
+					["pos"] = {
+						["x"] = -69.44;
+						["y"] = 32.06;
+						["z"] = -392.02;
+					};
+					["type"] = "dutykill";
+				};
+				[50] = {
+					["complete"] = {
+						["ValidTable(EntityList('contentid=10584,maxdistance2d=35'))"] = false;
+					};
+					["condition"] = {
+            ["ValidTable(EntityList('contentid=10584,maxdistance2d=35'))"] = true;
+						["IsOnMap(1021)"] = true;
+					};
+					["ids"] = "10584";
+					["index"] = 1;
+					["mapid"] = 1021;
+					["pos"] = {
+						["x"] = -69.44;
+						["y"] = 32.06;
+						["z"] = -392.02;
+					};
+					["type"] = "dutykill";
+				};
+
+
+
+				[3999] = {
 					["condition"] = {
 						["IsOnMap(971)"] = false;
 					};
@@ -1115,7 +1224,7 @@ local obj1 = {
 					};
 					["type"] = "nav";
 				};
-				[4] = {
+				[4000] = {
 					["complete"] = {
 						["IsOnMap(971)"] = true;
 					};
@@ -1133,7 +1242,7 @@ local obj1 = {
 					["type"] = "interact";
 					["interactrange"] = 3;
 				};
-				[5] = {
+				[4040] = {
           ["delay"] = 0;
 					["condition"] = {
 						["step"] = 255;
