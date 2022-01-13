@@ -1,6 +1,8 @@
 Recent ChangeLog:
 
-
+MSQ Profile does all Snipes, and 3x Duties. (missing Venat and In From Cold) (Also attempt fix all DM bugs)
+ShB Dps Quest Profile does the 2x Duties.
+Reapers' Quest Profile does the 2x Duties.
 
 **Notice:** Most stuff requires **HatterLib**
 
