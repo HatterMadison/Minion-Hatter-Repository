@@ -1,5 +1,7 @@
 Recent ChangeLog:
 
+Added 'Reassign Ventures' QOL to **HatterLib**
+
 MSQ Profile does all Snipes, and 3x Duties. (missing Venat and In From Cold) (Also attempt fix all DM bugs)
 
 ShB Dps Quest Profile does the 2x Duties.
