@@ -271,6 +271,9 @@ function h_lib.auto_venture()
 			
 		
 		end
+		
+		h_lib.Settings.auto_venture = false
+		d("___Could not find any open UI or Retainer")	
 	else
 
 	end
