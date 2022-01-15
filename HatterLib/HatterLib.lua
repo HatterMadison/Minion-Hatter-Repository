@@ -61,6 +61,7 @@ h_lib.SaveLastCheck = Now()
 -- Other Stuff
 local timestamp = {}
 	timestamp.auto_venture = Now()
+	timestamp.auto_venture_timeout = 0
 local Double_Checker_AutoVenture = 0
 
 -- ------------------ Quests Vars ----------------------
@@ -203,6 +204,7 @@ function h_lib.auto_venture()
 		if GetControl("Talk") and GetControl("Talk"):IsOpen() then
 			d("___In Conversation___ talking..")
 			UseControlAction("Talk","Click")
+			timestamp.auto_venture_timeout = Now()
 			return
 		
 		
@@ -222,6 +224,7 @@ function h_lib.auto_venture()
 						d("___Found Completed Venture, Interacting with Retainer  " .. key)
 						-- +1 cause Action 0 is sort retainer list.
 						L_control:Action("SelectIndex", key - 1)
+						timestamp.auto_venture_timeout = Now()
 						return
 					end
 				end
@@ -244,6 +247,7 @@ function h_lib.auto_venture()
 				if v == "View venture report. (Complete)" then
 					d("___Found Finished Venture Report, interacting")
 					L_control:DoAction(k)
+					timestamp.auto_venture_timeout = Now()
 					return
 				end
 			end
@@ -251,6 +255,7 @@ function h_lib.auto_venture()
 				if v == "Quit." then
 					d("___Venture Appears to be in Progress, exiting")
 					L_control:DoAction(k)
+					timestamp.auto_venture_timeout = Now()
 					return
 				end
 			end
@@ -260,6 +265,7 @@ function h_lib.auto_venture()
 			d("RetainerTaskResult UI Open, Reassigning Venture")
 			--GetControl("RetainerTaskResult"):PushButton(25, 2) -- Complete
 			GetControl("RetainerTaskResult"):PushButton(25, 3) -- ReAssign
+			timestamp.auto_venture_timeout = Now()
 			return
 		
 		
@@ -267,13 +273,22 @@ function h_lib.auto_venture()
 		elseif GetControl("RetainerTaskAsk") and GetControl("RetainerTaskAsk"):IsOpen() then
 			d("RetainerTaskAsk UI Open, Assigning Venture")
 			GetControl("RetainerTaskAsk"):PushButton(25, 1) -- Assign
+			timestamp.auto_venture_timeout = Now()
 			return
 			
 		
 		end
 		
-		h_lib.Settings.auto_venture = false
-		d("___Could not find any open UI or Retainer")	
+		if timestamp.auto_venture_timeout == 0 then
+			timestamp.auto_venture_timeout = Now()
+		end
+			d("___No UI found, waiting until timeout__" .. tostring(	10000 - TimeSince(timestamp.auto_venture_timeout)	)	)
+		
+		if TimeSince(timestamp.auto_venture_timeout) > 10000 then
+			timestamp.auto_venture_timeout = 0
+			h_lib.Settings.auto_venture = false
+			d("___Could not find any open UI or Retainer")
+		end
 	else
 
 	end
