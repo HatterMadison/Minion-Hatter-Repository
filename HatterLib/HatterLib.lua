@@ -42,6 +42,10 @@ h_lib.SettingsPath = h_lib.LibrarySettingPath .. [[HatterLib_Main_Settings.lua]]
 -- ------------------------- Settings ------------------------
 
 h_lib.DefaultSettings = {
+	auto_venture = false,
+	auto_venture_pulse = 750,
+	auto_venture_pulse_plus = 250,
+
     Version = h_lib.Info.Version
 }
 
@@ -52,6 +56,12 @@ h_lib.Misc = {}
 h_lib.SaveLastCheck = Now()
 
 
+
+
+-- Other Stuff
+local timestamp = {}
+	timestamp.auto_venture = Now()
+local Double_Checker_AutoVenture = 0
 
 -- ------------------ Quests Vars ----------------------
 
@@ -118,6 +128,7 @@ function h_lib.Init()
         FileSave(h_lib.SettingsPath, h_lib.DefaultSettings)
         h_lib.Settings = FileLoad(h_lib.SettingsPath)
     end
+	
     -- ------------------------- Init Status ------------------------
 
     h_lib.Log([[Addon started]])
@@ -145,16 +156,20 @@ function h_lib.MainWindow(event, tickcount)
 
         -- ------------------------- MainWindow ------------------------
 
-        local flags = (GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoResize)
-        GUI:SetNextWindowSize(h_lib.Style.MainWindow.Size.Width, h_lib.Style.MainWindow.Size.Height, GUI.SetCond_Always)
-        h_lib.GUI.Visible, h_lib.GUI.Open = GUI:Begin(h_lib.Info.AddonName, h_lib.GUI.Open, flags)
+        --local flags = (GUI.WindowFlags_NoScrollbar + GUI.WindowFlags_NoResize)
+        --GUI:SetNextWindowSize(h_lib.Style.MainWindow.Size.Width, h_lib.Style.MainWindow.Size.Height, GUI.SetCond_Always)
+        h_lib.GUI.Visible, h_lib.GUI.Open = GUI:Begin(h_lib.Info.AddonName, h_lib.GUI.Open) --, flags)
 
         local TabIndex, TabName = GUI_DrawTabs(h_lib.Style.MainWindow.Components.MainTabs)
 
         -- ------------------------- Tab 1 ------------------------
 
         if TabIndex == 1 then
-            -- Do stuff
+			h_lib.Settings.auto_venture = GUI:Checkbox("Enables Reassign-Ventures",h_lib.Settings.auto_venture)
+			GUI:PushItemWidth(90)
+			h_lib.Settings.auto_venture_pulse = GUI:InputFloat("<Reassign-Ventures> Minimum Time Delay between each action. 1000 = 1 sec", h_lib.Settings.auto_venture_pulse)
+			h_lib.Settings.auto_venture_pulse_plus = GUI:InputFloat([[<Reassign-Ventures> Random Delay Atop. math.random(min_delay, min_delay + random_delay)]], h_lib.Settings.auto_venture_pulse_plus)
+			GUI:PopItemWidth()
         end
 
         -- ------------------------- Tabs 2 ------------------------
@@ -172,6 +187,96 @@ function h_lib.MainWindow(event, tickcount)
         GUI:End()
     end
 end
+
+
+-- Indoor Retainer Bell 196630, Outdoor Bell 2000401
+function h_lib.auto_venture()
+	if TimeSince(timestamp.auto_venture) >= math.random(h_lib.Settings.auto_venture_pulse, h_lib.Settings.auto_venture_pulse + h_lib.Settings.auto_venture_pulse_plus) then
+		timestamp.auto_venture = Now()
+
+		local L_RetainerList_Data = {}
+		-- Raw String Index Data, that is string == complete
+		L_VentureStatus_Index = {11, 20, 29, 38, 47, 56, 65, 74, 83}
+		
+		
+		-- In conversation, skipping.
+		if GetControl("Talk") and GetControl("Talk"):IsOpen() then
+			d("___In Conversation___ talking..")
+			UseControlAction("Talk","Click")
+			return
+		
+		
+		-- Retainer List UI
+		elseif GetControl("RetainerList") and GetControl("RetainerList"):IsOpen() then
+
+			-- Sets Control
+			local L_control = GetControl("RetainerList")
+			
+			-- Iterate through 9 maximum retainers
+			for key = 1, 9 do
+				local bar = L_control:GetRawData()[	L_VentureStatus_Index[key]	]
+				if bar then
+					d(tostring(bar.value) .. "Index:  " .. key)
+					-- if Venture Status is Complete, then interact with index retainer.
+					if bar.value == "Complete" then
+						d("___Found Completed Venture, Interacting with Retainer  " .. key)
+						-- +1 cause Action 0 is sort retainer list.
+						L_control:Action("SelectIndex", key - 1)
+						return
+					end
+				end
+			end
+			
+			if Double_Checker_AutoVenture > 1 then 
+				Double_Checker_AutoVenture = 0
+				h_lib.Settings.auto_venture = false
+				d("___All Ventures Seems to be in progress, farewell")
+			else
+				Double_Checker_AutoVenture = Double_Checker_AutoVenture + 1
+			end
+		
+		-- Retainer UI
+		elseif GetControl("SelectString") and GetControl("SelectString"):IsOpen() then 
+			local L_control = GetControl("SelectString")
+			local tbl = L_control:GetData()
+			-- View Report To Continue
+			for k, v in pairs(tbl) do
+				if v == "View venture report. (Complete)" then
+					d("___Found Finished Venture Report, interacting")
+					L_control:DoAction(k)
+					return
+				end
+			end
+			for k, v in pairs(tbl) do
+				if v == "Quit." then
+					d("___Venture Appears to be in Progress, exiting")
+					L_control:DoAction(k)
+					return
+				end
+			end
+			
+		-- Venture Report UI
+		elseif GetControl("RetainerTaskResult") and GetControl("RetainerTaskResult"):IsOpen() then
+			d("RetainerTaskResult UI Open, Reassigning Venture")
+			--GetControl("RetainerTaskResult"):PushButton(25, 2) -- Complete
+			GetControl("RetainerTaskResult"):PushButton(25, 3) -- ReAssign
+			return
+		
+		
+		-- Ventures Task Ask
+		elseif GetControl("RetainerTaskAsk") and GetControl("RetainerTaskAsk"):IsOpen() then
+			d("RetainerTaskAsk UI Open, Assigning Venture")
+			GetControl("RetainerTaskAsk"):PushButton(25, 1) -- Assign
+			return
+			
+		
+		end
+	else
+
+	end
+
+end
+
 
 -- ACTUAL LIBRARY
 
@@ -197,6 +302,10 @@ end
 function h_lib.Update()
     h_lib.Save(false)
 
+
+	if h_lib.Settings.auto_venture then
+		h_lib.auto_venture()
+	end
 
 	-- Quest Related
 
@@ -309,14 +418,19 @@ end
 
 -- About Actions Activations
 h_lib.action = {}
+h_lib.item = {}
 
-h_lib.action.activate = function(_skill, _target, _debugString, _actionType)
-    local skill = _skill
+h_lib.action.activate = function(_skillID, _target, _debugString, _actionType)
 	local L_actionType = _actionType or 1
-	skill = ActionList:Get(L_actionType, skill)
+    local skill = ActionList:Get(L_actionType, _skillID)
+
 
     local target = _target or Player
-    local debugString = _debugString or "No Debug String"
+    local debugString = "Attempted to use skill :\t" .. skill.name
+	
+	if _debugString then
+		debugString = debugString .. "\t--\t" .. _debugString
+	end
 
 	if table.size(target) == 3 then
 		if skill:IsReady(Player.id) then
@@ -336,6 +450,33 @@ h_lib.action.activate = function(_skill, _target, _debugString, _actionType)
     end
 end
 
+h_lib.item.use = function(_itemID, _target, _debugString)
+    local item = GetItem(_itemID)
+
+    local target = _target or Player
+    local debugString = "Attempted to use item :\t" .. item.name
+	
+	if _debugString then
+		debugString = debugString .. "\t--\t" .. _debugString
+	end
+
+	if table.size(target) == 3 then
+		if item:IsReady(Player.id) then
+			item:Cast(target[1],target[2],target[3])
+			if debugString then
+				d(debugString)
+			end
+			return true
+		end
+
+    elseif item:IsReady(target.id) then
+        item:Cast(target.id)
+        if debugString then
+            d(debugString)
+        end
+        return true
+    end
+end
 
 --These currently stop everything.
 --[[
