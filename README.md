@@ -1,3 +1,5 @@
+**Notice:** Most stuff requires **HatterLib**
+
 Recent ChangeLog:
 
 Added 'Reassign Ventures' QOL to **HatterLib**
@@ -8,7 +10,6 @@ ShB Dps Quest Profile does the 2x Duties.
 
 Reapers' Quest Profile does the 2x Duties.
 
-**Notice:** Most stuff requires **HatterLib**
 
 ## Basic How-To
 * Place HatterLib folder in **LuaMods**, so the path looks like below.
