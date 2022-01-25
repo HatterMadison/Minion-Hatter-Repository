@@ -47,6 +47,7 @@ h_lib.Default_Settings = {
 			Hotbar = false,
 			MainFrame = true},
 	
+	max_retainer = 10,
 	store_stack_items = false,
 	store_materias = false,
 	auto_gardening = false,
@@ -707,6 +708,13 @@ function h_lib.MainWindow(event, tickcount)
 					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
 						GUI:SetTooltip( "Will ring <Summoning Bell> if in range, <Auto-Venture>, then turn itself off when finished sending." )
 					end
+					GUI:SameLine( 0, 16 )
+					GUI:PushItemWidth(76)
+					h_lib.Settings.max_retainer = GUI:InputInt( " Retainers Amount", h_lib.Settings.max_retainer )
+					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+						GUI:SetTooltip( "Will send this many <Retainers> starting from top of <Retainer List>\n\n\t\tPrimarily used to disable sending attempt of unpaid <Retainers>\n\t\t\tOrganize unpaid <Retainers> at the bottom of list for example." )
+					end
+					GUI:PopItemWidth()
 
 					
 					GUI:Separator( )
@@ -1191,11 +1199,17 @@ function h_lib.auto_venture()
 		-- Retainer List UI
 		elseif GetControl("RetainerList") and GetControl("RetainerList"):IsOpen() then
 
+			local max_retainer = h_lib.Settings.max_retainer
+			
 			-- Sets Control
 			local L_control = GetControl("RetainerList")
 			
-			-- Iterate through 9 maximum retainers
-			for key = 1, 10 do
+			h_lib.retrieveRetainerListData()
+			
+			-- Iterate through retainers CODERED
+			for key = 1, max_retainer do
+			
+				
 				local bar = L_control:GetRawData()[	L_VentureStatus_Index[key]	]
 				if bar then
 					d(tostring(bar.value) .. "Index:  " .. key)
