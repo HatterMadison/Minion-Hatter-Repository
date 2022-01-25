@@ -133,6 +133,7 @@ h_lib.libraries.interactable = {}
 h_lib.libraries.interactable.summoning_bells = {}
 
 h_lib.assist = {}
+h_lib.dev = {}
 h_lib.vars = {}
 h_lib.vars.gQuestGatherAetherCurrents = nil
 
@@ -1029,8 +1030,23 @@ end
 
 
 
+-- aFunctions
+
+function h_lib.dev.reloadACR( _filename, _alias)
 
 
+	local routinePath = GetStartupPath()..[[\LuaMods\ACR\CombatRoutines\]]
+	if (_filename ~= "" and FileExists(routinePath.._filename)) then
+		local profileData = loadfile(routinePath.._filename)
+		if (ValidTable(profileData)) then
+			ACR.AddPrivateProfile(profileData,_alias)
+		end
+		d("ACR File Found, initiating load.")
+	else
+		d("h_lib.dev.reloadACR : Error")
+	end
+	 
+end
 
 
 
@@ -1148,11 +1164,11 @@ function h_lib.auto_venture()
 		
 		-- Player Dont Have Target Or Retainer List Not Open
 		if not MGetTarget() then
-			spam_checker(760,150)
+			h_lib.spam_checker(760,150)
 			local tbl = EntityList('type=7,maxdistance2d=2')
 				if table.valid(tbl) then
 					for key, entity in pairs(tbl) do
-						if entity.name == "Summoning Bell" and entity.type == 7 then
+						if entity.name == "Summoning Bell" and entity.interactable then
 							Player:SetTarget(entity.id)
 							return true
 						end
@@ -1809,7 +1825,7 @@ function h_lib.auto_inventory()
 		
 		-- Player Dont Have Target Or Retainer List Not Open
 		if not MGetTarget() then
-			spam_checker(760,150)
+			h_lib.spam_checker(760,150)
 			local tbl = EntityList('type=7,maxdistance2d=2')
 				if table.valid(tbl) then
 					for key, entity in pairs(tbl) do
@@ -2324,13 +2340,6 @@ function h_lib.retrieveRetainerInventoryData()
 			end
 			h_lib.switches.character_data = true
 		end
-		--[[
-		if found_switch then
-			d("Collected <" .. h_lib.currents.retainer.name .. "> <Retainer Inventory Data>")
-		else
-			d("Could Not Find Retainer Name in List, go to <Retainer List> UI by summoning bell to update data.")
-		end
-		]]
 	end
 	
 	
