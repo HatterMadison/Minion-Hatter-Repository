@@ -17,7 +17,7 @@ Reapers' Quest Profile does the 2x Duties.
 * Place HatterLib folder in **LuaMods**, so the path looks like below.
   * HatterLib Path = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib**
 * Download HatterLib Icon Folder:
-  * <https://drive.google.com/drive/folders/1076ZUDnYh4hO2CvJmk1zoyMI1VKjdWwq?usp=sharing >
+  * <https://drive.google.com/drive/folders/1mhqdJdQifig6t5wxrY5tqS1hkiVYrobS>
 * Place Folder Into `HatterLib` folder, so like: `C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib\GUI_Files`
 
 
