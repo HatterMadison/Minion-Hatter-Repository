@@ -1362,7 +1362,7 @@ function h_lib.auto_venture()
 						-- if Venture Status is Complete, then interact with index retainer.
 						if bar.value == "Complete" or bar.value == "None in progress" then
 							h_lib.currents.retainer.index = key
-							h_lib.UIUX.setLogicMessage( "Calling ".. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ", found idle at index : " .. index .. "." )
+							h_lib.UIUX.setLogicMessage( "Calling ".. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ", found idle at index : " .. key .. "." )
 							-- +1 cause Action 0 is sort retainer list.
 							L_control:Action("SelectIndex", key - 1)
 							timestamp.auto_venture_timeout = Now()
