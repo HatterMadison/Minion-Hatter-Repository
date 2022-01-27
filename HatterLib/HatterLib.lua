@@ -1992,10 +1992,10 @@ function h_lib.auto_inventory()
 		-- Player Dont Have Target Or Retainer List Not Open
 		if not MGetTarget() then
 			h_lib.spam_checker(760,150)
-			local tbl = EntityList('type=7,maxdistance2d=2')
+			local tbl = EntityList('maxdistance2d=2')
 				if table.valid(tbl) then
 					for key, entity in pairs(tbl) do
-						if entity.name == "Summoning Bell" and entity.type == 7 then
+						if entity.name == "Summoning Bell" and entity.interactable then
 							Player:SetTarget(entity.id)
 							return
 						end
@@ -2100,7 +2100,7 @@ function h_lib.auto_inventory()
 			return
 
 		-- Player Targeting Bell, however no windows is open
-		elseif (MGetTarget().name == "Summoning Bell" and MGetTarget().type == 7) then
+		elseif MGetTarget().name == "Summoning Bell" and MGetTarget().interactable then
 		
 			d("<Summoning Bell> within range, ringing bell")
 			Player:Interact(MGetTarget().id)
