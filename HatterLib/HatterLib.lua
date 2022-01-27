@@ -45,7 +45,8 @@ h_lib.LocalDataPath = h_lib.LibrarySettingPath .. [[Users_Local_Data.lua]]
 h_lib.Default_Settings = {
 	UIUX = { CurrentWindow = "Auto-Venture",
 			Hotbar = false,
-			MainFrame = true},
+			MainFrame = true,
+			KeyRing = true},
 	
 	max_retainer = 10,
 	store_stack_items = false,
@@ -57,12 +58,19 @@ h_lib.Default_Settings = {
 	auto_inventory = false,
 	auto_venture_pulse = 750,
 	auto_venture_pulse_plus = 250,
+	auto_buy_housing = false,
+	auto_buy_housing_timeout = 8500,
+	auto_buy_housing_min_delay = 525,
+	auto_buy_housing_pulse_atop = 50,
+	auto_buy_housing_delay_between_buys = 575,
+	auto_buy_housing_delay_between_buys_pulse_atop = 50,
+	auto_buy_housing_type = 1,
 	combat_qte_assist = false,
 	pvp_target_assist = false,
 	pvp_target_assist_mintime = 650,
 	pvp_target_assist_delaytime = 180,
 	
-	dev = { keys = { disableFlight = false }	},
+	keys = { disableFlight = false },
 
     Version = h_lib.Info.Version
 }
@@ -112,8 +120,13 @@ h_lib.currents.character_data_file_path = h_lib.LibrarySettingPath .. "z_items_"
 
 h_lib.timers = {}
 h_lib.timers.super = Now()
+h_lib.timers.auto_buy_housing = Now()
 h_lib.timers.collect_retainer_list = Now()
 h_lib.timers.collect_retainer_inventory = Now()
+
+h_lib.timers.buy_housing = Now()
+h_lib.timers.auto_buy_housing_timeout = Now()
+h_lib.timers.wait_after_placard = Now()
 
 h_lib.timers.LocalData = Now()
 h_lib.timers.character_data = Now()
@@ -125,7 +138,8 @@ for key = 1, 5 do
 	h_lib.timers[key] = Now()
 end
 
-
+h_lib.functions = {}
+h_lib.functions.auto_buy_housing = FileLoad(h_lib.LibraryPath.."buy_housing.lua")
 
 
 h_lib.libraries = {}
@@ -241,8 +255,8 @@ h_lib.UIUX.MainFrame = {
     Visible = true,
 }
 
-h_lib.UIUX.Hotbar = {
-	Open = false,
+h_lib.UIUX.KeyRing = {
+	Open = true,
     Visible = true,
 }
 
@@ -250,13 +264,13 @@ h_lib.UIUX.styles = {}
 h_lib.UIUX.styles.buttons = { on = {0, 0.9, 0, 0.7}, off = {0.95, 0, 0, 0.14} }
 
 h_lib.UIUX.statuses = {}
-h_lib.UIUX.statuses.main = "There once was a cool lala with sunshine personality."
+h_lib.UIUX.statuses.main = "\t\tLali-ho! Ya Namazues!"
 
 -- ------------------------- Style ------------------------
 
 h_lib.Style.MainWindow = {
     Size = { Width = 500, Height = 400 },
-    Components = { MainTabs = GUI_CreateTabs([[Page 1,Page 2, Page 3]]) }
+    Components = { MainTabs = GUI_CreateTabs([[Keysets,Currently In Dev.]]) }
 }
 
 -- ------------------------- Log ------------------------
@@ -269,6 +283,7 @@ end
 -- ------------------------- Init ------------------------
 
 function h_lib.Init()
+	d("h_lib debug: initializing")
 
     -- ------------------------- Folder Structure ------------------------
 
@@ -277,59 +292,78 @@ function h_lib.Init()
     end
 
     if FileExists(h_lib.SettingsPath) then
+	
+	
+		-- loading
         h_lib.Settings = FileLoad(h_lib.SettingsPath)
+		
 		-- adding
 		for k, v in pairs(h_lib.Default_Settings) do
 			if h_lib.Settings[k] == nil then
-				if table.valid(h_lib.Default_Settings[k]) then
-					for k2, v2 in pairs(h_lib.Default_Settings[k]) do
-						if h_lib.Settings[k][k2] == nil then
-							h_lib.Settings[k][k2] = h_lib.Default_Settings[k][k2]
-						end
+				d("h_lib debug : adding to <Main_Settings> : "..tostring(k))
+				h_lib.Settings[k] = h_lib.Default_Settings[k]
+			end
+			if table.valid(h_lib.Default_Settings[k]) then
+				for k2, v2 in pairs(h_lib.Default_Settings[k]) do
+					if h_lib.Settings[k][k2] == nil then
+						d("h_lib debug : adding to <Main_Settings> : "..tostring(k2))
+						h_lib.Settings[k][k2] = h_lib.Default_Settings[k][k2]
 					end
-				else h_lib.Settings[k] = h_lib.Default_Settings[k]
 				end
 			end
 		end
+		
 		-- removing
-		--[[
 		for k, v in pairs(h_lib.Settings) do
 			if h_lib.Default_Settings[k] == nil then
-				table.remove(h_lib.Settings, k)
+				d("h_lib debug: removing from <Main_Settings> : "..tostring(k))
+				--table.remove(h_lib.Settings, k)
+				h_lib.Settings[k] = h_lib.Default_Settings[k]
 			elseif table.valid(h_lib.Settings[k]) then
 				for k2, v2 in pairs(h_lib.Settings[k]) do
 					if h_lib.Default_Settings[k][k2] == nil then
-						table.remove(h_lib.Settings[k], k2)
+						d("h_lib debug : adding to <Main_Settings> : "..tostring(k2))
+						h_lib.Settings[k2] = h_lib.Default_Settings[k2]
 					end
 				end
 			end
 		end
-		]]
+
     else
         FileSave(h_lib.SettingsPath, h_lib.Default_Settings)
         h_lib.Settings = h_lib.Default_Settings
     end
 
+
+
     if FileExists(h_lib.LocalDataPath) then
+	
+		-- loading
         h_lib.LocalData = FileLoad(h_lib.LocalDataPath)
 		-- adding
+
 		for k, v in pairs(h_lib.Default_LocalData) do
 			if h_lib.LocalData[k] == nil then
-				if table.valid(h_lib.Default_LocalData[k]) then
-					for k2, v2 in pairs(h_lib.Default_LocalData[k]) do
-						if h_lib.LocalData[k][k2] == nil then
-							h_lib.LocalData[k][k2] = h_lib.Default_LocalData[k][k2]
-						end
+				d("h_lib debug: removing from <Users_Local_Data> : "..tostring(k))
+				h_lib.LocalData[k] = h_lib.Default_LocalData[k]
+			end
+			--[[
+			if table.valid(h_lib.Default_LocalData[k]) then
+				for k2, v2 in pairs(h_lib.Default_LocalData[k]) do
+					if h_lib.LocalData[k][k2] == nil then
+						h_lib.LocalData[k][k2] = h_lib.Default_LocalData[k][k2]
 					end
-				else h_lib.LocalData[k] = h_lib.Default_LocalData[k]
 				end
 			end
+			]]
 		end
+
 		-- removing
-		--[[
+			--[[
 		for k, v in pairs(h_lib.LocalData) do
 			if h_lib.Default_LocalData[k] == nil then
 				table.remove(h_lib.LocalData, k)
+			end
 			elseif table.valid(h_lib.LocalData[k]) then
 				for k2, v2 in pairs(h_lib.LocalData[k]) do
 					if h_lib.Default_LocalData[k][k2] == nil then
@@ -339,6 +373,7 @@ function h_lib.Init()
 			end
 		end
 		]]
+		
     else
         FileSave(h_lib.LocalDataPath, h_lib.Default_LocalData)
         h_lib.LocalData = h_lib.Default_LocalData
@@ -580,400 +615,31 @@ end
 
 function h_lib.MainWindow(event, tickcount)
 
-	if h_lib.Settings.UIUX.Hotbar then
-		h_lib.UIUX.Hotbar.Visible, h_lib.Settings.UIUX.Hotbar = GUI:Begin("Hotbar", h_lib.Settings.UIUX.Hotbar)
-
-
-			
+	if h_lib.Settings.UIUX.KeyRing then
+		--GUI:SetNextWindowSize(50, 50, GUI.SetCond_Always)
+		GUI:SetNextWindowPos(240, 32, GUI.SetCond_FirstUseEver)
+		GUI:PushStyleColor(GUI.Col_WindowBg, 0, 0, 0, 0)
+		
+		h_lib.UIUX.KeyRing.Visible, h_lib.Settings.UIUX.KeyRing = GUI:Begin("##h_libKeyRingWindow", h_lib.Settings.UIUX.KeyRing, GUI.WindowFlags_NoTitleBar | GUI.WindowFlags_NoScrollbar | GUI.WindowFlags_NoCollapse | GUI.WindowFlags_NoResize | GUI.WindowFlags_AlwaysAutoResize )
+		
+		--GUI:PushStyleVar(GUI.StyleVar_WindowPadding, 0, 0)
+	
+		GUI:ImageButton( "##h_libKeyRingButton", gui_customs_path .. "gold_castrum_coffer_key_1.png", 32, 32, 0, 0, 1, 1, 2, 0, 0, 0, 1, 1, 1, 1, 1 )
+		if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+			GUI:SetTooltip( "Opens <First Keyset>" )
+		end
+		if GUI:IsItemClicked() then
+			h_lib.Settings.UIUX.MainFrame = not h_lib.Settings.UIUX.MainFrame
+		end
+	
+		GUI:PopStyleColor(1)
+		--GUI:PopStyleVar(1)
+		
 		GUI:End()
 	end
+	
 
 
-	if h_lib.Settings.UIUX.MainFrame then
-
-			h_lib.UIUX.MainFrame.Visible, h_lib.Settings.UIUX.MainFrame = GUI:Begin("First Keysets", h_lib.Settings.UIUX.MainFrame)
-			
-			if h_lib.UIUX.MainFrame.Visible then
-				
-				local temp_vx = 520
-				local temp_vy = temp_vx*9/16
-				GUI:SetNextWindowSize(temp_vx, temp_vy, GUI.SetCond_FirstUseEver)
-				
-
-				local y_spacing = 8
-				local y_spacing_2 = 0
-
-				local icon_px = 32
-				local icon_spacing = 4
-				local icon_spacing_break = 28
-				local icon_padding = 1
-				
-				local x_pixel_distance = icon_px + 2*icon_padding
-				local overlay_x_pixel_distance = 2*x_pixel_distance
-
-				local current_color_value = {0.9, 0.1, 0.1, 0.5}
-				local off_color_value = {0.4, 0.4, 0.4, 0.8}
-				local on_color_value = {1, 1, 1, 1}
-				
-					if h_lib.Settings.UIUX.CurrentWindow == "Combat-Assist" then current_color_value = on_color_value else current_color_value = off_color_value end
-				GUI:ImageButton("UI_auto_pvp_select", gui_items_path .. "halicarnassus_sword.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "<Combat-Assist>" )
-					end
-					if GUI:IsItemClicked() then
-						if h_lib.Settings.UIUX.CurrentWindow ~= "Combat-Assist" then h_lib.Settings.UIUX.CurrentWindow = "Combat-Assist" end
-					end
-					--[[
-					if h_lib.Settings.UIUX.CurrentWindow == "Combat-Assist" then
-						GUI:SameLine( -overlay_x_pixel_distance, overlay_x_pixel_distance + 10 )
-						GUI:Image(  gui_overlays_key_1, icon_px, icon_px )
-						--local L_frame = h_lib.getAnimationFrameNumber("spinning_h_icon", "spinning_h_icon", 6, 4)
-						--GUI:Image(  gui_animation.spinning_h_icon[ L_frame ] , icon_px, icon_px, 0, 0, 1, 1  )
-						--GUI:Image(  gui_animation.spinning_h_icon[ 1 ] , icon_px, icon_px, 0, 0, 1, 1  )
-					end
-					]]
-					GUI:SameLine( 0, icon_spacing_break/2 )
-
-					if h_lib.Settings.UIUX.CurrentWindow == "Auto-Venture" then current_color_value = on_color_value else current_color_value = off_color_value end
-				GUI:ImageButton("CW_auto_ventures", gui_customs_path .. "summoning_bell_3.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "<Auto-Venture>" )
-					end
-					if GUI:IsItemClicked() then
-						if h_lib.Settings.UIUX.CurrentWindow ~= "Auto-Venture" then h_lib.Settings.UIUX.CurrentWindow = "Auto-Venture" end
-					end
-					GUI:SameLine( 0, icon_spacing_break/2 )
-				
-					if h_lib.Settings.UIUX.CurrentWindow == "Auto-Inventory" then current_color_value = on_color_value else current_color_value = off_color_value end
-				GUI:ImageButton("CW_auto_inventory", gui_customs_path .. "dead_mans_chest_2.png", icon_px, icon_px, 1, 0, 0, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "<Auto-Inventory>" )
-					end
-					if GUI:IsItemClicked() then
-						if h_lib.Settings.UIUX.CurrentWindow ~= "Auto-Inventory" then h_lib.Settings.UIUX.CurrentWindow = "Auto-Inventory" end
-					end
-					GUI:SameLine( 0, icon_spacing_break/2 )
-
-					if h_lib.Settings.UIUX.CurrentWindow == "Storage-Data" then current_color_value = on_color_value else current_color_value = off_color_value end
-				GUI:ImageButton("UI_storage_data", gui_customs_path .. "company_chest_1.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "<Storage-Data>" )
-					end
-					if GUI:IsItemClicked() then
-						if h_lib.Settings.UIUX.CurrentWindow ~= "Storage-Data" then h_lib.Settings.UIUX.CurrentWindow = "Storage-Data" end
-					end
-					GUI:SameLine( 0, icon_spacing_break*2 )
-			
-					if h_lib.GUI.Open then current_color_value = on_color_value else current_color_value = off_color_value end
-				GUI:ImageButton("UI_open_main_option", gui_items_path .. "kitchen_hanger.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "<Main Options>" )
-					end
-					if GUI:IsItemClicked() then
-						if h_lib.GUI.Open == true then h_lib.GUI.Open = false else h_lib.GUI.Open = true end
-					end
-					--GUI:SameLine( 0, icon_spacing )
-
-				GUI:Dummy(0, 2)
-				GUI:Separator( )
-				GUI:Text( "\tPlaceholder:\t" .. h_lib.UIUX.statuses.main .. "" )
-				GUI:Separator( )
-				GUI:Dummy(0, 2)
-				
-				-- Trying to put Current Character atop list
-				local temp_tbl = {}
-				for k, v in pairs( h_lib.LocalData.character_data ) do
-					if v.id == Player.id then
-						temp_tbl[1] = v
-						break
-					end
-				end
-				-- Adding offline characters to list
-				for k, v in pairs( h_lib.LocalData.character_data ) do
-					if v.id ~= Player.id then
-						table.insert( temp_tbl, v )
-					end
-				end
-
-				if h_lib.Settings.UIUX.CurrentWindow == "Auto-Venture" then
-					
-
-					
-			
-					GUI:Dummy(0, 0)
-					GUI:SameLine( 0, 4 )
-					h_lib.UIUX.build_on_off_buttons("auto_venture")
-					GUI:SameLine( 0, 12 )
-					GUI:Text("<Auto-Venture>")
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "Will ring <Summoning Bell> if in range, <Auto-Venture>, then turn itself off when finished sending." )
-					end
-					GUI:SameLine( 0, 16 )
-					GUI:PushItemWidth(76)
-					h_lib.Settings.max_retainer = GUI:InputInt( " Retainers Amount", h_lib.Settings.max_retainer )
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "Will send this many <Retainers> starting from top of <Retainer List>\n\n\t\tPrimarily used to disable sending attempt of unpaid <Retainers>\n\t\t\tOrganize unpaid <Retainers> at the bottom of list for example." )
-					end
-					GUI:PopItemWidth()
-
-					
-					GUI:Separator( )
-					
-					GUI:Dummy(0, 6)
-					
-					local VentureChoiceList = {
-						[1] = "Regular",
-						[2] = "Exploration",
-						[3] = "Quick",
-						[4] = "Reassign",
-					}
-					
-					local RegularVentureLevelRangeChoice = {
-						[0] = "Lv 1-5",
-						[1] = "Lv 6-10",
-						[2] = "Lv 11-15",
-						[3] = "Lv 16-20",
-						[4] = "Lv 21-25",
-						[5] = "Lv 26-30",
-						[6] = "Lv 31-35",
-						[7] = "Lv 36-40",
-						[8] = "Lv 41-45",
-						[9] = "Lv 46-50",
-						[10] = "Lv 51-55",
-						[11] = "Lv 56-60",
-						[12] = "Lv 61-65",
-						[13] = "Lv 66-70",
-						[14] = "Lv 71-75",
-						[15] = "Lv 76-80",
-						[16] = "Lv 81-85",
-						[17] = "Lv 86-90",
-					}
-					
-					local LL_CHARACTERCOUNT = 0
-					
-					for index, character in pairs( temp_tbl ) do
-					
-					
-					
-					
-					
-					
-						--local LLL = GUI:Combo( "##" .. character.id .. character.name .. "replaceALL", LLL, VentureChoiceList)
-					
-					
-					
-					
-						LL_CHARACTERCOUNT = LL_CHARACTERCOUNT + 1
-						local L_LSTATUS = "\t"
-						local L_LCOUNT = 0
-						local L_LCOUNT2 = 0
-						
-						for bar, retainer in pairs( h_lib.LocalData.character_data[character.id].Retainers ) do
-							if retainer.int_venture_status == "Ongoing" and retainer.time_checked and retainer.venture_time_remain then
-								if TimeSince( retainer.time_checked ) > retainer.venture_time_remain then
-									h_lib.LocalData.character_data[character.id].Retainers[bar].int_venture_status = "Complete"
-									h_lib.switches.LocalData = true
-								end
-							end
-							
-							if retainer.int_venture_status == "Complete" then
-								L_LCOUNT = L_LCOUNT + 1
-							elseif retainer.int_venture_status == "Ongoing" then
-								L_LCOUNT2 = L_LCOUNT2 + 1
-							end
-						end
-						
-						if L_LCOUNT > 0 then L_LSTATUS = "\t" .. L_LCOUNT .. "x Complete" end
-						if L_LCOUNT2 > 0 then L_LSTATUS = L_LSTATUS .. "\t" .. L_LCOUNT2 .. "x Ongoing" end
-						if LL_CHARACTERCOUNT == 1 then
-							GUI:SetNextTreeNodeOpened( true, GUI.SetCond_Appearing)
-						end
-						
-						if GUI:TreeNode(	 "\t\t".. tostring(character.name) .. "\t" .. L_LSTATUS	) then
-							if table.valid( character.Retainers ) then
-							
-								for index, retainer in pairs( h_lib.LocalData.character_data[character.id].Retainers ) do
-									
-									local bobby_bob = "##" .. character.id .. retainer.name
-									
-									local temp_string = bobby_bob .. "venture_type"
-									local temp_string_2 = bobby_bob .. "venture_level_range"
-									local temp_string_3 = bobby_bob .. "venture_id"
-									
-									
-									GUI:PushItemWidth(70)
-									h_lib.LocalData.character_data[character.id].Retainers[index].venture_type = GUI:Combo( temp_string, h_lib.LocalData.character_data[character.id].Retainers[index].venture_type, VentureChoiceList)
-									if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-										GUI:SetTooltip( "Select the next type of Venture for this Retainer" )
-									end
-									GUI:PopItemWidth()
-									GUI:SameLine( 0, 4 )
-									
-									GUI:PushItemWidth(78)
-									h_lib.LocalData.character_data[character.id].Retainers[index].venture_level_range = GUI:Combo( temp_string_2, h_lib.LocalData.character_data[character.id].Retainers[index].venture_level_range, RegularVentureLevelRangeChoice)
-									if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-										GUI:SetTooltip( "Only necessary for Regular venture, does not affect Exploration or Quick." )
-									end
-									GUI:PopItemWidth()
-									GUI:SameLine( 0, 4 )
-									
-									GUI:PushItemWidth(68)
-									h_lib.LocalData.character_data[character.id].Retainers[index].venture_id = GUI:InputInt( temp_string_3, h_lib.LocalData.character_data[character.id].Retainers[index].venture_id )
-									if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-										GUI:SetTooltip( "Regular Venture: Index of item. Example, <Ice Shard> is 2, upon Lv 1-5 Mining Ventures.\nExploration Venture: Example, highest would be 1" )
-									end
-									GUI:PopItemWidth()
-									GUI:SameLine( 0, 4 )
-									
-
-									
-									local status = h_lib.LocalData.character_data[character.id].Retainers[index].int_venture_status
-													
-									
-									if status == "Complete" then
-										GUI:BulletText( index .. ". " .. tostring(retainer.name) .. " | " .. status	)
-									elseif status == "Ongoing" then
-										local tbl = h_lib.convertTime( retainer.venture_time_remain - TimeSince( retainer.time_checked ) )
-										local hrs = tbl[1]
-										local mins = tbl[2]
-										local secs = tbl[3]
-										if hrs == 0 then hrs = "" else hrs = hrs .. "h " end
-										GUI:BulletText( index .. ". " .. tostring(retainer.name) .. " | " .. status )
-										GUI:SameLine( 0, 8 )
-										GUI:Text( " | " .. tostring(hrs) .. tostring(mins) .. "m " )
-									elseif status == "None in progress" then
-										GUI:BulletText(	"   None | " .. tostring(retainer.name) )
-										GUI:SameLine( 0, 8 )
-										GUI:Text( " | None in progress" )
-									else
-										GUI:BulletText(	index .. ". " .. tostring(retainer.name) .. " |  No Data" )
-									end
-									
-									
-									
-									
-									GUI:SameLine( 0, 12 )
-										GUI:SmallButton(" <Remove> ")
-										if GUI:IsItemClicked() then
-											d("<Removing> " .. retainer.name .. "from index: " .. index)
-											character.Retainers[index] = nil
-										end
-									
-									GUI:Dummy(0, y_spacing_2)
-									
-								end
-							else
-								GUI:BulletText( " No Retainer Data" )
-							end
-						GUI:TreePop()
-							
-						
-						
-						
-						end
-					end
-					
-					if LL_CHARACTERCOUNT == 1 then
-						GUI:Dummy(0, 6)
-					end
-					
-					h_lib.switches.LocalData = true
-					
-				elseif h_lib.Settings.UIUX.CurrentWindow == "Auto-Inventory" then
-				
-					GUI:Dummy(0, 0)
-					GUI:SameLine( 0, 4 )
-					GUI:PushItemWidth(90)
-					h_lib.UIUX.build_on_off_buttons("auto_inventory")
-					GUI:SameLine( 0, 12 )
-					GUI:Text("<Auto-Inventory-Storage>")
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "Will open <Summoning Bell> within range, entrust items to corresponding retainers if matched stackable with items in inventory.\n\n\tIf retainer is 175/175 and have 999x stack, bot will be stuck in loop. Im not sorry." )
-					end
-					
-					GUI:Separator( )
-					
-					--h_lib.Settings.auto_inventory = GUI:Checkbox("<Auto-Store-Stack-Items> All Retainers",h_lib.Settings.auto_inventory)
-
-					GUI:Dummy(0, y_spacing_2)
-					
-					h_lib.Settings.store_stack_items = GUI:Checkbox("Current Opened Retainer Inventory, Store-Stack-Items.",h_lib.Settings.store_stack_items)
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "Does not affect <Auto-Storage-Inventory>, Requires opened <Retainer Inventory>." )
-					end
-					GUI:Dummy(0, y_spacing_2)
-					
-					h_lib.Settings.store_materias = GUI:Checkbox("Current Opened Retainer Inventory, Store-Materias",h_lib.Settings.store_materias)
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "Does not affect <Auto-Storage-Inventory>, Requires opened <Retainer Inventory>." )
-					end
-					GUI:Dummy(0, y_spacing_2)
-					
-					GUI:PopItemWidth()
-					
-
-				
-					GUI:SetNextTreeNodeOpened( true, GUI.SetCond_Appearing)
-					h_lib.build_GUI(temp_tbl, 1, 1)
-
-				
-				elseif h_lib.Settings.UIUX.CurrentWindow == "Storage-Data" then
-
-
-					
-					
-						--GUI:Text( "  ____" )
-					if GUI:TreeNode( " Current Character" ) then
-						h_lib.build_GUI(temp_tbl, 1, 1)
-					GUI:TreePop()	
-					end
-					
-					
-					
-
-					GUI:Dummy(0, 3)
-					
-
-					if GUI:TreeNode( " Offline Characters" ) then
-
-						h_lib.build_GUI(temp_tbl, 2, #temp_tbl)
-					GUI:TreePop()
-					end
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "This lags like crazy when opened and have few characters." )
-					end
-
-					
-					
-				elseif h_lib.Settings.UIUX.CurrentWindow == "Combat-Assist" then
-
-					GUI:Dummy(0, 0)
-					GUI:SameLine( 0, 4 )
-					h_lib.UIUX.build_on_off_buttons("combat_qte_assist")
-					
-					GUI:SameLine( 0, 16 )
-					
-					--GUI:TextColored( L_textSettings[L_textStatus][1], L_textSettings[L_textStatus][2], L_textSettings[L_textStatus][3], L_textSettings[L_textStatus][4], "Auto-Quick Time Events" )
-					GUI:Text( "Auto - Quick Time Events" )
-					if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-						GUI:SetTooltip( "Will spam <1, 2, 3, 4> during <Quick Time Events>." )
-					end
-					GUI:Separator( )
-					
-					GUI:PushItemWidth(90)
-					
-					
-					GUI:Dummy(0, 20)
-					GUI:Text("Belows are not functional or buggy.")
-					h_lib.Settings.pvp_target_assist = GUI:Checkbox("Enables PVP Target Assistance",h_lib.Settings.pvp_target_assist)
-					h_lib.Settings.pvp_target_assist_mintime = GUI:InputFloat("<PVP Target-Assist> Minimum Time Delay between target changes", h_lib.Settings.pvp_target_assist_mintime)
-					h_lib.Settings.pvp_target_assist_delaytime = GUI:InputFloat([[<PVP Target-Assist> Random Delay Atop. math.random(min_delay, min_delay + random_delay)]], h_lib.Settings.pvp_target_assist_delaytime)
-					GUI:PopItemWidth()
-				
-				end
-			end
-			GUI:End()
-	end
 
     if h_lib.GUI.Open then
 
@@ -994,45 +660,519 @@ function h_lib.MainWindow(event, tickcount)
 			if TabIndex == 1 then
 				GUI:PushItemWidth(90)
 				
-				h_lib.Settings.UIUX.MainFrame = GUI:Checkbox("Display <Primary Keysets>",h_lib.Settings.UIUX.MainFrame)
+				h_lib.Settings.UIUX.KeyRing = GUI:Checkbox("Display <KeyRing>",h_lib.Settings.UIUX.KeyRing)
 				GUI:Dummy(0, y_spacing_2)
 				
-				--[[
-				h_lib.Settings.UIUX.Hotbar = GUI:Checkbox("<UIUX Hotbar>",h_lib.Settings.UIUX.Hotbar)
-				GUI:Dummy(0, y_spacing_2)
-				]]
-				
-				h_lib.Settings.auto_gardening = GUI:Checkbox("<Auto-Gardening>",h_lib.Settings.auto_gardening)
+				h_lib.Settings.UIUX.MainFrame = GUI:Checkbox("Opens <First Keyset>",h_lib.Settings.UIUX.MainFrame)
 				GUI:Dummy(0, y_spacing_2)
 				
-				h_lib.Settings.auto_mini_cactpot = GUI:Checkbox("<Auto-Mini-Cactpot>",h_lib.Settings.auto_mini_cactpot)
-				GUI:Dummy(0, y_spacing_2)
 				
-				h_lib.Settings.auto_venture_pulse = GUI:InputFloat("<Reassign-Ventures> Minimum Time Delay between each action. 1000 = 1 sec", h_lib.Settings.auto_venture_pulse)
-				h_lib.Settings.auto_venture_pulse_plus = GUI:InputFloat([[<Reassign-Ventures> Random Delay Atop. math.random(min_delay, min_delay + random_delay)]], h_lib.Settings.auto_venture_pulse_plus)
-				GUI:Dummy(0, y_spacing_2)
 				
 
-				
-				h_lib.Settings.dev.keys.disableFlight = GUI:Checkbox("Dev Key: Disable Flight",h_lib.Settings.dev.keys.disableFlight)
-				GUI:PopItemWidth()
 
 
 			-- ------------------------- Tabs 2 ------------------------
 
 			elseif TabIndex == 2 then
 
+				h_lib.Settings.auto_gardening = GUI:Checkbox("<IN-DEV Auto-Gardening>",h_lib.Settings.auto_gardening)
+				GUI:Dummy(0, y_spacing_2)
+				
+				h_lib.Settings.auto_mini_cactpot = GUI:Checkbox("<IN-DEV Auto-Mini-Cactpot>",h_lib.Settings.auto_mini_cactpot)
+				GUI:Dummy(0, y_spacing_2)
+				
+				h_lib.Settings.keys.disableFlight = GUI:Checkbox("Dev Key: Disable Flight",h_lib.Settings.keys.disableFlight)
+				GUI:PopItemWidth()
+				
+				
 
 			-- ------------------------- Tabs 3 ------------------------
 
-			elseif TabIndex == 3 then
-				-- Do stuff
+
 			end
 		end
-
+		
         GUI:End()
     end
+	
 
+	if h_lib.Settings.UIUX.MainFrame then
+
+		h_lib.UIUX.MainFrame.Visible, h_lib.Settings.UIUX.MainFrame = GUI:Begin("First Keyset", h_lib.Settings.UIUX.MainFrame)
+		
+		if h_lib.UIUX.MainFrame.Visible then
+			
+			local temp_vx = 520
+			local temp_vy = temp_vx*9/16
+			GUI:SetNextWindowSize(temp_vx, temp_vy, GUI.SetCond_FirstUseEver)
+			
+
+			local y_spacing = 8
+			local y_spacing_2 = 0
+
+			local icon_px = 32
+			local icon_spacing = 4
+			local icon_spacing_break = 28
+			local icon_padding = 1
+			
+			local x_pixel_distance = icon_px + 2*icon_padding
+			local overlay_x_pixel_distance = 2*x_pixel_distance
+
+			local current_color_value = {0.9, 0.1, 0.1, 0.5}
+			local off_color_value = {0.4, 0.4, 0.4, 0.8}
+			local on_color_value = {1, 1, 1, 1}
+			
+				if h_lib.Settings.UIUX.CurrentWindow == "Combat-Assist" then current_color_value = on_color_value else current_color_value = off_color_value end
+			GUI:ImageButton("UI_auto_pvp_select", gui_items_path .. "halicarnassus_sword.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "<Combat-Assist>" )
+				end
+				if GUI:IsItemClicked() then
+					if h_lib.Settings.UIUX.CurrentWindow ~= "Combat-Assist" then h_lib.Settings.UIUX.CurrentWindow = "Combat-Assist" end
+				end
+				--[[
+				if h_lib.Settings.UIUX.CurrentWindow == "Combat-Assist" then
+					GUI:SameLine( -overlay_x_pixel_distance, overlay_x_pixel_distance + 10 )
+					GUI:Image(  gui_overlays_key_1, icon_px, icon_px )
+					--local L_frame = h_lib.getAnimationFrameNumber("spinning_h_icon", "spinning_h_icon", 6, 4)
+					--GUI:Image(  gui_animation.spinning_h_icon[ L_frame ] , icon_px, icon_px, 0, 0, 1, 1  )
+					--GUI:Image(  gui_animation.spinning_h_icon[ 1 ] , icon_px, icon_px, 0, 0, 1, 1  )
+				end
+				]]
+				GUI:SameLine( 0, icon_spacing_break/2 )
+
+				if h_lib.Settings.UIUX.CurrentWindow == "Auto-Venture" then current_color_value = on_color_value else current_color_value = off_color_value end
+			GUI:ImageButton("CW_auto_ventures", gui_customs_path .. "summoning_bell_3.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "<Auto-Venture>" )
+				end
+				if GUI:IsItemClicked() then
+					if h_lib.Settings.UIUX.CurrentWindow ~= "Auto-Venture" then h_lib.Settings.UIUX.CurrentWindow = "Auto-Venture" end
+				end
+				GUI:SameLine( 0, icon_spacing_break/2 )
+			
+				if h_lib.Settings.UIUX.CurrentWindow == "Auto-Inventory" then current_color_value = on_color_value else current_color_value = off_color_value end
+			GUI:ImageButton("CW_auto_inventory", gui_customs_path .. "dead_mans_chest_2.png", icon_px, icon_px, 1, 0, 0, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "<Auto-Inventory>" )
+				end
+				if GUI:IsItemClicked() then
+					if h_lib.Settings.UIUX.CurrentWindow ~= "Auto-Inventory" then h_lib.Settings.UIUX.CurrentWindow = "Auto-Inventory" end
+				end
+				GUI:SameLine( 0, icon_spacing_break/2 )
+
+				if h_lib.Settings.UIUX.CurrentWindow == "Storage-Data" then current_color_value = on_color_value else current_color_value = off_color_value end
+			GUI:ImageButton("UI_storage_data", gui_customs_path .. "company_chest_1.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "<Storage-Data>" )
+				end
+				if GUI:IsItemClicked() then
+					if h_lib.Settings.UIUX.CurrentWindow ~= "Storage-Data" then h_lib.Settings.UIUX.CurrentWindow = "Storage-Data" end
+				end
+				GUI:SameLine( 0, icon_spacing_break*2 )
+
+				if h_lib.Settings.UIUX.CurrentWindow == "Auto-Buy-Housings" then current_color_value = on_color_value else current_color_value = off_color_value end
+			GUI:ImageButton("CW_buy_housing", gui_customs_path .. "company_chest_1.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "<Auto-Buy-Housings>" )
+				end
+				if GUI:IsItemClicked() then
+					if h_lib.Settings.UIUX.CurrentWindow ~= "Auto-Buy-Housings" then h_lib.Settings.UIUX.CurrentWindow = "Auto-Buy-Housings" end
+				end
+				GUI:SameLine( 0, icon_spacing_break*2 )
+		
+				if h_lib.GUI.Open then current_color_value = on_color_value else current_color_value = off_color_value end
+			GUI:ImageButton("UI_open_main_option", gui_items_path .. "kitchen_hanger.png", icon_px, icon_px, 0, 0, 1, 1, icon_padding, 0, 0, 0, 0, current_color_value[1], current_color_value[2], current_color_value[3], current_color_value[4] )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "<Main Options>" )
+				end
+				if GUI:IsItemClicked() then
+					if h_lib.GUI.Open == true then h_lib.GUI.Open = false else h_lib.GUI.Open = true end
+				end
+				--GUI:SameLine( 0, icon_spacing )
+
+			GUI:Dummy(0, 2)
+			GUI:Separator( )
+			GUI:Text( "\t" .. h_lib.Settings.UIUX.CurrentWindow .. " :\t" .. h_lib.UIUX.statuses.main .. "" )
+			GUI:Separator( )
+			GUI:Dummy(0, 2)
+			
+			
+			-- Trying to put Current Character atop list
+			local temp_tbl = {}
+			for k, v in pairs( h_lib.LocalData.character_data ) do
+				if v.id == Player.id then
+					temp_tbl[1] = v
+					break
+				end
+			end
+			-- Adding offline characters to list
+			for k, v in pairs( h_lib.LocalData.character_data ) do
+				if v.id ~= Player.id then
+					table.insert( temp_tbl, v )
+				end
+			end
+			
+			
+			if h_lib.Settings.UIUX.CurrentWindow == "Auto-Venture" then
+				
+
+				
+		
+				GUI:Dummy(0, 0)
+				GUI:SameLine( 0, 4 )
+				h_lib.UIUX.build_on_off_buttons("auto_venture")
+				GUI:SameLine( 0, 12 )
+				GUI:Text("<Auto-Venture>")
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "Will ring <Summoning Bell> if in range, <Auto-Venture>, then turn itself off, disengage <Bell> when finished sending." )
+				end
+				GUI:SameLine( 0, 16 )
+				GUI:PushItemWidth(76)
+				h_lib.Settings.max_retainer = GUI:InputInt( "Max Retainers", h_lib.Settings.max_retainer )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "Will send this many <Retainers> starting from top of <Retainer List>\n\n\t\tPrimarily used to disable sending attempt of unpaid <Retainers>\n\t\t\tOrganize unpaid <Retainers> at the bottom of list for example." )
+				end
+				GUI:PopItemWidth()
+				GUI:PushItemWidth(65)
+				GUI:SameLine( 0, 8 )
+				h_lib.Settings.auto_venture_pulse = GUI:InputFloat("Minimum Delay", h_lib.Settings.auto_venture_pulse)
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "Minimum Delay between each action. (1000 = 1 sec)" )
+				end
+				GUI:SameLine( 0, 8 )
+				h_lib.Settings.auto_venture_pulse_plus = GUI:InputFloat("Plus Pulse", h_lib.Settings.auto_venture_pulse_plus)
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "+ added to Minimum Delay to form Maximum Delay" )
+				end
+				--GUI:Dummy(0, y_spacing_2)
+				GUI:PopItemWidth()
+
+				
+				GUI:Separator( )
+				
+				GUI:Dummy(0, 4)
+				
+				local VentureChoiceList = {
+					[0] = "None",
+					[1] = "Regular",
+					[2] = "Exploration",
+					[3] = "Quick",
+					[4] = "Reassign",
+				}
+				
+				local RegularVentureLevelRangeChoice = {
+					[0] = "Lv 1-5",
+					[1] = "Lv 6-10",
+					[2] = "Lv 11-15",
+					[3] = "Lv 16-20",
+					[4] = "Lv 21-25",
+					[5] = "Lv 26-30",
+					[6] = "Lv 31-35",
+					[7] = "Lv 36-40",
+					[8] = "Lv 41-45",
+					[9] = "Lv 46-50",
+					[10] = "Lv 51-55",
+					[11] = "Lv 56-60",
+					[12] = "Lv 61-65",
+					[13] = "Lv 66-70",
+					[14] = "Lv 71-75",
+					[15] = "Lv 76-80",
+					[16] = "Lv 81-85",
+					[17] = "Lv 86-90",
+				}
+				
+				local LL_CHARACTERCOUNT = 0
+				
+				for index, character in pairs( temp_tbl ) do
+				
+				
+				
+				
+				
+				
+					--local LLL = GUI:Combo( "##" .. character.id .. character.name .. "replaceALL", LLL, VentureChoiceList)
+				
+				
+				
+				
+					LL_CHARACTERCOUNT = LL_CHARACTERCOUNT + 1
+					local L_LSTATUS = "\t"
+					local L_LCOUNT = 0
+					local L_LCOUNT2 = 0
+					
+					for bar, retainer in pairs( h_lib.LocalData.character_data[character.id].Retainers ) do
+						if retainer.int_venture_status == "Ongoing" and retainer.time_checked and retainer.venture_time_remain then
+							if TimeSince( retainer.time_checked ) > retainer.venture_time_remain then
+								h_lib.LocalData.character_data[character.id].Retainers[bar].int_venture_status = "Complete"
+								h_lib.switches.LocalData = true
+							end
+						end
+						
+						if retainer.int_venture_status == "Complete" then
+							L_LCOUNT = L_LCOUNT + 1
+						elseif retainer.int_venture_status == "Ongoing" then
+							L_LCOUNT2 = L_LCOUNT2 + 1
+						end
+					end
+					
+					if L_LCOUNT > 0 then L_LSTATUS = "\t" .. L_LCOUNT .. "x Complete" end
+					if L_LCOUNT2 > 0 then L_LSTATUS = L_LSTATUS .. "\t" .. L_LCOUNT2 .. "x Ongoing" end
+					if LL_CHARACTERCOUNT == 1 then
+						GUI:SetNextTreeNodeOpened( true, GUI.SetCond_Once)
+					end
+					
+					if GUI:TreeNode(	 "\t\t".. tostring(character.name) .. "\t" .. L_LSTATUS	) then
+						if table.valid( character.Retainers ) then
+						
+							for index, retainer in pairs( h_lib.LocalData.character_data[character.id].Retainers ) do
+								
+								local bobby_bob = "##" .. character.id .. retainer.name
+								
+								local temp_string = bobby_bob .. "venture_type"
+								local temp_string_2 = bobby_bob .. "venture_level_range"
+								local temp_string_3 = bobby_bob .. "venture_id"
+								
+								
+								GUI:PushItemWidth(70)
+								h_lib.LocalData.character_data[character.id].Retainers[index].venture_type = GUI:Combo( temp_string, h_lib.LocalData.character_data[character.id].Retainers[index].venture_type, VentureChoiceList)
+								if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+									GUI:SetTooltip( "Select the next type of Venture for this Retainer" )
+								end
+								GUI:PopItemWidth()
+								GUI:SameLine( 0, 4 )
+								
+								GUI:PushItemWidth(78)
+								h_lib.LocalData.character_data[character.id].Retainers[index].venture_level_range = GUI:Combo( temp_string_2, h_lib.LocalData.character_data[character.id].Retainers[index].venture_level_range, RegularVentureLevelRangeChoice)
+								if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+									GUI:SetTooltip( "Only necessary for Regular venture, does not affect Exploration or Quick." )
+								end
+								GUI:PopItemWidth()
+								GUI:SameLine( 0, 4 )
+								
+								GUI:PushItemWidth(68)
+								h_lib.LocalData.character_data[character.id].Retainers[index].venture_id = GUI:InputInt( temp_string_3, h_lib.LocalData.character_data[character.id].Retainers[index].venture_id )
+								if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+									GUI:SetTooltip( "Regular Venture: Index of item. Example, <Ice Shard> is 2, upon Lv 1-5 Mining Ventures.\nExploration Venture: Example, highest would be 1" )
+								end
+								GUI:PopItemWidth()
+								GUI:SameLine( 0, 4 )
+								
+
+								
+								local status = h_lib.LocalData.character_data[character.id].Retainers[index].int_venture_status
+												
+								
+								if status == "Complete" then
+									GUI:BulletText( index .. ". " .. tostring(retainer.name) .. " | " .. status	)
+								elseif status == "Ongoing" then
+									local tbl = h_lib.convertTime( retainer.venture_time_remain - TimeSince( retainer.time_checked ) )
+									local hrs = tbl[1]
+									local mins = tbl[2]
+									local secs = tbl[3]
+									if hrs == 0 then hrs = "" else hrs = hrs .. "h " end
+									GUI:BulletText( index .. ". " .. tostring(retainer.name) .. " | " .. status )
+									GUI:SameLine( 0, 8 )
+									GUI:Text( " | " .. tostring(hrs) .. tostring(mins) .. "m " )
+								elseif status == "None in progress" then
+									GUI:BulletText(	"   None | " .. tostring(retainer.name) )
+									GUI:SameLine( 0, 8 )
+									GUI:Text( " | None in progress" )
+								else
+									GUI:BulletText(	index .. ". " .. tostring(retainer.name) .. " |  No Data" )
+								end
+								
+								
+								
+								
+								GUI:SameLine( 0, 12 )
+									GUI:SmallButton(" <Remove> ")
+									if GUI:IsItemClicked() then
+										d("<Removing> " .. retainer.name .. "from index: " .. index)
+										character.Retainers[index] = nil
+									end
+								
+								GUI:Dummy(0, y_spacing_2)
+								
+							end
+						else
+							GUI:BulletText( " No Retainer Data" )
+						end
+					GUI:TreePop()
+						
+					
+					
+					
+					end
+				end
+				
+				if LL_CHARACTERCOUNT == 1 then
+					GUI:Dummy(0, 6)
+				end
+				
+				h_lib.switches.LocalData = true
+				
+			elseif h_lib.Settings.UIUX.CurrentWindow == "Auto-Inventory" then
+			
+				GUI:Dummy(0, 0)
+				GUI:SameLine( 0, 4 )
+				GUI:PushItemWidth(90)
+				h_lib.UIUX.build_on_off_buttons("auto_inventory")
+				GUI:SameLine( 0, 12 )
+				GUI:Text("<Auto-Inventory-Storage>")
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "Will open <Summoning Bell> within range, entrust items to corresponding retainers if matched stackable with items in inventory.\n\n\tIf retainer is 175/175 and have 999x stack, bot will be stuck in loop. Im not sorry." )
+				end
+				
+				GUI:Dummy(0, y_spacing_2)
+				
+				GUI:Separator( )
+				
+				--h_lib.Settings.auto_inventory = GUI:Checkbox("<Auto-Store-Stack-Items> All Retainers",h_lib.Settings.auto_inventory)
+
+				GUI:Dummy(0, y_spacing_2)
+				
+				h_lib.Settings.store_stack_items = GUI:Checkbox("Current Opened Retainer Inventory, Store-Stack-Items.",h_lib.Settings.store_stack_items)
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "Does not affect <Auto-Storage-Inventory>, Requires opened <Retainer Inventory>." )
+				end
+				GUI:Dummy(0, y_spacing_2)
+				
+				h_lib.Settings.store_materias = GUI:Checkbox("Current Opened Retainer Inventory, Store-Materias",h_lib.Settings.store_materias)
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "Does not affect <Auto-Storage-Inventory>, Requires opened <Retainer Inventory>." )
+				end
+				GUI:Dummy(0, y_spacing_2)
+				
+				GUI:PopItemWidth()
+				
+
+			
+				GUI:SetNextTreeNodeOpened( true, GUI.SetCond_Appearing)
+				h_lib.build_GUI(temp_tbl, 1, 1)
+
+			
+			elseif h_lib.Settings.UIUX.CurrentWindow == "Storage-Data" then
+
+
+				
+				
+					--GUI:Text( "  ____" )
+				if GUI:TreeNode( " Current Character" ) then
+					h_lib.build_GUI(temp_tbl, 1, 1)
+				GUI:TreePop()	
+				end
+				
+				
+				
+
+				GUI:Dummy(0, 5)
+				
+
+				if GUI:TreeNode( " Offline Characters" ) then
+
+					h_lib.build_GUI(temp_tbl, 2, #temp_tbl)
+				GUI:TreePop()
+				end
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "This lags like crazy when opened and have few characters." )
+				end
+
+				
+				
+			elseif h_lib.Settings.UIUX.CurrentWindow == "Combat-Assist" then
+
+				GUI:Dummy(0, 0)
+				GUI:SameLine( 0, 4 )
+				h_lib.UIUX.build_on_off_buttons("combat_qte_assist")
+				
+				GUI:SameLine( 0, 16 )
+				
+				--GUI:TextColored( L_textSettings[L_textStatus][1], L_textSettings[L_textStatus][2], L_textSettings[L_textStatus][3], L_textSettings[L_textStatus][4], "Auto-Quick Time Events" )
+				GUI:Text( "<Auto-Quick-Time-Events>" )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "Will spam <1, 2, 3, 4> during <Quick Time Events>." )
+				end
+				
+				GUI:Dummy(0, y_spacing_2)
+				GUI:Separator( )
+				
+				GUI:PushItemWidth(90)
+				
+				
+				GUI:Dummy(0, 20)
+				GUI:Text("Belows are not functional or buggy.")
+				h_lib.Settings.pvp_target_assist = GUI:Checkbox("Enables PVP Target Assistance",h_lib.Settings.pvp_target_assist)
+				h_lib.Settings.pvp_target_assist_mintime = GUI:InputFloat("<PVP Target-Assist> Minimum Time Delay between target changes", h_lib.Settings.pvp_target_assist_mintime)
+				h_lib.Settings.pvp_target_assist_delaytime = GUI:InputFloat([[<PVP Target-Assist> Random Delay Atop. math.random(min_delay, min_delay + random_delay)]], h_lib.Settings.pvp_target_assist_delaytime)
+				GUI:PopItemWidth()
+			
+			elseif h_lib.Settings.UIUX.CurrentWindow == "Auto-Buy-Housings" then
+				GUI:Dummy(0, 0)
+				GUI:SameLine( 0, 4 )
+				h_lib.UIUX.build_on_off_buttons("auto_buy_housing")
+				GUI:SameLine( 0, 16 )
+				
+				--GUI:TextColored( L_textSettings[L_textStatus][1], L_textSettings[L_textStatus][2], L_textSettings[L_textStatus][3], L_textSettings[L_textStatus][4], "Auto-Quick Time Events" )
+				GUI:Text( "<Auto-Buy-Housing>" )
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "If Near <Placard> will check if anyones owns it, if not, will try to snatch it up!\n\n\t\tMake sure have enough <gil> on personel to purchase." )
+				end
+				
+				GUI:Dummy(0, y_spacing_2)
+				GUI:Separator( )
+				
+				local BuyHousingTypeList = {	[1] = "Buy Personal",
+												[2] = "Buy Free-Company",
+												[3] = "Relo Personal",
+												[4] = "Relo Free-Company"		}
+												--[[
+				local BuyHousingTypeList = {	["Buy Personal"] = "Buy Personal",
+												["Buy Free-Company"] = "Buy Free-Company",
+												["Relo Personal"] = "Relo Personal",
+												["Relo Free-Company"] = "Relo Free-Company"		}]]
+					
+				
+				GUI:PushItemWidth(160)
+				
+				h_lib.Settings.auto_buy_housing_type = GUI:Combo( "What are you spamming for ?", h_lib.Settings.auto_buy_housing_type, BuyHousingTypeList)
+				GUI:Dummy(0, y_spacing_2)
+				
+				GUI:PopItemWidth()
+				
+				GUI:PushItemWidth(80)
+				
+				h_lib.Settings.auto_buy_housing_min_delay = GUI:InputFloat("Minimum Delay : Between Each Menu", h_lib.Settings.auto_buy_housing_min_delay)
+				GUI:Dummy(0, y_spacing_2)
+				h_lib.Settings.auto_buy_housing_pulse_atop = GUI:InputFloat("Pulse Atop Delay : Between Each Menu", h_lib.Settings.auto_buy_housing_pulse_atop)
+				GUI:Dummy(0, y_spacing_2)
+				h_lib.Settings.auto_buy_housing_delay_between_buys = GUI:InputFloat("Minimum Delay : After Purchase Attempt", h_lib.Settings.auto_buy_housing_delay_between_buys)
+				GUI:Dummy(0, y_spacing_2)
+				h_lib.Settings.auto_buy_housing_delay_between_buys_pulse_atop = GUI:InputFloat("Pulse Atop Delay : After Purchase Attempt", h_lib.Settings.auto_buy_housing_delay_between_buys_pulse_atop)
+				
+				GUI:PopItemWidth()
+				
+				GUI:Dummy(0, y_spacing)
+				GUI:Dummy(0, 0)
+				GUI:SameLine( 0, 24 )
+				GUI:SmallButton( "Reload : buy_housing.lua")
+				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
+					GUI:SetTooltip( "For Devs Dev." )
+				end
+				if GUI:IsItemClicked() then
+					d("Reloading buy_housing.lua")
+					h_lib.functions.auto_buy_housing = FileLoad(h_lib.LibraryPath.."buy_housing.lua")
+				end
+				
+				GUI:PushItemWidth(90)
+
+			end
+			
+		end
+		GUI:End()
+	
+	end
+	
 end
 
 
@@ -1059,6 +1199,7 @@ end
 
 
 -- bFunctions
+
 
 function h_lib.assist.buildSkillTableForCurrentJob(_job_id)
 	job_id = _job_id or Player.job
@@ -1154,7 +1295,10 @@ function h_lib.auto_GC_supply_missions()
 	end
 end
 
-
+function h_lib.UIUX.setLogicMessage( _string_message )
+	d("h_lib debug : " .. _string_message)
+	h_lib.UIUX.statuses.main = _string_message
+end
 
 -- Indoor Retainer Bell 196630, Outdoor Bell 2000401, 2000441 mor dhona
 function h_lib.auto_venture()
@@ -1173,23 +1317,24 @@ function h_lib.auto_venture()
 		-- Player Dont Have Target Or Retainer List Not Open
 		if not MGetTarget() then
 			h_lib.spam_checker(760,150)
-			local tbl = EntityList('type=7,maxdistance2d=2')
+			local tbl = EntityList('maxdistance2d=2')
 				if table.valid(tbl) then
 					for key, entity in pairs(tbl) do
 						if entity.name == "Summoning Bell" and entity.interactable then
+							h_lib.UIUX.setLogicMessage( "1. Found <Summoning Bell>, selecting <Summoning Bell>." )
 							Player:SetTarget(entity.id)
 							return true
 						end
 					end
 				else
-					d("No <Summoning Bell> within range")
+					h_lib.UIUX.setLogicMessage( "Ending, no <Summoning Bell> within range." )
 					h_lib.Settings.auto_venture = false
 				end
 			return
 		
 		-- In conversation, skipping.
 		elseif GetControl("Talk") and GetControl("Talk"):IsOpen() then
-			d("___In Conversation___ talking..")
+			h_lib.UIUX.setLogicMessage( "Misc. Talking, within <Conversation>." )
 			UseControlAction("Talk","Click")
 			timestamp.auto_venture_timeout = Now()
 			return
@@ -1209,22 +1354,28 @@ function h_lib.auto_venture()
 			-- Iterate through retainers CODERED
 			for key = 1, max_retainer do
 			
+				if h_lib.LocalData.character_data[Player.id].Retainers[key].venture_type ~= 0 then
 				
-				local bar = L_control:GetRawData()[	L_VentureStatus_Index[key]	]
-				if bar then
-					d(tostring(bar.value) .. "Index:  " .. key)
-					-- if Venture Status is Complete, then interact with index retainer.
-					if bar.value == "Complete" or bar.value == "None in progress" then
-						d("___Found idle retainer, Interacting with Retainer  " .. key)
-						-- +1 cause Action 0 is sort retainer list.
-						L_control:Action("SelectIndex", key - 1)
-						h_lib.currents.retainer.index = key
-						timestamp.auto_venture_timeout = Now()
-						return
+					local bar = L_control:GetRawData()[	L_VentureStatus_Index[key]	]
+					if bar then
+						d(tostring(bar.value) .. "Index:  " .. key)
+						-- if Venture Status is Complete, then interact with index retainer.
+						if bar.value == "Complete" or bar.value == "None in progress" then
+							h_lib.currents.retainer.index = key
+							h_lib.UIUX.setLogicMessage( "Calling ".. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ", found idle at index : " .. index .. "." )
+							-- +1 cause Action 0 is sort retainer list.
+							L_control:Action("SelectIndex", key - 1)
+							timestamp.auto_venture_timeout = Now()
+							return
+						end
 					end
+				
 				end
+				
 			end
+				h_lib.Settings.auto_venture = false
 			
+			--[[
 			if Double_Checker_AutoVenture > 0 then 
 				Double_Checker_AutoVenture = 0
 				h_lib.Settings.auto_venture = false
@@ -1233,7 +1384,7 @@ function h_lib.auto_venture()
 			else
 				Double_Checker_AutoVenture = Double_Checker_AutoVenture + 1
 			end
-
+			]]
 
 
 		-- Retainer UI
@@ -1245,6 +1396,7 @@ function h_lib.auto_venture()
 			for k, v in pairs(tbl) do
 				if v == "View venture report. (Complete)" then
 					d("___Found Complete Venture Report, interacting")
+					h_lib.UIUX.setLogicMessage( "View Report, " .. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. " have returned.")
 					L_control:DoAction(k)
 					timestamp.auto_venture_timeout = Now()
 					return
@@ -1252,7 +1404,7 @@ function h_lib.auto_venture()
 			end
 			for k, v in pairs(tbl) do
 				if v == "Assign venture." then
-					d("___No ventures set, assigning venture.")
+					h_lib.UIUX.setLogicMessage( "Assigning Venture to <" .. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ">." )
 					L_control:DoAction(k)
 					timestamp.auto_venture_timeout = Now()
 					return
@@ -1261,7 +1413,7 @@ function h_lib.auto_venture()
 			if h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].venture_type == 1 then
 				for k, v in pairs(tbl) do
 					if v == "Mining." or v == "Woodcutting." or v == "Fishing." or v == "Hunting." then
-						d("___Assigning Quick Exploration")
+						h_lib.UIUX.setLogicMessage( "Assigning <" .. v .. "> Venture to <" .. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ">." )
 						L_control:DoAction(k)
 						timestamp.auto_venture_timeout = Now()
 						return
@@ -1271,7 +1423,7 @@ function h_lib.auto_venture()
 			if h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].venture_type == 3 then
 				for k, v in pairs(tbl) do
 					if v == "Quick Exploration." then
-						d("___Assigning Quick Exploration")
+						h_lib.UIUX.setLogicMessage( "Assigning <Quick> Venture to <" .. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ">." )
 						L_control:DoAction(k)
 						timestamp.auto_venture_timeout = Now()
 						return
@@ -1281,7 +1433,7 @@ function h_lib.auto_venture()
 			if h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].venture_type == 2 then
 				for k, v in pairs(tbl) do
 					if v == "Highland Exploration." or v == "Woodland Exploration." or v == "Waterside Exploration." or v == "Field Exploration."then
-						d("___Assigning 18hr Exploration")
+						h_lib.UIUX.setLogicMessage( "Assigning <" .. v .. "> Venture to <" .. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ">." )
 						L_control:DoAction(k)
 						timestamp.auto_venture_timeout = Now()
 						return
@@ -1291,7 +1443,7 @@ function h_lib.auto_venture()
 
 			-- within Regular Venture level range select
 			if GetControl("SelectString"):GetStrings()[2] == "Select a level range." then
-				d("___No ventures set, assigning venture.")
+				h_lib.UIUX.setLogicMessage( "Selecting <Level-Range> for <Regular> Venture." )
 				L_control:DoAction( h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].venture_level_range )
 				timestamp.auto_venture_timeout = Now()
 				return
@@ -1299,7 +1451,7 @@ function h_lib.auto_venture()
 				
 			for k, v in pairs(tbl) do
 				if v == "Quit." then
-					d("___Venture Appears to be in Progress, exiting")
+					h_lib.UIUX.setLogicMessage( "Farewell, Venture sent for <" .. h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].name .. ">" )
 					L_control:DoAction(k)
 					timestamp.auto_venture_timeout = Now()
 					return
@@ -1308,7 +1460,7 @@ function h_lib.auto_venture()
 
 		-- Ventures Task Ask
 		elseif GetControl("RetainerTaskAsk") and GetControl("RetainerTaskAsk"):IsOpen() then
-			d("RetainerTaskAsk UI Open, Assigning Venture")
+			h_lib.UIUX.setLogicMessage("<RetainerTaskAsk> Opened, confirming Venture.")
 			--GetControl("RetainerTaskAsk"):PushButton(25, 1) -- Assign
 			GetControl("RetainerTaskAsk"):Action("Assign", 0) -- Assign
 			
@@ -1323,7 +1475,7 @@ function h_lib.auto_venture()
 		-- Venture Task List UI
 		elseif GetControl("RetainerTaskList") and GetControl("RetainerTaskList"):IsOpen() then
 		
-				d("RetainerTaskList UI Open, choosing Venture")
+				h_lib.UIUX.setLogicMessage("<RetainerTaskList> Open, choosing Venture.")
 				GetControl("RetainerTaskList"):Action("SelectItem", h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].venture_id - 1)
 				timestamp.auto_venture_timeout = Now()
 				return
@@ -1333,20 +1485,20 @@ function h_lib.auto_venture()
 		elseif GetControl("RetainerTaskResult") and GetControl("RetainerTaskResult"):IsOpen() then
 			-- if current retainer is set to <Reassign> then Reassign, otherwise, complete and then Assign new venture.
 			if h_lib.LocalData.character_data[Player.id].Retainers[h_lib.currents.retainer.index].venture_type == 4 then
-				d("RetainerTaskResult UI Open, Reassigning Venture")
+				h_lib.UIUX.setLogicMessage("<RetainerTaskResult> Open, reassigning Venture.")
 				GetControl("RetainerTaskResult"):PushButton(25, 3) -- ReAssign
 				timestamp.auto_venture_timeout = Now()
 				return
 			else
-				d("RetainerTaskResult UI Open, Completing Venture")
+				h_lib.UIUX.setLogicMessage("<RetainerTaskResult> Open, completing Venture.")
 				GetControl("RetainerTaskResult"):PushButton(25, 2) -- Complete
 				timestamp.auto_venture_timeout = Now()
 				return
 			end
 		
 		-- Player Targeting Bell, however no windows is open
-		elseif (MGetTarget().name == "Summoning Bell" and MGetTarget().type == 7) then
-			d("<Summoning Bell> within range, ringing bell")
+		elseif MGetTarget().name == "Summoning Bell" and MGetTarget().interactable then
+			h_lib.UIUX.setLogicMessage("Rining <Summoning Bell>, as <Summoning Bell> is within range.")
 			Player:Interact(MGetTarget().id)
 			timestamp.auto_venture_timeout = Now()
 			return
@@ -1357,11 +1509,11 @@ function h_lib.auto_venture()
 			timestamp.auto_venture_timeout = Now()
 		end
 		
-		d("___No UI found, waiting until timeout__" .. tostring(	10000 - TimeSince(timestamp.auto_venture_timeout)	)	)
+		h_lib.UIUX.setLogicMessage("No UI found, time until Timed-Out : " .. tostring(	10000 - TimeSince(timestamp.auto_venture_timeout)	) .. "."	)
 		if TimeSince(timestamp.auto_venture_timeout) > 10000 then
 			timestamp.auto_venture_timeout = 0
 			h_lib.Settings.auto_venture = false
-			d("___Could not find any open UI or Retainer")
+			h_lib.UIUX.setLogicMessage("Ending, Timed-Out.")
 		end
 
 	else
@@ -2406,7 +2558,7 @@ end
 -- SUPERSEDE MINION
 
 function CanFlyInZone()
-	if h_lib.Settings.dev.keys.disableFlight then
+	if h_lib.Settings.keys.disableFlight then
 		return false
 	end
 
@@ -2424,6 +2576,9 @@ function CanFlyInZone()
 	return false
 end
 
+function h_lib.auto_buy_housing()
+	h_lib.functions.auto_buy_housing.Execute()
+end
 
 -- FUNCTIONS
 
@@ -2530,7 +2685,9 @@ function h_lib.Update()
 	h_lib.QueueSaves()
 
 	-- Auto-Venture
-	if h_lib.Settings.auto_venture then
+	if h_lib.Settings.auto_buy_housing then
+		h_lib.auto_buy_housing()
+	elseif h_lib.Settings.auto_venture then
 		h_lib.auto_venture()
 	elseif h_lib.Settings.auto_gardening then
 		h_lib.auto_gardening()
