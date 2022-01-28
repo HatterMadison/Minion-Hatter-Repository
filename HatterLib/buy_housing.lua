@@ -45,32 +45,40 @@ local tbl = {
 			local STRINGS = GetControl("SelectString"):GetData()
 			
 			if h_lib.Settings.auto_buy_housing_type == 1 then
-				if STRINGS[0] and string.find( STRINGS[0], "Private Individual." ) then
-					h_lib.UIUX.setLogicMessage("3. <Private Individual.> string found, choosing option")
-					GetControl("SelectString"):Action("SelectIndex", 0)
-					h_lib.timers.auto_buy_housing_timeout = Now()
-					return
+				for index = 0, 3 do
+					if STRINGS[index] and string.find( STRINGS[index], "Private Individual." ) then
+						h_lib.UIUX.setLogicMessage("3. <Private Individual.> string found, choosing option")
+						GetControl("SelectString"):Action("SelectIndex", 0)
+						h_lib.timers.auto_buy_housing_timeout = Now()
+						return
+					end
 				end
 			elseif h_lib.Settings.auto_buy_housing_type == 2 then
-				if STRINGS[1] and string.find( STRINGS[1], "Free Company." ) then
-					h_lib.UIUX.setLogicMessage("3. <Free Company.> string found, choosing option")
-					GetControl("SelectString"):Action("SelectIndex", 1)
-					h_lib.timers.auto_buy_housing_timeout = Now()
-					return
+				for index = 0, 3 do
+					if STRINGS[index] and string.find( STRINGS[index], "Free Company." ) then
+						h_lib.UIUX.setLogicMessage("3. <Free Company.> string found, choosing option")
+						GetControl("SelectString"):Action("SelectIndex", 1)
+						h_lib.timers.auto_buy_housing_timeout = Now()
+						return
+					end
 				end
 			elseif h_lib.Settings.auto_buy_housing_type == 3 then
-				if STRINGS[2] and string.find( STRINGS[2], "Private Residence Relocation" ) then
-					h_lib.UIUX.setLogicMessage("3. <Private Residence Relocation> string found, choosing option")
-					GetControl("SelectString"):Action("SelectIndex", 2)
-					h_lib.timers.auto_buy_housing_timeout = Now()
-					return
+				for index = 0, 3 do
+					if STRINGS[index] and string.find( STRINGS[index], "Private Residence Relocation" ) then
+						h_lib.UIUX.setLogicMessage("3. <Private Residence Relocation> string found, choosing option")
+						GetControl("SelectString"):Action("SelectIndex", 2)
+						h_lib.timers.auto_buy_housing_timeout = Now()
+						return
+					end
 				end
 			elseif h_lib.Settings.auto_buy_housing_type == 4 then
-				if STRINGS[3] and string.find( STRINGS[3], "Free Company Estate Relocation" ) then
-					h_lib.UIUX.setLogicMessage("3. <Free Company Estate Relocation> string found, choosing option")
-					GetControl("SelectString"):Action("SelectIndex", 3)
-					h_lib.timers.auto_buy_housing_timeout = Now()
-					return
+				for index = 0, 3 do
+					if STRINGS[index] and string.find( STRINGS[index], "Free Company Estate Relocation" ) then
+						h_lib.UIUX.setLogicMessage("3. <Free Company Estate Relocation> string found, choosing option")
+						GetControl("SelectString"):Action("SelectIndex", 3)
+						h_lib.timers.auto_buy_housing_timeout = Now()
+						return
+					end
 				end
 			end
 			
@@ -83,8 +91,14 @@ local tbl = {
 			h_lib.UIUX.setLogicMessage("4. <SelectYesno> Opened.")
 			
 			if h_lib.Settings.auto_buy_housing_type == 1 or h_lib.Settings.auto_buy_housing_type == 2 then
+				local L_TYPE = "bob"
+				if h_lib.Settings.auto_buy_housing_type == 1 then
+					L_TYPE = "Personal"
+				elseif h_lib.Settings.auto_buy_housing_type == 2 then
+					L_TYPE = "Free-Company"
+				end
 				if string.find( GetControl("SelectYesno"):GetStrings()[2], "Purchase this plot of land" ) then
-					h_lib.UIUX.setLogicMessage("4. Found <Purchase"..h_lib.Settings.auto_buy_housing_type.."> option, proceeding.")
+					h_lib.UIUX.setLogicMessage("4. Found <Purchase "..L_TYPE.."> option, proceeding.")
 					GetControl("SelectYesno"):Action("Yes", 0)
 					h_lib.timers.auto_buy_housing_timeout = Now()
 					h_lib.timers.wait_after_placard = Now()
