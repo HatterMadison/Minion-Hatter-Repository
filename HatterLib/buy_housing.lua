@@ -48,7 +48,7 @@ local tbl = {
 				for index = 0, 3 do
 					if STRINGS[index] and string.find( STRINGS[index], "Private Individual." ) then
 						h_lib.UIUX.setLogicMessage("3. <Private Individual.> string found, choosing option")
-						GetControl("SelectString"):Action("SelectIndex", 0)
+						GetControl("SelectString"):Action("SelectIndex", index)
 						h_lib.timers.auto_buy_housing_timeout = Now()
 						return
 					end
@@ -57,7 +57,7 @@ local tbl = {
 				for index = 0, 3 do
 					if STRINGS[index] and string.find( STRINGS[index], "Free Company." ) then
 						h_lib.UIUX.setLogicMessage("3. <Free Company.> string found, choosing option")
-						GetControl("SelectString"):Action("SelectIndex", 1)
+						GetControl("SelectString"):Action("SelectIndex", index)
 						h_lib.timers.auto_buy_housing_timeout = Now()
 						return
 					end
@@ -66,7 +66,7 @@ local tbl = {
 				for index = 0, 3 do
 					if STRINGS[index] and string.find( STRINGS[index], "Private Residence Relocation" ) then
 						h_lib.UIUX.setLogicMessage("3. <Private Residence Relocation> string found, choosing option")
-						GetControl("SelectString"):Action("SelectIndex", 2)
+						GetControl("SelectString"):Action("SelectIndex", index)
 						h_lib.timers.auto_buy_housing_timeout = Now()
 						return
 					end
@@ -75,7 +75,7 @@ local tbl = {
 				for index = 0, 3 do
 					if STRINGS[index] and string.find( STRINGS[index], "Free Company Estate Relocation" ) then
 						h_lib.UIUX.setLogicMessage("3. <Free Company Estate Relocation> string found, choosing option")
-						GetControl("SelectString"):Action("SelectIndex", 3)
+						GetControl("SelectString"):Action("SelectIndex", index)
 						h_lib.timers.auto_buy_housing_timeout = Now()
 						return
 					end
