@@ -25,10 +25,15 @@ h_lib.Info = {
     LastUpdate = "01-04-2022",
     Description = "H makes the codes! With help from community!",
     ChangeLog = {
-        [1] = { Version = [[0.0.1]], Description = [[Starting development.]] }
+        [1] = { Version = [[0.0.1]], Description = [[Forget This.]] }
     }
 }
 
+h_lib.ChangeLog = {
+    ChangeLog = {
+        [1] = { Version = [[0.0.1]], Description = [[Forget This.]] },
+    }
+}
 -- ------------------------- Paths ------------------------
 
 LuaPath = GetLuaModsPath()
@@ -823,7 +828,7 @@ function h_lib.MainWindow(event, tickcount)
 				GUI:SameLine( 0, 4 )
 				h_lib.UIUX.build_on_off_buttons("auto_venture")
 				GUI:SameLine( 0, 12 )
-				GUI:Text("<Auto-Venture>")
+				GUI:Text("Settings :")
 				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
 					GUI:SetTooltip( "Will ring <Summoning Bell> if in range, <Auto-Venture>, then turn itself off, disengage <Bell> when finished sending." )
 				end
@@ -1157,7 +1162,7 @@ function h_lib.MainWindow(event, tickcount)
 				GUI:SameLine( 0, 24 )
 				GUI:SmallButton( "Reload : buy_housing.lua")
 				if GUI:IsItemHovered(GUI.HoveredFlags_Default) then
-					GUI:SetTooltip( "For Devs Dev." )
+					GUI:SetTooltip( "For not having to <reload> entire .lua of FFXIVMinion" )
 				end
 				if GUI:IsItemClicked() then
 					d("Reloading buy_housing.lua")
@@ -1374,6 +1379,7 @@ function h_lib.auto_venture()
 				
 			end
 				h_lib.Settings.auto_venture = false
+				GetControl("RetainerList"):Close()
 			
 			--[[
 			if Double_Checker_AutoVenture > 0 then 
@@ -1498,7 +1504,7 @@ function h_lib.auto_venture()
 		
 		-- Player Targeting Bell, however no windows is open
 		elseif MGetTarget().name == "Summoning Bell" and MGetTarget().interactable then
-			h_lib.UIUX.setLogicMessage("Rining <Summoning Bell>, as <Summoning Bell> is within range.")
+			h_lib.UIUX.setLogicMessage("Ringing <Summoning Bell>, as <Summoning Bell> is within range.")
 			Player:Interact(MGetTarget().id)
 			timestamp.auto_venture_timeout = Now()
 			return
@@ -2003,6 +2009,7 @@ function h_lib.auto_inventory()
 				else
 					d("No <Summoning Bell> within range")
 					h_lib.Settings.auto_inventory = false
+					GetControl("RetainerList"):Close()
 				end
 			return
 
@@ -2121,6 +2128,7 @@ function h_lib.auto_inventory()
 		if TimeSince(timestamp.auto_inventory_timeout) > 10000 then
 			timestamp.auto_inventory_timeout = 0
 			h_lib.Settings.auto_inventory = false
+			GetControl("RetainerList"):Close()
 			d("___Could not find any open UI or Retainer")
 		end
 
