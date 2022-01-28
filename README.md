@@ -2,7 +2,7 @@
 
 ## Recent ChangeLog:
 * Added **Auto-BuyHousing** to *HatterLib*.
- * Fixed <Relocation Free-Company> 'no string found' error when Player does not have <Personal Housing>.
+ * Fixed *Relocation Free-Company* 'no string found' error when Player does not have *Personal Housing*.
 * Added **Auto-Inventory** and **Auto-Ventures** to *HatterLib*.
 * MSQ Profile does all Snipes, and 3x Duties. (missing Venat and In From Cold) (Also attempt fix all DM bugs)
 * ShB Dps Quest Profile does the 2x Duties.
