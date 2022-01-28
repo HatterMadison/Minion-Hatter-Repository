@@ -25,13 +25,13 @@ h_lib.Info = {
     LastUpdate = "01-04-2022",
     Description = "H makes the codes! With help from community!",
     ChangeLog = {
-        [1] = { Version = [[0.0.1]], Description = [[Forget This.]] }
+        [1] = { Version = [[0.0.1]], Description = [[Forget This.]] },
     }
 }
 
 h_lib.ChangeLog = {
     ChangeLog = {
-        [1] = { Version = [[0.0.1]], Description = [[Forget This.]] },
+        [1] = { Version = [[0.0.1]], Description = [[Fixed index error which occur when trying <Relocating Free-Company> without having <Personal Housing>.]] },
     }
 }
 -- ------------------------- Paths ------------------------
