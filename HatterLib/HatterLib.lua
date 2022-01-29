@@ -31,7 +31,8 @@ h_lib.Info = {
 
 h_lib.ChangeLog = {
     ChangeLog = {
-        [1] = { Version = [[0.0.1]], Description = [[Fixed index error which occur when trying <Relocating Free-Company> without having <Personal Housing>.]] },
+        [1] = { Date = [[220128]], Description = [[Fixed index error which occur when trying <Relocating Free-Company> without having <Personal Housing>.]] },
+        [2] = { Date = [[220128]], Description = [[Added option for <Auto-Buy-Housing>, teleport & logout.]] },
     }
 }
 -- ------------------------- Paths ------------------------
@@ -64,6 +65,8 @@ h_lib.Default_Settings = {
 	auto_venture_pulse = 750,
 	auto_venture_pulse_plus = 250,
 	auto_buy_housing = false,
+	auto_buy_housing_logout_after = 0,
+	auto_buy_housing_teleport_to_after = 0,
 	auto_buy_housing_timeout = 8500,
 	auto_buy_housing_min_delay = 525,
 	auto_buy_housing_pulse_atop = 50,
@@ -111,6 +114,11 @@ h_lib.switches = {}
 h_lib.switches.LocalData = false
 h_lib.switches.character_data = false
 h_lib.switches.forget_that = true
+h_lib.switches.queueTeleport = false
+h_lib.switches.queueLogout = false
+
+h_lib.combolist = {}
+h_lib.combolist.YesNo = { [0] = 'No', [1] = 'Yes' }
 
 h_lib.frameKeepers = {}
 
@@ -124,6 +132,9 @@ h_lib.currents.retainer = {}
 h_lib.currents.character_data_file_path = h_lib.LibrarySettingPath .. "z_items_" .. Player.name:gsub("%s", "_") .. "_" .. Player.id .. ".lua"
 
 h_lib.timers = {}
+h_lib.timers.skillTeleport = 0
+h_lib.timers.logout = 0
+h_lib.timers.HousingSignBoard = 0
 h_lib.timers.super = Now()
 h_lib.timers.auto_buy_housing = Now()
 h_lib.timers.collect_retainer_list = Now()
@@ -155,6 +166,7 @@ h_lib.libraries.interactable.summoning_bells = {}
 h_lib.assist = {}
 h_lib.dev = {}
 h_lib.vars = {}
+h_lib.vars.teleportID = nil
 h_lib.vars.gQuestGatherAetherCurrents = nil
 
 --[[
@@ -1130,20 +1142,32 @@ function h_lib.MainWindow(event, tickcount)
 				local BuyHousingTypeList = {	[1] = "Buy Personal",
 												[2] = "Buy Free-Company",
 												[3] = "Relo Personal",
-												[4] = "Relo Free-Company"		}
-												--[[
-				local BuyHousingTypeList = {	["Buy Personal"] = "Buy Personal",
-												["Buy Free-Company"] = "Buy Free-Company",
-												["Relo Personal"] = "Relo Personal",
-												["Relo Free-Company"] = "Relo Free-Company"		}]]
+												[4] = "Relo Free-Company"	}
+												
+				local TeleportToList = {		[0] = "None",
+												[1] = "Return",
+												[3] = "Limsa Lominsa",
+												[4] = "New Girdania",
+												[5] = "U\'ldah",	}
+
 					
 				
-				GUI:PushItemWidth(160)
 				
-				h_lib.Settings.auto_buy_housing_type = GUI:Combo( "What are you spamming for ?", h_lib.Settings.auto_buy_housing_type, BuyHousingTypeList)
 				GUI:Dummy(0, y_spacing_2)
-				
+				GUI:PushItemWidth(150)
+				h_lib.Settings.auto_buy_housing_type = GUI:Combo( "What are you spamming for ?", h_lib.Settings.auto_buy_housing_type, BuyHousingTypeList)
 				GUI:PopItemWidth()
+				GUI:Dummy(0, y_spacing_2)
+				GUI:PushItemWidth(150)
+				h_lib.Settings.auto_buy_housing_teleport_to_after = GUI:Combo( "Teleport Destination, after plot is unavailable.", h_lib.Settings.auto_buy_housing_teleport_to_after, TeleportToList)
+				GUI:PopItemWidth()
+				GUI:Dummy(0, y_spacing_2)
+				GUI:PushItemWidth(100)
+				h_lib.Settings.auto_buy_housing_logout_after = GUI:Combo( "Should logout after plot is unavailable ?", h_lib.Settings.auto_buy_housing_logout_after, h_lib.combolist.YesNo)
+				GUI:PopItemWidth()
+				GUI:Dummy(0, y_spacing_2)
+
+				
 				
 				GUI:PushItemWidth(80)
 				
@@ -1156,6 +1180,11 @@ function h_lib.MainWindow(event, tickcount)
 				h_lib.Settings.auto_buy_housing_delay_between_buys_pulse_atop = GUI:InputFloat("Pulse Atop Delay : After Purchase Attempt", h_lib.Settings.auto_buy_housing_delay_between_buys_pulse_atop)
 				
 				GUI:PopItemWidth()
+				
+				GUI:PushItemWidth(80)
+				h_lib.Settings.auto_buy_housing_timeout = GUI:InputFloat("If lagging for more than this duration, timeout and stops.", h_lib.Settings.auto_buy_housing_timeout)
+				GUI:PopItemWidth()
+				GUI:Dummy(0, y_spacing_2)
 				
 				GUI:Dummy(0, y_spacing)
 				GUI:Dummy(0, 0)
@@ -2668,6 +2697,96 @@ function h_lib.QueueSaves()
 	end
 end
 
+function h_lib.skillTeleport( _aetheryteID )
+	if h_lib.timers.skillTeleport == 0 then
+		h_lib.timers.skillTeleport = Now()
+	elseif TimeSince( h_lib.timers.skillTeleport ) >= 1200 then
+		h_lib.timers.skillTeleport = 0
+		if _aetheryteID == 'return' then
+			h_lib.skillReturn()
+		elseif Player.localmapid ~= Player:GetAetheryteList()[_aetheryteID+1].mapid then
+			if not Player:IsMoving() and Player.castinginfo.channelingid ~= 5 then
+				h_lib.UIUX.setLogicMessage('<Teleport> to id : ' .. _aetheryteID)
+				Player:Teleport( _aetheryteID )
+			else
+				h_lib.UIUX.setLogicMessage('Waiting <Teleport>, Player is moving, or already casting.')
+			end
+		else
+			h_lib.UIUX.setLogicMessage('Arrived at <Teleport> destination')
+			if h_lib.Settings.auto_buy_housing_logout_after == 1 then
+				h_lib.switches.queueLogout = true
+			end
+			h_lib.switches.queueTeleport = false
+		end
+	end
+end
+
+function h_lib.playerLogout()
+	if Player.localmapid and Player.localmapid ~= 0 then
+		if h_lib.timers.logout == 0 then
+			h_lib.timers.logout = Now()
+		elseif GetControl("SelectYesno") and GetControl("SelectYesno"):IsOpen() then
+			if TimeSince( h_lib.timers.logout ) >= 1250 then
+				h_lib.timers.logout = 0
+				if string.find( GetControl("SelectYesno"):GetStrings()[2], "Log out and return to the title screen?" ) then
+					GetControl("SelectYesno"):Action("Yes", 0)
+					h_lib.UIUX.setLogicMessage('<Logout> sent action.')
+					h_lib.switches.queueLogout = false
+				end
+			end
+		elseif TimeSince( h_lib.timers.logout ) >= 2500 then
+			h_lib.timers.logout = 0
+			h_lib.UIUX.setLogicMessage('<Logout> initiated.')
+			SendTextCommand('/logout')
+		end
+	else
+		h_lib.UIUX.setLogicMessage('Player is not able to logout.')
+	end
+end
+
+function h_lib.skillReturn()
+	if not ActionList:Get(1, 6).isoncd then
+		if ActionList:Get(1, 6):IsReady(Player.id) then
+			if not Player:IsMoving() and Player.castinginfo.channelingid ~= 6 then
+				h_lib.UIUX.setLogicMessage('Using <Return>')
+				ActionList:Get(1, 6):Cast(Player.id)
+			end
+		else
+			h_lib.UIUX.setLogicMessage('<Return> skill not ready.')
+			if h_lib.Settings.auto_buy_housing_logout_after == 1 then
+				h_lib.switches.queueLogout = true
+			end
+			h_lib.switches.queueTeleport = false
+		end
+	else
+		h_lib.UIUX.setLogicMessage('<Return> skill off cooldown.')
+		if h_lib.Settings.auto_buy_housing_logout_after == 1 then
+			h_lib.switches.queueLogout = true
+		end
+		h_lib.switches.queueTeleport = false
+	end
+end
+
+
+function h_lib.auto_buy_housing_teleport()
+	local var = h_lib.Settings.auto_buy_housing_teleport_to_after
+	if var == 0 then
+		h_lib.UIUX.setLogicMessage('Ending, <None> teleport option detected.')
+		if h_lib.Settings.auto_buy_housing_logout_after == 1 then
+			h_lib.switches.queueLogout = true
+		end
+		h_lib.switches.queueTeleport = false
+	elseif var == 1 then
+		h_lib.switches.queueTeleport = 'return'
+	elseif var == 3 then
+		h_lib.switches.queueTeleport = 8
+	elseif var == 4 then
+		h_lib.switches.queueTeleport = 2
+	elseif var == 5 then
+		h_lib.switches.queueTeleport = 9
+	end
+end
+
 -- ------------------------- Update ------------------------
 
 	
@@ -2695,6 +2814,10 @@ function h_lib.Update()
 	-- Auto-Venture
 	if h_lib.Settings.auto_buy_housing then
 		h_lib.auto_buy_housing()
+	elseif h_lib.switches.queueTeleport then
+		h_lib.skillTeleport( h_lib.switches.queueTeleport )
+	elseif h_lib.switches.queueLogout then
+		h_lib.playerLogout()
 	elseif h_lib.Settings.auto_venture then
 		h_lib.auto_venture()
 	elseif h_lib.Settings.auto_gardening then

@@ -8,7 +8,7 @@ local tbl = {
 	
 		if not MGetTarget() then
 		
-			if TimeSince(h_lib.timers.wait_after_placard) > math.random( h_lib.Settings.auto_buy_housing_delay_between_buys, h_lib.Settings.auto_buy_housing_delay_between_buys + h_lib.Settings.auto_buy_housing_delay_between_buys_pulse_atop )  then
+			if TimeSince(h_lib.timers.wait_after_placard) > math.random( h_lib.Settings.auto_buy_housing_delay_between_buys, h_lib.Settings.auto_buy_housing_delay_between_buys + h_lib.Settings.auto_buy_housing_delay_between_buys_pulse_atop ) - TimeSince( h_lib.timers.buy_housing )  then
 				local tbl = EntityList('maxdistance2d=2')
 				if table.valid(tbl) then
 					for key, entity in pairs(tbl) do
@@ -21,21 +21,29 @@ local tbl = {
 				else
 					h_lib.UIUX.setLogicMessage("1. No <Placard> within range, ending.")
 					h_lib.Settings.auto_buy_housing = false
+					h_lib.auto_buy_housing_teleport()
 				end
 			end
 	
 	
 		elseif GetControl("HousingSignBoard") and GetControl("HousingSignBoard"):IsOpen() then
-			h_lib.UIUX.setLogicMessage("2. <HousingSignBoard> Opened.")
-			if GetControl("HousingSignBoard"):GetStrings()[6] == "" and GetControl("HousingSignBoard"):GetStrings()[13] == "" then 
-				h_lib.UIUX.setLogicMessage("2. Plot Available, Owner: <" .. tostring(GetControl("HousingSignBoard"):GetStrings()[13]) .. ">, proceeding with Purchase.")
-				GetControl("HousingSignBoard"):Action("PurchaseLand", 0)
-				h_lib.timers.auto_buy_housing_timeout = Now()
+			if TimeSince( h_lib.timers.HousingSignBoard ) == 0 then
+				h_lib.timers.HousingSignBoard = Now()
 				return
-			else
-				h_lib.UIUX.setLogicMessage("2. Someone ones this plot, Owner: <" .. tostring(GetControl("HousingSignBoard"):GetStrings()[13]) .. ">, ending.")
-				GetControl("HousingSignBoard"):Close()
-				h_lib.Settings.auto_buy_housing = false
+			elseif TimeSince( h_lib.timers.HousingSignBoard ) >= 50 then
+				h_lib.timers.HousingSignBoard = 0
+				h_lib.UIUX.setLogicMessage("2. <HousingSignBoard> Opened.")
+				if GetControl("HousingSignBoard"):GetStrings()[6] == "" and GetControl("HousingSignBoard"):GetStrings()[13] == "" then 
+					h_lib.UIUX.setLogicMessage("2. Plot Available, Owner: <" .. tostring(GetControl("HousingSignBoard"):GetStrings()[13]) .. ">, proceeding with Purchase.")
+					GetControl("HousingSignBoard"):Action("PurchaseLand", 0)
+					h_lib.timers.auto_buy_housing_timeout = Now()
+					return
+				else
+					h_lib.UIUX.setLogicMessage("2. Someone ones this plot, Owner: <" .. tostring(GetControl("HousingSignBoard"):GetStrings()[13]) .. ">, ending.")
+					GetControl("HousingSignBoard"):Close()
+					h_lib.Settings.auto_buy_housing = false
+					h_lib.auto_buy_housing_teleport()
+				end
 			end
 		
 		
@@ -84,6 +92,7 @@ local tbl = {
 			
 			h_lib.UIUX.setLogicMessage("3. Error, could not find <string> DM Hatter if have time. Ending.")
 			h_lib.Settings.auto_buy_housing = false
+			h_lib.auto_buy_housing_teleport()
 		
 		
 		elseif GetControl("SelectYesno") and GetControl("SelectYesno"):IsOpen() then
@@ -124,6 +133,7 @@ local tbl = {
 	
 			h_lib.UIUX.setLogicMessage("4. Error, could not find <string> DM Hatter if have time. Ending.")
 			h_lib.Settings.auto_buy_housing = false
+			h_lib.auto_buy_housing_teleport()
 
 	
 		elseif MGetTarget().name == "Placard" and MGetTarget().interactable then
@@ -147,6 +157,7 @@ local tbl = {
 		if TimeSince(h_lib.timers.auto_buy_housing_timeout) > h_lib.Settings.auto_buy_housing_timeout then
 			h_lib.timers.auto_buy_housing_timeout = 0
 			h_lib.Settings.auto_buy_housing = false
+			h_lib.auto_buy_housing_teleport()
 			h_lib.UIUX.setLogicMessage("Ending, Timed-Out.")
 		end
 
