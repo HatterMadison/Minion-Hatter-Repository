@@ -14,7 +14,7 @@ Most stuff requires **HatterLib**
 
 ## Basic How-To HatterLib
 * Place HatterLib folder in **LuaMods**, so the path looks like below.
-  * HatterLib Path = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib**
+  * HatterLib Path = `C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib`
 * Download HatterLib Icon Folder:
   * <https://drive.google.com/drive/folders/1mhqdJdQifig6t5wxrY5tqS1hkiVYrobS>
 * Place Folder Into `HatterLib` folder, so like: `C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\HatterLib\GUI_Files`
@@ -23,8 +23,8 @@ Most stuff requires **HatterLib**
 
 ## Basic Other File Placement
 * Where should X file go?
-  * Quest Profiles =  **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles**
-  * ACR Profiles = **C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ACR\CombatRoutines**
+  * Quest Profiles =  `C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ffxivminion\QuestProfiles`
+  * ACR Profiles = `C:\MINIONAPP\Bots\FFXIVMinion64\LuaMods\ACR\CombatRoutines`
 
 * How to change ACR profile?
   * **MMOMinion Button -> FFXIVMinion Button -> ACR -> Select ACR Profile**
