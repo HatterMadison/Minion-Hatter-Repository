@@ -12,7 +12,7 @@ local tbl = {
 				local tbl = EntityList('maxdistance2d=2')
 				if table.valid(tbl) then
 					for key, entity in pairs(tbl) do
-						if entity.name == "Placard" and entity.interactable then
+						if entity.name == "Placard" and entity.interactable and entity.type == 7 then
 							h_lib.UIUX.setLogicMessage("1. Found <Placard>, targetting.")
 							Player:SetTarget(entity.id)
 							return
@@ -136,7 +136,7 @@ local tbl = {
 			h_lib.auto_buy_housing_teleport()
 
 	
-		elseif MGetTarget().name == "Placard" and MGetTarget().interactable then
+		elseif MGetTarget().name == "Placard" and MGetTarget().interactable and MGetTarget().type == 7 then
 			h_lib.UIUX.setLogicMessage("1. <Placard> is targeted, interacting with <Placard>")
 			Player:Interact(MGetTarget().id)
 			h_lib.timers.auto_buy_housing_timeout = Now()
