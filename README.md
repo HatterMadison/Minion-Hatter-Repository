@@ -1,4 +1,5 @@
 Most stuff requires **HatterLib**.
+
 Things that don't need HatterLib: Casual Bard ACR.
 
 ## Recent ChangeLog:
