@@ -1,6 +1,7 @@
-Most stuff requires **HatterLib**
+Most stuff requires **HatterLib**, things that dont = Casual Bard ACR.
 
 ## Recent ChangeLog:
+* 220129 **New ACR: Casual Bard**
 * 220128 Added option for *Auto-Buy-Housing*, teleport & logout.
 * 220128 Added **Auto-BuyHousing** to *HatterLib*.
   * HotFix **Relocation Free-Company 'no string found' error** when Player does not have **Personal Housing**.
