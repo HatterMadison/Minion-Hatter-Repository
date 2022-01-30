@@ -1,4 +1,5 @@
-Most stuff requires **HatterLib**, things that dont = Casual Bard ACR.
+Most stuff requires **HatterLib**.
+Things that don't need HatterLib: Casual Bard ACR.
 
 ## Recent ChangeLog:
 * 220129 **New ACR: Casual Bard**
